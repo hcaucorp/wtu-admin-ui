@@ -8,10 +8,18 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { TopMenuComponent } from './top-menu/top-menu.component';
+import { HomeComponent } from './home/home.component';
+import { VouchersComponent } from './vouchers/vouchers.component';
+import { WalletsComponent } from './wallets/wallets.component';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        TopMenuComponent,
+        WalletsComponent,
+        VouchersComponent,
+        HomeComponent
     ],
     imports: [
         BrowserAnimationsModule,
