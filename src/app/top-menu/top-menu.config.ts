@@ -2,8 +2,9 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from '../home/home.component';
 import { VouchersComponent } from '../vouchers/vouchers.component';
 import { WalletsComponent } from '../wallets/wallets.component';
+import { walletsRoute } from '../wallets/wallets-router.config';
 
-export const routerConfig: Routes = [
+export const topMenuRoutes: Routes = [
     {
         path: 'home',
         component: HomeComponent
@@ -12,10 +13,7 @@ export const routerConfig: Routes = [
         path: 'vouchers',
         component: VouchersComponent
     },
-    {
-        path: 'wallets',
-        component: WalletsComponent
-    },
+    walletsRoute,
     {
         path: '',
         redirectTo: '/home',
