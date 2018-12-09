@@ -1,3 +1,20 @@
-<p>
-  wallet-list works!
-</p>
+<h3>List of all wallets in the system:</h3>
+
+<table *ngIf="allWallets$">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Currency</th>
+      <th>Balance</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let wallet of allWallets$ | async">
+      <td>{{ wallet.id }}</td>
+      <td>{{ wallet.currency }}</td>
+      <td>{{ wallet.balance }}</td>
+      <td>{{ wallet.address }}</td>
+    </tr>
+  </tbody>
+</table>

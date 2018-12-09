@@ -1,6 +1,8 @@
 export class Wallet {
-    id: number;
+    balance: number;
+    createdAt: Date;
+    currency: string;
     description: string;
     extendedPrivateKey: string;
-    createdAt: Date;
+    id: number;
 }
