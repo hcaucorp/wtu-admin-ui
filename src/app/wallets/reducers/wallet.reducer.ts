@@ -1,19 +1,21 @@
-import { WalletAction } from '../actions/wallet.actions';
-import { WalletsState } from '../wallets.state';
+import { WalletActions, WalletActionTypes } from '../actions/wallet.actions';
+import { WalletModuleState } from '../wallets.state';
 import { Wallet } from '../model/wallet';
 
-const initialState: WalletsState = {
-    walletsListState: {
-        walletList: [],
-    }
-}
+const initialState: WalletModuleState = {
+    walletList: []
+};
 
-export function reducer(state: WalletsState = initialState, action: WalletAction): WalletsState {
-
-    switch(action.type) {
-        // case TutorialActions.ADD_TUTORIAL:
-            // return [...state, action.payload];
+export function reducer(state: WalletModuleState = initialState, action: WalletActions): WalletModuleState {
+    switch (action.type) {
+        case WalletActionTypes.LoadWalletsCompleted:
+            return {
+                ...state,
+                walletList: action.payload
+            };
         default:
             return state;
     }
 }
+
+export const getWalletsList = (state: WalletModuleState) => state.walletList;

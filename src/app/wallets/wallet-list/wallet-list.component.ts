@@ -3,6 +3,9 @@ import { Store } from '@ngrx/store';
 import { Wallet } from '../model/wallet';
 import { Observable } from 'rxjs';
 import { AppState } from 'src/app/app.state';
+import { WalletModuleState } from '../wallets.state';
+import { getWalletsList } from '../reducers/wallet.reducer';
+import { LoadWalletsAction } from '../actions/wallet.actions';
 
 @Component({
   selector: 'app-wallet-list',
@@ -11,13 +14,14 @@ import { AppState } from 'src/app/app.state';
 })
 export class WalletListComponent implements OnInit {
 
-  allWallets$: Observable<Wallet[]>;
+  wallets$: Observable<Wallet[]>;
 
-  constructor(private store: Store<AppState>) { 
-    this.allWallets$ = store.select<Wallet[]>('wallets', 'walletsListState', 'walletList');
+  constructor(private store: Store<WalletModuleState>) {
+    this.wallets$ = store.select<Wallet[]>(getWalletsList);
   }
 
   ngOnInit() {
+    this.store.dispatch(new LoadWalletsAction());
   }
 
 }

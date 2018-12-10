@@ -1,32 +1,42 @@
-import { Action } from '@ngrx/store'
+import { Action } from '@ngrx/store';
+import { Wallet } from '../model/wallet';
 
-export const WALLET_GET_ALL   = '[Wallet] Get All';
-export const WALLET_NEW       = '[Wallet] New';
-export const WALLET_DELETE    = '[Wallet] Delete';
+export enum WalletActionTypes {
+    LoadWallets = '[Wallet] Load Wallets',
+    LoadWalletsCompleted = '[Wallet] Load Wallets Completed',
+    GenerateWallet = '[Wallet] Generate Wallet',
+    DeleteWallet = '[Wallet] Delete Wallet'
+}
 
 export interface GenerateWalletPayload {
-    password: string,
-    description: string
+    password: string;
+    description: string;
 }
 
 export interface DeleteWalletPayload {
-    id: number
+    id: number;
 }
 
-export class WalletGenerateAction implements Action {
-    readonly type = WALLET_NEW;
+export class GenerateWalletAction implements Action {
+    readonly type = WalletActionTypes.GenerateWallet;
 
     constructor(public payload: GenerateWalletPayload) {}
 }
 
-export class WalletDeleteAction implements Action {
-    readonly type = WALLET_DELETE;
+export class DeleteWalletAction implements Action {
+    readonly type = WalletActionTypes.DeleteWallet;
 
     constructor(public payload: DeleteWalletPayload) {}
 }
 
-export class WalletGetAll implements Action {
-    readonly type = WALLET_GET_ALL;
+export class LoadWalletsAction implements Action {
+    readonly type = WalletActionTypes.LoadWallets;
 }
 
-export type WalletAction = WalletGetAll | WalletGenerateAction | WalletDeleteAction;
+export class LoadWalletsCompleted implements Action {
+    readonly type = WalletActionTypes.LoadWalletsCompleted;
+
+    constructor(public payload: Wallet[]) {}
+}
+
+export type WalletActions = LoadWalletsAction | LoadWalletsCompleted | GenerateWalletAction | DeleteWalletAction;

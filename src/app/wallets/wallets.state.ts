@@ -1,5 +1,5 @@
-import { WalletListState } from './wallet-list/wallet-list.state';
+import { Wallet } from './model/wallet';
 
-export interface WalletsState {
-    readonly walletsListState: WalletListState;
-  }
+export interface WalletModuleState {
+    walletList: Wallet[];
+}
