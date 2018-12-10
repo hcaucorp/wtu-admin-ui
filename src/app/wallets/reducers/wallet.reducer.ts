@@ -1,6 +1,5 @@
 import { WalletActions, WalletActionTypes } from '../actions/wallet.actions';
 import { WalletModuleState } from '../wallets.state';
-import { Wallet } from '../model/wallet';
 
 const initialState: WalletModuleState = {
     walletList: []

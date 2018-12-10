@@ -8,8 +8,16 @@ import { WalletService } from './service/wallet.service';
 import { EffectsModule } from '@ngrx/effects';
 import { WalletEffects } from './effects/wallet.effects';
 import { HttpClient } from '@angular/common/http';
+import { WalletListComponent } from './wallet-list/wallet-list.component';
+import { WalletCreateComponent } from './wallet-create/wallet-create.component';
+import { WalletsComponent } from './wallets.component';
 
 @NgModule({
+    declarations: [
+        WalletsComponent,
+        WalletCreateComponent,
+        WalletListComponent,
+    ],
     imports: [
         CommonModule,
         RouterModule.forChild([walletsRoute]),
