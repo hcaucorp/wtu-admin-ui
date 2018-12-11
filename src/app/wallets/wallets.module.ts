@@ -22,7 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     imports: [
         CommonModule,
         RouterModule.forChild([walletsRoute]),
-        StoreModule.forFeature(walletsRoute.path, reducer),
+        StoreModule.forFeature(`wallets`, reducer),
         EffectsModule.forFeature([WalletEffects]),
         ReactiveFormsModule,
     ],

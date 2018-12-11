@@ -10,6 +10,7 @@ New wallet requires a description and has to be password protected. Store passwo
         Password:
         <input type="password" id="password" class="form-control" required formControlName="password">
     </label>
+
+    <button type="submit" [disabled]="!walletForm.valid">Generate</button>
 </form>
-<button type="submit" [disabled]="!walletForm.valid">Generate</button>
 <!-- </p> -->

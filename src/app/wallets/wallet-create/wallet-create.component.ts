@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { WalletService } from '../service/wallet.service';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { WalletModuleState } from '../wallets.state';
-import { LoadWalletsAction, GenerateWalletAction } from '../actions/wallet.actions';
+
+import { Router } from '@angular/router';
+import { GenerateWalletAction } from '../actions/wallet.actions';
+import { WalletsFeatureState } from '../reducers/wallet.reducer';
 
 @Component({
   selector: 'app-wallet-create',
@@ -15,24 +16,27 @@ export class WalletCreateComponent implements OnInit {
   walletForm: FormGroup;
 
   constructor(
-    private store: Store<WalletModuleState>,
-    private fb: FormBuilder) { }
+    private store: Store<WalletsFeatureState>,
+    private fb: FormBuilder,
+    private router: Router) { }
 
   ngOnInit() {
     this.walletForm = this.fb.group({
-      description: ['', Validators.required],
+      description: ['', [
+        Validators.required,
+        Validators.minLength(12)
+      ]
+      ],
       password: ['', [
         Validators.required,
         Validators.minLength(12)
-      ]]
+      ]
+      ]
     });
   }
 
   onSubmit() {
-
-    console.log(this.walletForm.value);
-
-    // this.store.dispatch(new GenerateWalletAction());
+    this.store.dispatch(new GenerateWalletAction(this.walletForm.value));
+    this.router.navigate(['/wallets']);
   }
-
 }

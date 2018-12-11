@@ -1,13 +1,15 @@
+// docs https://github.com/angular/angular-cli/blob/master/docs/documentation/stories/proxy.md
+
 const PROXY_CONFIG = [
     {
-        context: ["/api/wallets"],
+        context: ["/api"],
         target: "http://localhost:8080",
         secure: false,
         logLevel: "debug",
         changeOrigin: true,
         pathRewrite: {
-            "^/wallets": "/wallets"
-        }
+            "^/api": ""
+        },
     }
 ];
 module.exports = PROXY_CONFIG;

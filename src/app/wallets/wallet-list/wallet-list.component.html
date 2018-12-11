@@ -1,21 +1,29 @@
 <h3>List of all wallets in the system:</h3>
 
 <a routerLink="/wallets/generate">+</a>
+
 <table>
   <thead>
     <tr>
       <th class="id">#</th>
       <th class="currency">Currency</th>
       <th class="balance">Balance</th>
+      <th>Description</th>
       <th>Address</th>
     </tr>
   </thead>
-  <tbody>
-    <tr *ngFor="let wallet of allWallets$ | async">
+  <tbody *ngIf="wallets$ | async; else notShow">
+    <tr *ngFor="let wallet of wallets$ | async">
       <td>{{ wallet.id }}</td>
       <td>{{ wallet.currency }}</td>
-      <td>{{ wallet.balance }}</td>
+      <td>TODO</td><!-- <td>{{ wallet.balance }}</td> -->
+      <td>{{ wallet.description }}</td>
       <td>{{ wallet.address }}</td>
     </tr>
   </tbody>
+  <ng-template #notShow>
+    <div>
+      No wallets yet
+    </div>
+  </ng-template>
 </table>

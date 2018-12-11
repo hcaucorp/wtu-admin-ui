@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.js",
+    "dev": "ng serve --proxy-config proxy.conf.js",
+    "start": "ng serve",
     "build": "ng build",
     "build-production": "rm -Rf ./dist && ng build --aot=true --configuration=production",
     "test": "ng test",

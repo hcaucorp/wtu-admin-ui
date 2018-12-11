@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { Wallet } from '../model/wallet';
 
 @Injectable({
@@ -9,12 +8,12 @@ import { Wallet } from '../model/wallet';
 })
 export class WalletService {
 
-  private baseUrl = `${environment.server.baseUrl}/wallets`;
+  private baseUrl = `/api/wallets`;
 
   constructor(private http: HttpClient) { }
 
-  generateWallet(password: string, description: string): Observable<Wallet> {
-    return this.http.post<Wallet>(`${this.baseUrl}/generate`, {
+  generateWallet(password: string, description: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/generate`, {
       password: password,
       description: description
     });

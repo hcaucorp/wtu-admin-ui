@@ -11,7 +11,6 @@ import { TopMenuComponent } from './top-menu/top-menu.component';
 import { HomeComponent } from './home/home.component';
 import { VouchersComponent } from './vouchers/vouchers.component';
 import { WalletsModule } from './wallets/wallets.module';
-import { SideMenuComponent } from './side-menu/side-menu.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
@@ -20,8 +19,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
         AppComponent,
         TopMenuComponent,
         VouchersComponent,
-        HomeComponent,
-        SideMenuComponent
+        HomeComponent
     ],
     imports: [
         AppRoutingModule,
