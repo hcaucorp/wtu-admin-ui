@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 import { WalletListComponent } from './wallet-list/wallet-list.component';
 import { WalletCreateComponent } from './wallet-create/wallet-create.component';
 import { WalletsComponent } from './wallets.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -23,6 +24,7 @@ import { WalletsComponent } from './wallets.component';
         RouterModule.forChild([walletsRoute]),
         StoreModule.forFeature(walletsRoute.path, reducer),
         EffectsModule.forFeature([WalletEffects]),
+        ReactiveFormsModule,
     ],
     providers: [
         WalletService,
