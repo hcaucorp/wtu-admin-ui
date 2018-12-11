@@ -13,7 +13,7 @@ export const walletsRoute: Route = {
             component: WalletListComponent
         },
         {
-            path: 'create',
+            path: 'generate',
             component: WalletCreateComponent
         },
         {

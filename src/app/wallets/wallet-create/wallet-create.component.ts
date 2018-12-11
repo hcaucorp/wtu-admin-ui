@@ -21,13 +21,16 @@ export class WalletCreateComponent implements OnInit {
   ngOnInit() {
     this.walletForm = this.fb.group({
       description: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', [
+        Validators.required,
+        Validators.minLength(12)
+      ]]
     });
   }
 
   onSubmit() {
 
-    console.warn(this.walletForm.value);
+    console.log(this.walletForm.value);
 
     // this.store.dispatch(new GenerateWalletAction());
   }

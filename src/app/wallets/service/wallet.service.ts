@@ -13,8 +13,11 @@ export class WalletService {
 
   constructor(private http: HttpClient) { }
 
-  getWallet(id: number): Observable<Wallet> {
-    return this.http.get<Wallet>(`${this.baseUrl}/${id}`);
+  generateWallet(password: string, description: string): Observable<Wallet> {
+    return this.http.post<Wallet>(`${this.baseUrl}/generate`, {
+      password: password,
+      description: description
+    });
   }
 
   delete(id: number): Observable<void> {

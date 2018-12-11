@@ -1,6 +1,6 @@
 const PROXY_CONFIG = [
     {
-        context: ["/wallets"],
+        context: ["/api/wallets"],
         target: "http://localhost:8080",
         secure: false,
         logLevel: "debug",
