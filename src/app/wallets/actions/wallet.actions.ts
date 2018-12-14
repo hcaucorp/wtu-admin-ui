@@ -20,13 +20,13 @@ export interface DeleteWalletPayload {
 export class GenerateWalletAction implements Action {
     readonly type = WalletActionTypes.GenerateWallet;
 
-    constructor(public payload: GenerateWalletPayload) {}
+    constructor(public payload: GenerateWalletPayload) { }
 }
 
 export class DeleteWalletAction implements Action {
     readonly type = WalletActionTypes.DeleteWallet;
 
-    constructor(public payload: DeleteWalletPayload) {}
+    constructor(public payload: DeleteWalletPayload) { }
 }
 
 export class LoadWalletsAction implements Action {
@@ -36,7 +36,7 @@ export class LoadWalletsAction implements Action {
 export class LoadWalletsCompleted implements Action {
     readonly type = WalletActionTypes.LoadWalletsCompleted;
 
-    constructor(public payload: Wallet[]) {}
+    constructor(public payload: Wallet[]) { }
 }
 
 export type WalletActions = LoadWalletsAction | LoadWalletsCompleted | GenerateWalletAction | DeleteWalletAction;

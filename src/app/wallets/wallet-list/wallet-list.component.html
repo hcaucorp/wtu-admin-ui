@@ -1,6 +1,6 @@
 <h3>List of all wallets in the system:</h3>
 
-<a routerLink="/wallets/generate">+</a>
+<a routerLink="/wallets/generate" class="generate-wallet-link">+</a>
 
 <table>
   <thead>
@@ -16,14 +16,10 @@
     <tr *ngFor="let wallet of wallets$ | async">
       <td>{{ wallet.id }}</td>
       <td>{{ wallet.currency }}</td>
-      <td>TODO</td><!-- <td>{{ wallet.balance }}</td> -->
-      <td>{{ wallet.description }}</td>
-      <td>{{ wallet.address }}</td>
+      <td><a href="`https://www.blockchain.com/btc/address/${wallet.address}`" target="_blank">check</a></td>
+      <td>{{
+        wallet.description }}</td>
+      <td>{{ wallet.address }}</td> <!-- TODO trim address and add button to copy -->
     </tr>
   </tbody>
-  <ng-template #notShow>
-    <div>
-      No wallets yet
-    </div>
-  </ng-template>
 </table>
