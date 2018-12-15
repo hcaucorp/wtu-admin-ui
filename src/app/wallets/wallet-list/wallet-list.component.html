@@ -12,7 +12,7 @@
       <th>Address</th>
     </tr>
   </thead>
-  <tbody *ngIf="wallets$ | async; else notShow">
+  <tbody *ngIf="wallets$ | async">
     <tr *ngFor="let wallet of wallets$ | async">
       <td>{{ wallet.id }}</td>
       <td>{{ wallet.currency }}</td>

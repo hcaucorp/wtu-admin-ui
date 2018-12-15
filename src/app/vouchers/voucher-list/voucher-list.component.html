@@ -1,0 +1,26 @@
+<h3>List of all vouchers in the system:</h3>
+
+<a routerLink="/vouchers/generate" class="generate-vouchers-link">+</a>
+
+<table>
+  <thead>
+    <tr>
+      <th class="id">#</th>
+      <th class="amount">Amount</th>
+      <th class="currency">Currency</th>
+      <th>Published</th>
+      <th>Redeemed</th>
+      <th>Sold</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="vouchers$ | async">
+    <tr *ngFor="let voucher of vouchers$ | async">
+      <td><a routerLink="/vouchers/id">{{ voucher.id }}</a></td>
+      <td>{{ voucher.amount }}</td>
+      <td>{{ voucher.currency }}</td>
+      <td>{{ voucher.published }}</td>
+      <td>{{ voucher.redeemed }}</td>
+      <td>{{ voucher.sold }}</td>
+    </tr>
+  </tbody>
+</table>
