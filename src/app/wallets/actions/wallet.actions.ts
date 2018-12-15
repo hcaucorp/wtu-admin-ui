@@ -9,7 +9,6 @@ export enum WalletActionTypes {
 }
 
 export interface GenerateWalletPayload {
-    password: string;
     description: string;
 }
 

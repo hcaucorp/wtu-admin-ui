@@ -1,16 +1,9 @@
-<!-- <p> -->
-New wallet requires a description and has to be password protected. Store password into password manager.
+New wallet requires a description.
 <form [formGroup]="walletForm" (ngSubmit)="onSubmit()">
     <label>
         Description:
-        <input type="text" id="description" class="form-control" required formControlName="description">
-    </label>
-
-    <label>
-        Password:
-        <input type="password" id="password" class="form-control" required formControlName="password">
+        <input type="text" class="form-control" required formControlName="description">
     </label>
 
     <button type="submit" [disabled]="!walletForm.valid">Generate</button>
 </form>
-<!-- </p> -->

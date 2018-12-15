@@ -1,3 +1,41 @@
-<p>
-  vouchers-generate works!
-</p>
+<h3>Generate a batch of vouchers</h3>
+<p>Some things to remember:
+  <ul>
+    <li>Vouchers can be deleted if any mistake has been made here.</li>
+    <li>Vouchers can't be deleted after publishing to a Sales Channel<sup>*1</sup>, but that's a next step after this.</li>
+    <li>There is no automatic amount validations so make sure there is money on the wallet to cover the vouchers
+      otherwise we will in big trouble.</li>
+    <li>Once generated correctly, vouchers have to be published to become available on a Sale Channel<sup>*1</sup></li>
+  </ul>
+
+  <form [formGroup]="voucherFormGroup" (ngSubmit)="onSubmit()">
+    <label>
+      Number of vouchers to generate<sup>*2</sup>:
+      <input type="number" class="form-control" required formControlName="count">
+    </label>
+    <label>
+      Total amount to spend<sup>*3</sup>:
+      <input type="number" class="form-control" required formControlName="totalAmount">
+    </label>
+    <label>
+      Wallet to use:
+      <div *ngIf="wallets$ | async">
+        <select>
+          <option *ngFor="let wallet of wallets$ | async">{{ wallet.description }}</option>
+        </select>
+      </div>
+    </label>
+    <label>
+      Price for a single voucher in {{ voucherFormGroup?.value?.singlePriceCurrency }}:
+      <input type="number" class="form-control" required formControlName="singlePrice">
+    </label>
+    <button type="submit" [disabled]="!voucherFormGroup.valid">Generate now</button>
+  </form>
+
+  <p>
+    <ul class="footnotes">
+      <li><sup>*1</sup> Sales Channel is a way to sell products, e.g. Shopify, Facebook, Instagram, PoS.</li>
+      <li><sup>*2</sup>Called "count"</li>
+      <li><sup>*3</sup>Total amount to spend. Each voucher will contain amount = (total amount)/count, also total
+        amount has to be divisible by count)</li>
+    </ul>

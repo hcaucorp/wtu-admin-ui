@@ -27,11 +27,6 @@ export class WalletCreateComponent implements OnInit {
         Validators.minLength(12)
       ]
       ],
-      password: ['', [
-        Validators.required,
-        Validators.minLength(12)
-      ]
-      ]
     });
   }
 

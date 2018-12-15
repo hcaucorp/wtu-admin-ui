@@ -23,7 +23,7 @@ export class WalletEffects {
   @Effect()
   onGenerateWallet$: Observable<WalletActions> = this.actions$.pipe(
     ofType<GenerateWalletAction>(WalletActionTypes.GenerateWallet),
-    switchMap(action => this.walletService.generateWallet(action.payload.password, action.payload.description)),
+    switchMap(action => this.walletService.generateWallet(action.payload)),
     map(anything => new LoadWalletsAction())
   );
 }

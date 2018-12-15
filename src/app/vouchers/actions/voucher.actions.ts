@@ -23,7 +23,7 @@ export interface DeleteVouchersPayload {
 export class GenerateVouchersAction implements Action {
     readonly type = VoucherActionTypes.GenerateVouchers;
 
-    constructor(public payload: GenerateVouchersSpec) { }
+    constructor(public payload: Partial<GenerateVouchersSpec>) { }
 }
 
 export class DeleteVouchersAction implements Action {

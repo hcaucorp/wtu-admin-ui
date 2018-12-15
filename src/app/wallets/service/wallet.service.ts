@@ -2,21 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Wallet } from '../model/wallet';
+import { GenerateWalletPayload } from '../actions/wallet.actions';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class WalletService {
 
   private baseUrl = `/api/wallets`;
 
   constructor(private http: HttpClient) { }
 
-  generateWallet(password: string, description: string): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/generate`, {
-      password: password,
-      description: description
-    });
+  generateWallet(payload: GenerateWalletPayload): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/generate`, payload);
   }
 
   delete(id: number): Observable<void> {
