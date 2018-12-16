@@ -16,7 +16,7 @@ export class WalletEffects {
   @Effect()
   onLoadWallets$: Observable<WalletActions> = this.actions$.pipe(
     ofType<LoadWalletsAction>(WalletActionTypes.LoadWallets),
-    switchMap(action => this.walletService.getAll()),
+    switchMap(_ => this.walletService.getAll()),
     map(walletList => new LoadWalletsCompleted(walletList))
   );
 
@@ -24,6 +24,6 @@ export class WalletEffects {
   onGenerateWallet$: Observable<WalletActions> = this.actions$.pipe(
     ofType<GenerateWalletAction>(WalletActionTypes.GenerateWallet),
     switchMap(action => this.walletService.generateWallet(action.payload)),
-    map(anything => new LoadWalletsAction())
+    map(_ => new LoadWalletsAction())
   );
 }

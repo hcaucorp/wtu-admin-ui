@@ -12,7 +12,7 @@ export class WalletService {
   constructor(private http: HttpClient) { }
 
   generateWallet(payload: GenerateWalletPayload): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/generate`, payload);
+    return this.http.post<any>(`${this.baseUrl}`, payload);
   }
 
   delete(id: number): Observable<void> {
@@ -20,7 +20,6 @@ export class WalletService {
   }
 
   getAll(): Observable<Array<Wallet>> {
-    console.log(`Loading wallets from: ${this.baseUrl}`);
     return this.http.get<Array<Wallet>>(this.baseUrl);
   }
 }

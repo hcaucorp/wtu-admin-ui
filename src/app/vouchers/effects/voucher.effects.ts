@@ -18,7 +18,7 @@ export class VoucherEffects {
   @Effect()
   onLoadVouchers$: Observable<VoucherActions> = this.actions$.pipe(
     ofType<LoadVouchersAction>(VoucherActionTypes.LoadVouchers),
-    switchMap(action => this.voucherService.getAll()),
+    switchMap(_ => this.voucherService.getAll()),
     map(list => new LoadVouchersCompleted(list))
   );
 

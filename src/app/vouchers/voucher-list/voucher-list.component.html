@@ -1,27 +1,37 @@
-<h3>List of all vouchers in the system:</h3>
+<div class="col-lg-9">
+  <h3>List of all vouchers in the system</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th class="id">#</th>
+        <th class="amount">Amount</th>
+        <th class="code">Code</th>
 
-<a routerLink="/vouchers/generate" class="generate-vouchers-link">+</a>
+        <th class="published">Published</th>
+        <th class="redeemed">Redeemed</th>
+        <th class="sold">Sold</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="vouchers$ | async">
+      <tr *ngFor="let voucher of vouchers$ | async">
+        <td><a routerLink="/vouchers/id">{{ voucher.id }}</a></td>
+        <td>{{ voucher.amount }} {{ voucher.currency }}</td>
+        <td>{{ voucher.code }}</td>
 
-<table>
-  <thead>
-    <tr>
-      <th class="id">#</th>
-      <th class="amount">Amount</th>
-      <th class="code">Code</th>
-      <th class="currency">Currency</th>
-      <th class="published">Published</th>
-      <th class="redeemed">Redeemed</th>
-      <th class="sold">Sold</th>
-    </tr>
-  </thead>
-  <tbody *ngIf="vouchers$ | async">
-    <tr *ngFor="let voucher of vouchers$ | async">
-      <td><a routerLink="/vouchers/id">{{ voucher.id }}</a></td>
-      <td>{{ voucher.amount }}</td>
-      <td>{{ voucher.currency }}</td>
-      <td>{{ voucher.published }}</td>
-      <td>{{ voucher.redeemed }}</td>
-      <td>{{ voucher.sold }}</td>
-    </tr>
-  </tbody>
-</table>
+        <td>{{ voucher.published }}</td>
+        <td>{{ voucher.sold }}</td>
+        <td>{{ voucher.redeemed }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<nav class="col-lg-3">
+  <ul>
+    <li><a routerLink="/vouchers/generate" class="generate-vouchers-link">Create new vouchers</a></li>
+    <li><a href="#">Delete all unpublished</a></li>
+    <li><a href="#">Publish all unpublished</a></li>
+    <li><a href="#">Archive sold</a></li>
+    <li><a href="#">Archive redeemed</a></li>
+  </ul>
+</nav>

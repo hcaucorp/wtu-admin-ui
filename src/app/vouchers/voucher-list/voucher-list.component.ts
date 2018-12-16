@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { VouchersFeatureState, getVouchersState } from '../reducers/voucher.reducer';
 import { map } from 'rxjs/operators';
+import { LoadVouchersAction } from '../actions/voucher.actions';
 
 @Component({
   selector: 'app-voucher-list',
@@ -22,6 +23,7 @@ export class VoucherListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.store.dispatch(new LoadVouchersAction());
   }
 
 }

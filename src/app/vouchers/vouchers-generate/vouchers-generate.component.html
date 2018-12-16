@@ -1,41 +1,43 @@
 <h3>Generate a batch of vouchers</h3>
-<p>Some things to remember:
-  <ul>
-    <li>Vouchers can be deleted if any mistake has been made here.</li>
-    <li>Vouchers can't be deleted after publishing to a Sales Channel<sup>*1</sup>, but that's a next step after this.</li>
-    <li>There is no automatic amount validations so make sure there is money on the wallet to cover the vouchers
-      otherwise we will in big trouble.</li>
-    <li>Once generated correctly, vouchers have to be published to become available on a Sale Channel<sup>*1</sup></li>
-  </ul>
+<div class="col-lg-6">
+  <form [formGroup]="voucherFormGroup" (ngSubmit)="onSubmit()" class="form-horizontal">
 
-  <form [formGroup]="voucherFormGroup" (ngSubmit)="onSubmit()">
-    <label>
-      Number of vouchers to generate<sup>*2</sup>:
-      <input type="number" class="form-control" required formControlName="count">
-    </label>
-    <label>
-      Total amount to spend<sup>*3</sup>:
-      <input type="number" class="form-control" required formControlName="totalAmount">
-    </label>
-    <label>
-      Wallet to use:
+    <div class="form-group">
+      <label>How many</label>
+      <input type="number" class="form-control" required formControlName="count" placeholder="number of vouchers to generate">
+    </div>
+
+    <div class="form-group">
+      <label>Total amount of money split between vouchers</label>
+      <input type="number" class="form-control" required formControlName="totalAmount" placeholder="money to use">
+    </div>
+
+    <div class="form-group">
+      <label>Select a wallet to fund vouchers</label>
       <div *ngIf="wallets$ | async">
-        <select>
-          <option *ngFor="let wallet of wallets$ | async">{{ wallet.description }}</option>
+        <select class="form-control" formControlName="walletId" required>
+          <option *ngFor="let wallet of wallets$ | async" [value]="wallet.id" aria-placeholder="Wallet to use">{{
+            wallet.description }}</option>
         </select>
       </div>
-    </label>
-    <label>
-      Price for a single voucher in {{ voucherFormGroup?.value?.singlePriceCurrency }}:
-      <input type="number" class="form-control" required formControlName="singlePrice">
-    </label>
-    <button type="submit" [disabled]="!voucherFormGroup.valid">Generate now</button>
-  </form>
+    </div>
 
-  <p>
-    <ul class="footnotes">
-      <li><sup>*1</sup> Sales Channel is a way to sell products, e.g. Shopify, Facebook, Instagram, PoS.</li>
-      <li><sup>*2</sup>Called "count"</li>
-      <li><sup>*3</sup>Total amount to spend. Each voucher will contain amount = (total amount)/count, also total
-        amount has to be divisible by count)</li>
+    <div class="form-group">
+      <label>Price for a single voucher in {{ voucherFormGroup?.value?.singlePriceCurrency }}</label>
+      <input type="number" class="form-control" required formControlName="singlePrice" placeholder="single voucher price">
+    </div>
+    <button type="submit" [disabled]="!voucherFormGroup.valid" class="btn btn-primary">Generate now</button>
+  </form>
+</div>
+
+<div class="col-lg-6">
+  <p>Some things to remember:
+    <ul>
+      <li>Vouchers can be deleted if any mistake has been made here.</li>
+      <li>Vouchers can't be deleted after publishing to a Sales Channel, but that's a next step after this.</li>
+      <li>There is no automatic amount validations so make sure there is money on the wallet to cover the vouchers
+        otherwise we will in big trouble.</li>
+      <li>Once generated correctly, vouchers have to be published to become available on a Sale Channel</li>
+      <li>Each voucher will contain amount = (total amount)/count, also total amount has to be divisible by count)</li>
     </ul>
+</div>

@@ -7,6 +7,7 @@ import { Wallet } from 'src/app/wallets/model/wallet';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GenerateVouchersAction } from '../actions/voucher.actions';
+import { LoadWalletsAction } from 'src/app/wallets/actions/wallet.actions';
 
 @Component({
   selector: 'app-vouchers-generate',
@@ -31,17 +32,17 @@ export class VouchersGenerateComponent implements OnInit {
 
   ngOnInit() {
     this.voucherFormGroup = this.fb.group({
-      count: [1, Validators.required],
-      totalAmount: [1, Validators.required],
+      count: ['', Validators.required],
+      totalAmount: ['', Validators.required],
       walletId: ['', Validators.required],
-      singlePrice: [1, Validators.required],
+      singlePrice: ['', Validators.required],
       singlePriceCurrency: 'GBP'
     });
+    this.store.dispatch(new LoadWalletsAction());
   }
 
   onSubmit() {
     this.store.dispatch(new GenerateVouchersAction(this.voucherFormGroup.value));
     this.router.navigate(['/vouchers']);
   }
-
 }
