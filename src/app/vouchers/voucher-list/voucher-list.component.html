@@ -8,8 +8,8 @@
         <th class="code">Code</th>
 
         <th class="published">Published</th>
-        <th class="redeemed">Redeemed</th>
         <th class="sold">Sold</th>
+        <th class="redeemed">Redeemed</th>
       </tr>
     </thead>
     <tbody *ngIf="vouchers$ | async">
@@ -29,9 +29,7 @@
 <nav class="col-lg-3">
   <ul>
     <li><a routerLink="/vouchers/generate" class="generate-vouchers-link">Create new vouchers</a></li>
-    <li><a href="#">Delete all unpublished</a></li>
-    <li><a href="#">Publish all unpublished</a></li>
-    <li><a href="#">Archive sold</a></li>
-    <li><a href="#">Archive redeemed</a></li>
+    <li>Delete all unpublished</li>
+    <li>Publish all unpublished</li>
   </ul>
 </nav>
