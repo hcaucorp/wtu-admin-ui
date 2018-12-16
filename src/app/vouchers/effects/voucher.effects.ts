@@ -1,8 +1,8 @@
 
 import { Injectable } from '@angular/core';
 import { Actions, ofType, Effect } from '@ngrx/effects';
-import { Observable } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { switchMap, map, catchError } from 'rxjs/operators';
 import {
   VoucherActions, LoadVouchersAction, VoucherActionTypes, LoadVouchersCompleted,
   GenerateVouchersAction
