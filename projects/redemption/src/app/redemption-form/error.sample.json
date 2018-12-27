@@ -1,0 +1,13 @@
+{
+    "headers": {
+        "normalizedNames": {},
+        "lazyUpdate": null
+    },
+    "status": 404,
+    "statusText": "Not Found",
+    "url": "http://localhost:4200/api/vouchers",
+    "ok": false,
+    "name": "HttpErrorResponse",
+    "message": "Http failure response for http://localhost:4200/api/vouchers: 404 Not Found",
+    "error": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /api/vouchers</pre>\n</body>\n</html>\n"
+}

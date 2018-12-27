@@ -5,7 +5,8 @@ import { Observable, throwError } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import {
   VoucherActions, LoadVouchersAction, VoucherActionTypes, LoadVouchersCompleted,
-  GenerateVouchersAction
+  GenerateVouchersAction,
+  PublishVouchersAction
 } from '../actions/voucher.actions';
 import { VoucherService } from '../service/voucher.service';
 
@@ -26,6 +27,13 @@ export class VoucherEffects {
   onGenerateVouchers$: Observable<VoucherActions> = this.actions$.pipe(
     ofType<GenerateVouchersAction>(VoucherActionTypes.GenerateVouchers),
     switchMap(action => this.voucherService.generateVouchers(action.payload)),
+    map(_ => new LoadVouchersAction())
+  );
+
+  @Effect()
+  onPublishVouchers$: Observable<VoucherActions> = this.actions$.pipe(
+    ofType<PublishVouchersAction>(VoucherActionTypes.PublishVouchers),
+    switchMap(action => this.voucherService.publishVouchers(action.payload)),
     map(_ => new LoadVouchersAction())
   );
 }

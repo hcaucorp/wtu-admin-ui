@@ -1,0 +1,15 @@
+<h3>Top up your wallet</h3>
+<div class="col-lg-6">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-horizontal">
+
+    <div class="form-group">
+      <input type="text" class="form-control" required formControlName="voucherCode" placeholder="your voucher code">
+    </div>
+
+    <div class="form-group">
+      <input type="text" class="form-control" required formControlName="walletAddress" placeholder="wallet address">
+    </div>
+
+    <button type="submit" [disabled]="!form.valid" class="btn btn-primary">Top up your wallet</button>
+  </form>
+</div>

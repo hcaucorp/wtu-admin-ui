@@ -7,7 +7,7 @@ import { reducer } from './reducers/wallet.reducer';
 import { WalletService } from './service/wallet.service';
 import { EffectsModule } from '@ngrx/effects';
 import { WalletEffects } from './effects/wallet.effects';
-import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { WalletListComponent } from './wallet-list/wallet-list.component';
 import { WalletCreateComponent } from './wallet-create/wallet-create.component';
 import { WalletsComponent } from './wallets.component';
@@ -21,14 +21,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     ],
     imports: [
         CommonModule,
+        HttpClientModule,
         RouterModule.forChild([walletsRoute]),
         StoreModule.forFeature(`wallets`, reducer),
         EffectsModule.forFeature([WalletEffects]),
         ReactiveFormsModule,
     ],
     providers: [
-        WalletService,
-        HttpClient
+        WalletService
     ]
 })
 export class WalletsModule { }

@@ -5,7 +5,8 @@ export enum VoucherActionTypes {
     LoadVouchers = '[Voucher] Load Vouchers',
     LoadVouchersCompleted = '[Voucher] Load Vouchers Completed',
     GenerateVouchers = '[Voucher] Generate Vouchers',
-    DeleteVouchers = '[Voucher] Delete Voucher'
+    DeleteVouchers = '[Voucher] Delete Voucher',
+    PublishVouchers = '[Voucher] Publish Vouchers'
 }
 
 export interface GenerateVouchersSpec {
@@ -17,7 +18,11 @@ export interface GenerateVouchersSpec {
 }
 
 export interface DeleteVouchersPayload {
-    id: number[];
+    ids: number[];
+}
+
+export interface PublishVouchersPayload {
+    ids: number[];
 }
 
 export class GenerateVouchersAction implements Action {
@@ -42,4 +47,11 @@ export class LoadVouchersCompleted implements Action {
     constructor(public payload: Voucher[]) { }
 }
 
-export type VoucherActions = LoadVouchersAction | LoadVouchersCompleted | GenerateVouchersAction | DeleteVouchersAction;
+export class PublishVouchersAction implements Action {
+    readonly type = VoucherActionTypes.PublishVouchers;
+
+    constructor(public payload: PublishVouchersAction) { }
+}
+
+export type VoucherActions = LoadVouchersAction | LoadVouchersCompleted | GenerateVouchersAction | DeleteVouchersAction
+    | PublishVouchersAction;
