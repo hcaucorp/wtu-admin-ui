@@ -15,17 +15,23 @@
     <div class="form-group">
       <label>Select a wallet to fund vouchers</label>
       <div *ngIf="wallets$ | async">
-        <select class="form-control" formControlName="walletId" required>
-          <option *ngFor="let wallet of wallets$ | async" [value]="wallet.id" aria-placeholder="Wallet to use">{{
-            wallet.description }}</option>
+        <select class="form-control" formControlName="walletId"  required>
+          <option *ngFor="let wallet of wallets$ | async" [value]="wallet.id" placeholder="Wallet to use">Wallet #{{
+            wallet.id }}, balance {{ wallet.balance }} {{ wallet.currency }}</option>
         </select>
       </div>
     </div>
 
     <div class="form-group">
-      <label>Price for a single voucher in {{ voucherFormGroup?.value?.singlePriceCurrency }}</label>
-      <input type="number" class="form-control" required formControlName="singlePrice" placeholder="single voucher price">
+      <label>Price for a single voucher in {{ voucherFormGroup?.value?.priceCurrency }}</label>
+      <input type="number" class="form-control" required formControlName="price" placeholder="single voucher price">
     </div>
+
+    <div class="form-group">
+      <label>Stock keeping unit</label>
+      <input type="text" class="form-control" required formControlName="sku" placeholder="sku">
+    </div>
+
     <button type="submit" [disabled]="!voucherFormGroup.valid" class="btn btn-primary">Generate now</button>
   </form>
 </div>

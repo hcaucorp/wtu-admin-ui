@@ -9,7 +9,7 @@ export enum WalletActionTypes {
 }
 
 export interface GenerateWalletPayload {
-    description: string;
+    currency: string;
 }
 
 export interface DeleteWalletPayload {

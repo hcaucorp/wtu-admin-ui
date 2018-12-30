@@ -3,8 +3,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
 import { Router } from '@angular/router';
-import { GenerateWalletAction } from '../actions/wallet.actions';
-import { WalletsFeatureState } from '../reducers/wallet.reducer';
+import { GenerateWalletAction, LoadWalletsAction } from '../actions/wallet.actions';
+import { WalletsFeatureState, getWalletsState } from '../reducers/wallet.reducer';
+import { Observable } from 'rxjs';
+import { Wallet } from '../model/wallet';
+import { map, find } from 'rxjs/operators';
+import { isDefined } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-wallet-create',
@@ -13,21 +17,37 @@ import { WalletsFeatureState } from '../reducers/wallet.reducer';
 })
 export class WalletCreateComponent implements OnInit {
 
+  existingWalletsCurrencies$: Observable<string[]>;
+
   walletForm: FormGroup;
+
+  readonly supportedCurrencies: string[] = ['BTC'];
 
   constructor(
     private store: Store<WalletsFeatureState>,
     private fb: FormBuilder,
-    private router: Router) { }
+    private router: Router) {
+
+    this.existingWalletsCurrencies$ = store.select<WalletsFeatureState>(getWalletsState)
+      .pipe(
+        map(state => state.wallets),
+        map(wallets => wallets.map(wallet => wallet.currency))
+      );
+  }
+
+  walletExists(currency: string): Observable<boolean> {
+    return this.existingWalletsCurrencies$.pipe(
+      map(currencies => currencies.find(a => a == currency)),
+      map(value => isDefined(value))
+    )
+  }
 
   ngOnInit() {
     this.walletForm = this.fb.group({
-      description: ['', [
-        Validators.required,
-        Validators.minLength(12)
-      ]
-      ],
+      currency: ['', [Validators.required]],
     });
+
+    this.store.dispatch(new LoadWalletsAction());
   }
 
   onSubmit() {

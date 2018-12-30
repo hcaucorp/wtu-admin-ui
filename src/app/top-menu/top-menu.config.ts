@@ -3,7 +3,7 @@ import { HomeComponent } from '../home/home.component';
 import { walletsRoute } from '../wallets/wallets-router.config';
 import { vouchersRoute } from '../vouchers/vouchers-router.config';
 
-export const topMenuRoutes: Routes = [
+export const mainroutes: Routes = [
     {
         path: 'home',
         component: HomeComponent

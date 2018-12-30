@@ -12,6 +12,7 @@ import { WalletListComponent } from './wallet-list/wallet-list.component';
 import { WalletCreateComponent } from './wallet-create/wallet-create.component';
 import { WalletsComponent } from './wallets.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '../shared/material.module';
 
 @NgModule({
     declarations: [
@@ -21,11 +22,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     ],
     imports: [
         CommonModule,
+        EffectsModule.forFeature([WalletEffects]),
         HttpClientModule,
+        MaterialModule,
+        ReactiveFormsModule,
         RouterModule.forChild([walletsRoute]),
         StoreModule.forFeature(`wallets`, reducer),
-        EffectsModule.forFeature([WalletEffects]),
-        ReactiveFormsModule,
     ],
     providers: [
         WalletService

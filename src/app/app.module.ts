@@ -12,8 +12,8 @@ import { HomeComponent } from './home/home.component';
 import { WalletsModule } from './wallets/wallets.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { VouchersModule } from './vouchers/vouchers.module';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ErrorInterceptor } from './shared/error-interceptor';
+import { MaterialModule } from './shared/material.module';
 
 @NgModule({
     declarations: [
@@ -24,7 +24,6 @@ import { ErrorInterceptor } from './shared/error-interceptor';
     imports: [
         AppRoutingModule,
         BrowserAnimationsModule,
-        MatSnackBarModule,
         HttpClientModule,
         StoreModule.forRoot({}),
         StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),

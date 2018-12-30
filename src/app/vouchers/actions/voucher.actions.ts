@@ -15,6 +15,7 @@ export interface GenerateVouchersSpec {
     walletId: number;
     singlePrice: number;
     singlePriceCurrency: string;
+    sku: string;
 }
 
 export interface DeleteVouchersPayload {

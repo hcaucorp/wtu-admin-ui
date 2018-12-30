@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { topMenuRoutes } from './top-menu/top-menu.config';
-import { walletsRoute } from './wallets/wallets-router.config';
+import { mainroutes } from './top-menu/top-menu.config';
 
-const routes: Routes = topMenuRoutes;
+const routes: Routes = mainroutes;
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

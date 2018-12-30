@@ -12,7 +12,7 @@ export class WalletService {
   constructor(private http: HttpClient) { }
 
   generateWallet(payload: GenerateWalletPayload): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}`, payload);
+    return this.http.post<any>(`${this.baseUrl}`, payload.currency);
   }
 
   delete(id: number): Observable<void> {
