@@ -3,7 +3,7 @@
   <mat-chip 
   *ngFor="let sku of voucherSkus$ | async" 
   (click)="onClickDelete(sku)"
-  color=""
+  color="accent"
   >{{sku}}</mat-chip>
   <!-- <mat-chip>Two fish</mat-chip> -->
   <!-- <mat-chip color="primary" selected>Primary fish</mat-chip>

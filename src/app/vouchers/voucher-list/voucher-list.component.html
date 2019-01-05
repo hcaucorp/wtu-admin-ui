@@ -15,7 +15,7 @@
     </thead>
     <tbody *ngIf="vouchers$ | async">
       <tr *ngFor="let voucher of vouchers$ | async">
-        <td><a routerLink="/vouchers/id">{{ voucher.id }}</a></td>
+        <td>{{ voucher.id }}</td>
         <td>{{ voucher.amount/100000000 }} {{ voucher.currency }}</td>
         <td>{{ voucher.sku }}</td>
         <td>{{ voucher.code }}</td>
@@ -31,6 +31,6 @@
 <nav class="col-lg-3">
   <ul>
     <li><a routerLink="/vouchers/generate" class="generate-vouchers-link">Create new vouchers</a></li>
-    <li><a (click)="openBottomSheet()">Delete by SKU</a></li>
+    <li><a *ngIf="(vouchers$ | async).length > 0" (click)="openBottomSheet()">Delete by SKU</a></li>
   </ul>
 </nav>
