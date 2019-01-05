@@ -1,4 +1,4 @@
-import { GenerateVouchersSpec, PublishVouchersAction, DeleteVouchersPayload } from '../actions/voucher.actions';
+import { GenerateVouchersSpec } from '../actions/voucher.actions';
 import { Voucher } from '../model/voucher';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -19,7 +19,7 @@ export class VoucherService {
         return this.http.get<Voucher[]>(this.baseUrl);
     }
 
-    publishVouchers(payload: PublishVouchersAction): Observable<any> {
-        return this.http.post<any>(this.baseUrl, payload);
+    deleteVouchers(sku: string): Observable<any> {
+        return this.http.delete<any>(`${this.baseUrl}/${sku}`);
     }
 }

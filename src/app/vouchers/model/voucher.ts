@@ -5,11 +5,12 @@ export class Voucher {
     currency: string;
     id: number;
     walletId: number;
+    sku: string;
 
     published: boolean;
     redeemed: boolean;
     sold: boolean;
 
-    createdAt: Date;
-    expiresAt: Date;
+    createdAt: number;
+    expiresAt: number;
 }

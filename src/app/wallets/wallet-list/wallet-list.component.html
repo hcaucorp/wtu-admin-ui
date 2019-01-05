@@ -1,4 +1,4 @@
-<div class="col-lg-9">
+<div class="col-lg-12" *ngIf="(wallets$ | async).length > 0">
   <h3>List of all wallets in the system</h3>
 
   <table class="table table-striped">
@@ -10,7 +10,7 @@
         <th class="col-lg-7">Receive address</th>
       </tr>
     </thead>
-    <tbody *ngIf="wallets$ | async">
+    <tbody>
       <tr *ngFor="let wallet of wallets$ | async">
         <td>{{ wallet.id }}</td>
         <td>{{ wallet.currency }}</td>
@@ -19,10 +19,12 @@
       </tr>
     </tbody>
   </table>
+
 </div>
 
-<nav class="col-lg-3">
-  <ul>
-    <li><a routerLink="/wallets/generate">Create new wallet</a></li>
-  </ul>
-</nav>
+<div class="col-lg-12 no-wallets-layer" *ngIf="(wallets$ | async).length == 0">
+  <h3>There is no wallets in the system.</h3>
+
+    <button routerLink="/wallets/generate" class="btn btn-primary create-first-wallet" mat-raised-button>Create first wallet</button>
+
+</div>

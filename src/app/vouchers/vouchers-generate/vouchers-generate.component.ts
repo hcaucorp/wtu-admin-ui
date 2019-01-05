@@ -34,7 +34,7 @@ export class VouchersGenerateComponent implements OnInit {
     this.voucherFormGroup = this.fb.group({
       count: [0, Validators.min(1)],
       totalAmount: [0, Validators.min(1)],
-      walletId: ['', Validators.required],
+      walletId: [0, Validators.min(1)],
       price: [0, Validators.min(1)],
       priceCurrency: 'GBP',
       sku: ['', [Validators.required, Validators.minLength(5)]],

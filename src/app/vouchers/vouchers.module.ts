@@ -12,19 +12,24 @@ import { VoucherEffects } from './effects/voucher.effects';
 import { VoucherService } from './service/voucher.service';
 import { VoucherListComponent } from './voucher-list/voucher-list.component';
 import { vouchersRoute } from './vouchers-router.config';
+import { VouchersDeleteComponent } from './vouchers-delete/vouchers-delete.component';
+import { MaterialModule } from '../shared/material.module';
 
 @NgModule({
     declarations: [
         VouchersComponent,
         VouchersGenerateComponent,
         VoucherListComponent,
+        VouchersDeleteComponent,
     ],
+    entryComponents: [VouchersDeleteComponent],
     imports: [
         CommonModule,
+        EffectsModule.forFeature([VoucherEffects]),
+        MaterialModule,
+        ReactiveFormsModule,
         RouterModule.forChild([vouchersRoute]),
         StoreModule.forFeature(`vouchers`, reducer),
-        EffectsModule.forFeature([VoucherEffects]),
-        ReactiveFormsModule,
     ],
     providers: [
         VoucherService,
