@@ -1,15 +1,16 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from '../home/home.component';
-import { walletsRoute } from '../wallets/wallets-router.config';
-import { vouchersRoute } from '../vouchers/vouchers-router.config';
+import { WalletsRoute } from '../wallets/wallets-router.config';
+import { VouchersRoute } from '../vouchers/vouchers-router.config';
+import { ProfileComponentRoute } from '../profile/profile.component';
 
 export const mainroutes: Routes = [
     {
         path: 'home',
         component: HomeComponent
     },
-    vouchersRoute,
-    walletsRoute,
+    VouchersRoute,
+    WalletsRoute,
     {
         path: '',
         redirectTo: '/home',
@@ -19,5 +20,6 @@ export const mainroutes: Routes = [
         path: '**',
         redirectTo: '/home',
         pathMatch: 'full'
-    }
+    },
+    ProfileComponentRoute
 ];

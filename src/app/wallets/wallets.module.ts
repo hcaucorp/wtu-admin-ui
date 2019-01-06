@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
-import { walletsRoute } from './wallets-router.config';
+import { WalletsRoute } from './wallets-router.config';
 import { reducer } from './reducers/wallet.reducer';
 import { WalletService } from './service/wallet.service';
 import { EffectsModule } from '@ngrx/effects';
@@ -26,7 +26,7 @@ import { MaterialModule } from '../shared/material.module';
         HttpClientModule,
         MaterialModule,
         ReactiveFormsModule,
-        RouterModule.forChild([walletsRoute]),
+        RouterModule.forChild([WalletsRoute]),
         StoreModule.forFeature(`wallets`, reducer),
     ],
     providers: [

@@ -11,7 +11,7 @@ import { VouchersGenerateComponent } from './vouchers-generate/vouchers-generate
 import { VoucherEffects } from './effects/voucher.effects';
 import { VoucherService } from './service/voucher.service';
 import { VoucherListComponent } from './voucher-list/voucher-list.component';
-import { vouchersRoute } from './vouchers-router.config';
+import { VouchersRoute } from './vouchers-router.config';
 import { VouchersDeleteComponent } from './vouchers-delete/vouchers-delete.component';
 import { MaterialModule } from '../shared/material.module';
 
@@ -28,7 +28,7 @@ import { MaterialModule } from '../shared/material.module';
         EffectsModule.forFeature([VoucherEffects]),
         MaterialModule,
         ReactiveFormsModule,
-        RouterModule.forChild([vouchersRoute]),
+        RouterModule.forChild([VouchersRoute]),
         StoreModule.forFeature(`vouchers`, reducer),
     ],
     providers: [

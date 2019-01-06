@@ -13,13 +13,21 @@ import { WalletsModule } from './wallets/wallets.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { VouchersModule } from './vouchers/vouchers.module';
 import { ErrorInterceptor } from './shared/error-interceptor';
-import { MaterialModule } from './shared/material.module';
+import { ProfileComponent } from './profile/profile.component';
+import { CallbackComponent } from './auth0/callback.component';
+import { AuthGuard } from './auth0/auth.guard';
+import { InterceptorService } from './auth0/secure.interceptor';
+import { AuthService } from './auth0/auth.service';
+
 
 @NgModule({
     declarations: [
         AppComponent,
         TopMenuComponent,
-        HomeComponent
+        HomeComponent,
+
+        ProfileComponent,
+        CallbackComponent
     ],
     imports: [
         AppRoutingModule,
@@ -33,7 +41,12 @@ import { MaterialModule } from './shared/material.module';
         WalletsModule,
         VouchersModule
     ],
-    providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
+    providers: [
+        AuthGuard,
+        AuthService,
+        { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

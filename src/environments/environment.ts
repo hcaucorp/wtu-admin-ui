@@ -3,7 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  auth: {
+    CLIENT_ID: 'oG9khmjGjziUJRu0miHvtqF5tNeWK833',
+    CLIENT_DOMAIN: 'wallettopup.auth0.com', // e.g., 'you.auth0.com'
+    AUDIENCE: 'http://localhost:3001/api/',
+    REDIRECT: 'http://localhost:4200/callback',
+    LOGOUT_URL: 'http://localhost:4200'
+  }
 };
 
 /*
