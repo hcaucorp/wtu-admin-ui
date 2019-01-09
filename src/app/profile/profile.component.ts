@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Auth0Service } from '../auth0/auth0.service';
-import { AuthGuard } from '../auth0/auth.guard';
+// import { AuthGuard } from '../auth0/auth.guard';
 import { Route } from '@angular/router';
 
 @Component({
@@ -8,12 +8,9 @@ import { Route } from '@angular/router';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent {
 
   constructor(public auth: Auth0Service) { }
-
-  ngOnInit() {
-  }
 
   makeProfileArray(obj): string[] {
     const keyPropArray = [];
@@ -31,6 +28,6 @@ export const ProfileComponentRoute: Route =
   path: 'profile',
   component: ProfileComponent,
   canActivate: [
-    AuthGuard
+    // AuthGuard
   ]
 };

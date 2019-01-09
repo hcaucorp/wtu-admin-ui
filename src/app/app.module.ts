@@ -15,9 +15,9 @@ import { VouchersModule } from './vouchers/vouchers.module';
 import { ErrorInterceptor } from './shared/error-interceptor';
 import { ProfileComponent } from './profile/profile.component';
 import { CallbackComponent } from './auth0/callback.component';
-import { AuthGuard } from './auth0/auth.guard';
 import { InterceptorService } from './auth0/secure.interceptor';
 import { Auth0Service } from './auth0/auth0.service';
+import { MaterialModule } from './shared/material.module';
 
 @NgModule({
     declarations: [
@@ -37,11 +37,11 @@ import { Auth0Service } from './auth0/auth0.service';
         StoreDevtoolsModule.instrument({ name: 'NgRx DevTools', logOnly: environment.production }),
         EffectsModule.forRoot([]),
 
+        MaterialModule,
         WalletsModule,
         VouchersModule
     ],
     providers: [
-        AuthGuard,
         Auth0Service,
         { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

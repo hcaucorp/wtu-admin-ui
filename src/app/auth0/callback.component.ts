@@ -1,17 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Auth0Service } from './auth0.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-callback',
-  template: `<div>Loading...</div>`,
+  template: `<mat-progress-spinner></mat-progress-spinner>`,
   styles: []
 })
-export class CallbackComponent implements OnInit {
-
-  constructor(private auth: Auth0Service) { }
-
-  ngOnInit() {
-    this.auth.handleLoginCallback();
-  }
-
+export class CallbackComponent  {
 }

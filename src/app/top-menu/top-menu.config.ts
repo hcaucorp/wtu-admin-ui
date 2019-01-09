@@ -12,6 +12,11 @@ export const mainroutes: Routes = [
     },
     VouchersRoute,
     WalletsRoute,
+    ProfileComponentRoute,
+    {
+        path: 'callback',
+        component: CallbackComponent
+    },
     {
         path: '',
         redirectTo: '/home',
@@ -22,10 +27,4 @@ export const mainroutes: Routes = [
         redirectTo: '/home',
         pathMatch: 'full'
     },
-    ProfileComponentRoute,
-    {
-        path: 'callback',
-        component: CallbackComponent,
-        pathMatch: 'full'
-      }
 ];

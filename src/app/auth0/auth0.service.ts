@@ -1,105 +1,90 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, bindNodeCallback } from 'rxjs';
-import * as auth0 from 'auth0-js';
-import { environment } from '../../environments/environment';
+
 import { Router } from '@angular/router';
+import * as auth0 from 'auth0-js';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class Auth0Service {
-  // Create Auth0 web auth instance
-  // @TODO: Update environment variables and remove .example
-  // extension in src/environments/environment.ts.example
-  private Auth0 = new auth0.WebAuth({
+
+  private _idToken: string;
+  private _accessToken: string;
+  private _expiresAt: number;
+
+  auth0 = new auth0.WebAuth({
+    responseType: 'token id_token',
     clientID: environment.auth.CLIENT_ID,
     domain: environment.auth.CLIENT_DOMAIN,
-    responseType: 'id_token token',
     redirectUri: environment.auth.REDIRECT,
-    audience: environment.auth.AUDIENCE,
-    scope: 'openid profile email'
   });
-  // Track whether or not to renew token
-  private authFlag = 'isLoggedIn';
-  // Create stream for token
-  token$ = new BehaviorSubject<string>(null);
-  // Create stream for user profile data
-  userProfile$ = new BehaviorSubject<any>(null);
-  // Authentication navigation
-  onAuthSuccessUrl = '/';
-  onAuthFailureUrl = '/';
-  logoutUrl = environment.auth.LOGOUT_URL;
-  // Create observable of Auth0 parseHash method to gather auth results
-  parseHash$ = bindNodeCallback(this.Auth0.parseHash.bind(this.Auth0));
-  // Create observable of Auth0 checkSession method to
-  // verify authorization server session and renew tokens
-  checkSession$ = bindNodeCallback(this.Auth0.checkSession.bind(this.Auth0));
 
-  constructor(private router: Router) { }
-
-  login() {
-    console.log("Login requested... ");
-    this.Auth0.authorize();
+  constructor(public router: Router) {
+    this._idToken = '';
+    this._accessToken = '';
+    this._expiresAt = 0;
   }
 
-  handleLoginCallback() {
-    if (window.location.hash && !this.isAuthenticated) {
-      this.parseHash$().subscribe(
-        authResult => {
-          this.localLogin(authResult);
-          this.router.navigate([this.onAuthSuccessUrl]);
-        },
-        err => this.handleError(err)
-      )
-    }
+  get accessToken(): string {
+    return this._accessToken;
   }
 
-  private localLogin(authResult) {
-    // Observable of token
-    this.token$.next(authResult.accessToken);
-    // Emit value for user data subject
-    this.userProfile$.next(authResult.idTokenPayload);
-    // Set flag in local storage stating this app is logged in
-    localStorage.setItem(this.authFlag, JSON.stringify(true));
+  get idToken(): string {
+    return this._idToken;
   }
 
-  get isAuthenticated(): boolean {
-    return JSON.parse(localStorage.getItem(this.authFlag));
+  public login(): void {
+    this.auth0.authorize();
   }
 
-  renewAuth() {
-    if (this.isAuthenticated) {
-      this.checkSession$({}).subscribe(
-        authResult => this.localLogin(authResult),
-        err => {
-          localStorage.removeItem(this.authFlag);
-          this.router.navigate([this.onAuthFailureUrl]);
-        }
-      );
-    }
-  }
-
-  private localLogout() {
-    localStorage.setItem(this.authFlag, JSON.stringify(false));
-    this.token$.next(null);
-    this.userProfile$.next(null);
-  }
-
-  logout() {
-    this.localLogout();
-    // This does a refresh and redirects back to homepage
-    // Make sure you have the logout URL in your Auth0
-    // Dashboard Application settings in Allowed Logout URLs
-    this.Auth0.logout({
-      returnTo: this.logoutUrl,
-      clientID: environment.auth.CLIENT_ID
+  public handleAuthentication(): void {
+    this.auth0.parseHash((err, authResult) => {
+      if (authResult && authResult.accessToken && authResult.idToken) {
+        this.localLogin(authResult);
+        this.router.navigate(['/home']);
+      } else if (err) {
+        this.router.navigate(['/home']);
+        console.log(err);
+        alert(`Error: ${err.error}. Check the console for further details.`);
+      }
     });
   }
 
-  private handleError(err) {
-    if (err.error_description) {
-      console.error(`Error: ${err.error_description}`);
-    } else {
-      console.error(`Error: ${JSON.stringify(err)}`);
-    }
+  private localLogin(authResult): void {
+    // Set isLoggedIn flag in localStorage
+    localStorage.setItem('isLoggedIn', 'true');
+    // Set the time that the access token will expire at
+    const expiresAt = (authResult.expiresIn * 1000) + new Date().getTime();
+    this._accessToken = authResult.accessToken;
+    this._idToken = authResult.idToken;
+    this._expiresAt = expiresAt;
+  }
+
+  public renewTokens(): void {
+    this.auth0.checkSession({}, (err, authResult) => {
+       if (authResult && authResult.accessToken && authResult.idToken) {
+         this.localLogin(authResult);
+       } else if (err) {
+         alert(`Could not get a new token (${err.error}: ${err.error_description}).`);
+         this.logout();
+       }
+    });
+  }
+
+  public logout(): void {
+    // Remove tokens and expiry time
+    this._accessToken = '';
+    this._idToken = '';
+    this._expiresAt = 0;
+    // Remove isLoggedIn flag from localStorage
+    localStorage.removeItem('isLoggedIn');
+    // Go back to the home route
+    this.router.navigate(['/']);
+  }
+
+  public isAuthenticated(): boolean {
+    // Check whether the current time is past the
+    // access token's expiry time
+    return new Date().getTime() < this._expiresAt;
   }
 
 }
