@@ -3,6 +3,7 @@ import { HomeComponent } from '../home/home.component';
 import { WalletsRoute } from '../wallets/wallets-router.config';
 import { VouchersRoute } from '../vouchers/vouchers-router.config';
 import { ProfileComponentRoute } from '../profile/profile.component';
+import { CallbackComponent } from '../auth0/callback.component';
 
 export const mainroutes: Routes = [
     {
@@ -21,5 +22,10 @@ export const mainroutes: Routes = [
         redirectTo: '/home',
         pathMatch: 'full'
     },
-    ProfileComponentRoute
+    ProfileComponentRoute,
+    {
+        path: 'callback',
+        component: CallbackComponent,
+        pathMatch: 'full'
+      }
 ];

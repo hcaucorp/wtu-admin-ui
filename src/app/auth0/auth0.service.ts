@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, bindNodeCallback } from 'rxjs';
 import * as auth0 from 'auth0-js';
-import { environment } from './../../environments/environment';
+import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 
 @Injectable()
-export class AuthService {
+export class Auth0Service {
   // Create Auth0 web auth instance
   // @TODO: Update environment variables and remove .example
   // extension in src/environments/environment.ts.example
@@ -36,6 +36,7 @@ export class AuthService {
   constructor(private router: Router) { }
 
   login() {
+    console.log("Login requested... ");
     this.Auth0.authorize();
   }
 

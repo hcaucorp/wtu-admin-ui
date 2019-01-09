@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth0/auth.service';
+import { Auth0Service } from '../auth0/auth0.service';
 import { AuthGuard } from '../auth0/auth.guard';
 import { Route } from '@angular/router';
 
@@ -10,7 +10,7 @@ import { Route } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(public auth: AuthService) { }
+  constructor(public auth: Auth0Service) { }
 
   ngOnInit() {
   }

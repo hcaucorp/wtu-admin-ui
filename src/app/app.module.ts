@@ -17,8 +17,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { CallbackComponent } from './auth0/callback.component';
 import { AuthGuard } from './auth0/auth.guard';
 import { InterceptorService } from './auth0/secure.interceptor';
-import { AuthService } from './auth0/auth.service';
-
+import { Auth0Service } from './auth0/auth0.service';
 
 @NgModule({
     declarations: [
@@ -43,7 +42,7 @@ import { AuthService } from './auth0/auth.service';
     ],
     providers: [
         AuthGuard,
-        AuthService,
+        Auth0Service,
         { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     ],

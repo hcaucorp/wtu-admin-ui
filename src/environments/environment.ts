@@ -7,7 +7,7 @@ export const environment = {
   auth: {
     CLIENT_ID: 'oG9khmjGjziUJRu0miHvtqF5tNeWK833',
     CLIENT_DOMAIN: 'wallettopup.auth0.com', // e.g., 'you.auth0.com'
-    AUDIENCE: 'http://localhost:3001/api/',
+    AUDIENCE: 'https://wallettopup.auth0.com/api/v2/',
     REDIRECT: 'http://localhost:4200/callback',
     LOGOUT_URL: 'http://localhost:4200'
   }
