@@ -7,25 +7,22 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { TopMenuComponent } from './top-menu/top-menu.component';
 import { HomeComponent } from './home/home.component';
 import { WalletsModule } from './wallets/wallets.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { VouchersModule } from './vouchers/vouchers.module';
 import { ErrorInterceptor } from './shared/error-interceptor';
-import { ProfileComponent } from './profile/profile.component';
 import { CallbackComponent } from './auth0/callback.component';
 import { InterceptorService } from './auth0/secure.interceptor';
 import { Auth0Service } from './auth0/auth0.service';
 import { MaterialModule } from './shared/material.module';
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        TopMenuComponent,
+        MenuComponent,
         HomeComponent,
-
-        ProfileComponent,
         CallbackComponent
     ],
     imports: [

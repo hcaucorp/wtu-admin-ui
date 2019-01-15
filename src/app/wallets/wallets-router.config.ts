@@ -6,6 +6,9 @@ import { WalletCreateComponent } from './wallet-create/wallet-create.component';
 export const WalletsRoute: Route = {
     path: 'wallets',
     component: WalletsComponent,
+    //   canActivate: [
+    //     AuthGuard
+    //   ],
     children: [
         {
             path: '',

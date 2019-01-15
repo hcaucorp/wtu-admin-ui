@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-
 import { Router } from '@angular/router';
 import * as auth0 from 'auth0-js';
 import { environment } from 'src/environments/environment';
+import { MatSnackBar } from '@angular/material';
+import { from, Observable, Observer } from 'rxjs';
 
 @Injectable()
 export class Auth0Service {
@@ -18,7 +19,7 @@ export class Auth0Service {
     redirectUri: environment.auth.REDIRECT,
   });
 
-  constructor(public router: Router) {
+  constructor(public router: Router, private snackBar: MatSnackBar) {
     this._idToken = '';
     this._accessToken = '';
     this._expiresAt = 0;
@@ -36,17 +37,41 @@ export class Auth0Service {
     this.auth0.authorize();
   }
 
-  public handleAuthentication(): void {
-    this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        this.localLogin(authResult);
-        this.router.navigate(['/home']);
-      } else if (err) {
-        this.router.navigate(['/home']);
-        console.log(err);
-        alert(`Error: ${err.error}. Check the console for further details.`);
-      }
-    });
+  // public handleAuthentication$(): Observable<string> {
+  //   return Observable.create(
+  //     (observer: Observer<string>) => {
+  //       return this.auth0.parseHash((err, authResult) => {
+  //         if (authResult && authResult.accessToken && authResult.idToken) {
+  //           this.localLogin(authResult);
+  //           observer.next(authResult.accessToken);
+  //           observer.complete();
+  //         }
+  //         else if (err) {
+  //           observer.error(`Full error: ${JSON.stringify(err)}.`);
+  //           observer.complete();
+  //         }
+  //       });
+  //     });
+  // }
+  public handleAuthentication(): any {
+    return new Promise( (resolve, reject) => {
+      this.auth0.parseHash((err, authResult) => {
+        if (authResult && authResult.accessToken && authResult.idToken) {
+          this.localLogin(authResult);
+          this.router.navigate(['/profile']);
+          return resolve();
+        } else if (err) {
+          // this.router.navigate(['/']);
+          this.showError(`Error: ${err.error}. Check the console for further details.`);
+          return reject();
+        }
+        return reject();
+      });
+    })
+  }
+
+  showError(error: string) {
+    this.snackBar.open(error, "(close error)");
   }
 
   private localLogin(authResult): void {
@@ -61,12 +86,12 @@ export class Auth0Service {
 
   public renewTokens(): void {
     this.auth0.checkSession({}, (err, authResult) => {
-       if (authResult && authResult.accessToken && authResult.idToken) {
-         this.localLogin(authResult);
-       } else if (err) {
-         alert(`Could not get a new token (${err.error}: ${err.error_description}).`);
-         this.logout();
-       }
+      if (authResult && authResult.accessToken && authResult.idToken) {
+        this.localLogin(authResult);
+      } else if (err) {
+        this.showError(`Could not get a new token (${err.error}: ${err.errorDescription}).`);
+        this.logout();
+      }
     });
   }
 
@@ -86,5 +111,4 @@ export class Auth0Service {
     // access token's expiry time
     return new Date().getTime() < this._expiresAt;
   }
-
 }

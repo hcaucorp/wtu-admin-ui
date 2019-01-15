@@ -7,6 +7,9 @@ import { VouchersGenerateComponent } from './vouchers-generate/vouchers-generate
 export const VouchersRoute: Route = {
     path: 'vouchers',
     component: VouchersComponent,
+//   canActivate: [
+//     AuthGuard
+//   ],
     children: [
         {
             path: '',
