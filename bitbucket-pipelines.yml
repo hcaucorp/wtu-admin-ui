@@ -1,12 +1,23 @@
-# This is a sample build configuration for Other.
-# Check our guides at https://confluence.atlassian.com/x/5Q4SMw for more examples.
-# Only use spaces to indent your .yml configuration.
-# -----
-# You can specify a custom docker image from Docker Hub as your build environment.
-image: atlassian/default-image:2
+image: node:10
 
 pipelines:
-  default:
-    - step:
+  branches:
+    master:
+      - step:
+        name: "Build, test"
+        caches:
+          - node
+        script: 
+          - npm install --quiet
+          - npm run test
+          - npm run build-prod
+        artifacts: # defining the artifacts to be passed to each future step.
+          - dist/**
+      - step:
+        name: Deploy to production (Aws S3)
+        deployment: production
         script:
-          - echo "Everything is awesome!"
+          # install aws cli
+          - pip install awscli --upgrade
+          - s3 --region "<region>" rm s3://<bucket-name>
+          - s3 --region "<region>" sync . s3://<bucket-name>

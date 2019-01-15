@@ -6,7 +6,7 @@
     "dev": "ng serve --aot=true",
     "start": "ng serve",
     "build": "ng build",
-    "build-production": "rm -Rf ./dist && ng build --aot=true --configuration=production",
+    "build-prod": "rm -Rf ./dist && ng build --aot=true --configuration=production",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
