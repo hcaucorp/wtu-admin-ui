@@ -10,10 +10,12 @@ pipelines:
           script: 
             - npm install --quiet
             - npm run build-prod
+          artifacts: # defining the artifacts to be passed to each future step.
+            - dist/**
       - step:
           # set AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY as environment variables
           name: Deploy to S3
-          deployment: test   # set to test, staging or production
+          # deployment: test   # set to test, staging or production
           # trigger: manual  # uncomment to have a manual step
           image: atlassian/pipelines-awscli
           script:
