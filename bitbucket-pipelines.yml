@@ -9,7 +9,6 @@ pipelines:
             - node
           script: 
             - npm install --quiet
-            - npm run test
             - npm run build-prod
           artifacts: # defining the artifacts to be passed to each future step.
             - dist/**
