@@ -67,6 +67,8 @@ export class Auth0Service {
     this._expiresAt = expiresAt;
   }
 
+  // TODO silent authentication will not work without session cookies and right now the cookies are not sent with "checkSession"
+  // because of cross domain cookies protection or something, coult try make it work on production after setting up a proper domain
   public renewTokens(): void {
     this.auth0.checkSession({}, (err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
