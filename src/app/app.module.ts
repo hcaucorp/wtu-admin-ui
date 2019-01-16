@@ -17,13 +17,15 @@ import { InterceptorService } from './auth0/secure.interceptor';
 import { Auth0Service } from './auth0/auth0.service';
 import { MaterialModule } from './shared/material.module';
 import { MenuComponent } from './menu/menu.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         MenuComponent,
         HomeComponent,
-        CallbackComponent
+        CallbackComponent,
+        LogoutComponent
     ],
     imports: [
         AppRoutingModule,

@@ -6,12 +6,9 @@ import { Auth0Service } from '../auth0/auth0.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.less']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   constructor(public auth: Auth0Service) {
-  }
-  
-  ngOnInit(): void {
-    if (localStorage.getItem('isLoggedIn') === 'true') {
+    if (this.auth.isAuthenticated()) {
       this.auth.renewTokens();
     } else {
       this.auth.login();

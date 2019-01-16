@@ -1,7 +1,7 @@
 <button mat-button [matMenuTriggerFor]="menu" class="menu-button">Menu</button>
 <mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="router.navigate(['/'])">Home</button>
+  <button mat-menu-item (click)="router.navigate(['/home'])">Home</button>
   <button mat-menu-item (click)="router.navigate(['/vouchers'])">Vouchers</button>
   <button mat-menu-item (click)="router.navigate(['/wallets'])">Wallets</button>
-  <button mat-menu-item (click)="logout()">Logout...</button>
+  <button mat-menu-item (click)="router.navigate(['/logout'])">Logout...</button>
 </mat-menu>

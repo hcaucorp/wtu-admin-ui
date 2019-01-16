@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import * as auth0 from 'auth0-js';
 import { environment } from 'src/environments/environment';
 import { MatSnackBar } from '@angular/material';
-import { from, Observable, Observer } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 
 @Injectable()
 export class Auth0Service {
@@ -37,41 +37,24 @@ export class Auth0Service {
     this.auth0.authorize();
   }
 
-  // public handleAuthentication$(): Observable<string> {
-  //   return Observable.create(
-  //     (observer: Observer<string>) => {
-  //       return this.auth0.parseHash((err, authResult) => {
-  //         if (authResult && authResult.accessToken && authResult.idToken) {
-  //           this.localLogin(authResult);
-  //           observer.next(authResult.accessToken);
-  //           observer.complete();
-  //         }
-  //         else if (err) {
-  //           observer.error(`Full error: ${JSON.stringify(err)}.`);
-  //           observer.complete();
-  //         }
-  //       });
-  //     });
-  // }
-  public handleAuthentication(): any {
-    return new Promise( (resolve, reject) => {
-      this.auth0.parseHash((err, authResult) => {
-        if (authResult && authResult.accessToken && authResult.idToken) {
-          this.localLogin(authResult);
-          this.router.navigate(['/profile']);
-          return resolve();
-        } else if (err) {
-          // this.router.navigate(['/']);
-          this.showError(`Error: ${err.error}. Check the console for further details.`);
-          return reject();
-        }
-        return reject();
+  public handleAuthentication$(): Observable<string> {
+    return Observable.create(
+      (observer: Observer<string>) => {
+        return this.auth0.parseHash((err, authResult) => {
+          if (authResult && authResult.accessToken && authResult.idToken) {
+            this.localLogin(authResult);
+            observer.next(authResult.accessToken);
+            observer.complete();
+          } else if (err) {
+            observer.error(`Full error: ${JSON.stringify(err)}.`);
+            observer.complete();
+          }
+        });
       });
-    })
   }
 
   showError(error: string) {
-    this.snackBar.open(error, "(close error)");
+    this.snackBar.open(error, '(close error)');
   }
 
   private localLogin(authResult): void {
@@ -89,8 +72,12 @@ export class Auth0Service {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.localLogin(authResult);
       } else if (err) {
-        this.showError(`Could not get a new token (${err.error}: ${err.errorDescription}).`);
-        this.logout();
+        if (err.error === 'login_required') {
+          console.log('Cannot renew Auth0 token. Probably because of missing cross domain cookies. Try to fix it in production');
+        } else {
+          this.showError(`Could not get a new token (reason: ${err.error}: ${err.error_description}).`);
+          this.logout();
+        }
       }
     });
   }
@@ -102,8 +89,8 @@ export class Auth0Service {
     this._expiresAt = 0;
     // Remove isLoggedIn flag from localStorage
     localStorage.removeItem('isLoggedIn');
-    // Go back to the home route
-    this.router.navigate(['/']);
+    // Go to logout spinner which should redirect to login screen
+    this.router.navigate(['/logout']);
   }
 
   public isAuthenticated(): boolean {

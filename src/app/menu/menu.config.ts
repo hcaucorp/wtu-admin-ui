@@ -3,6 +3,7 @@ import { HomeComponent } from '../home/home.component';
 import { WalletsRoute } from '../wallets/wallets-router.config';
 import { VouchersRoute } from '../vouchers/vouchers-router.config';
 import { CallbackComponent } from '../auth0/callback.component';
+import { LogoutComponent } from '../logout/logout.component';
 
 export const mainroutes: Routes = [
     {
@@ -14,6 +15,10 @@ export const mainroutes: Routes = [
     {
         path: 'callback',
         component: CallbackComponent
+    },
+    {
+        path: 'logout',
+        component: LogoutComponent
     },
     {
         path: '',
