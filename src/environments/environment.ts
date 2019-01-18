@@ -9,7 +9,8 @@ export const environment = {
     CLIENT_DOMAIN: 'wallettopup.auth0.com', // e.g., 'you.auth0.com'
     AUDIENCE: 'https://wallettopup.auth0.com/api/v2/',
     REDIRECT: 'http://localhost:4200/callback',
-    LOGOUT_URL: 'http://localhost:4200'
+    LOGOUT_URL: 'http://localhost:4200',
+    SCOPE: 'openid profile email'
   }
 };
 

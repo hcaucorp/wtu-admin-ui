@@ -18,6 +18,7 @@ import { Auth0Service } from './auth0/auth0.service';
 import { MaterialModule } from './shared/material.module';
 import { MenuComponent } from './menu/menu.component';
 import { LogoutComponent } from './logout/logout.component';
+import { AuthGuard } from './auth0/auth.guard';
 
 @NgModule({
     declarations: [
@@ -41,6 +42,7 @@ import { LogoutComponent } from './logout/logout.component';
         VouchersModule
     ],
     providers: [
+        AuthGuard,
         Auth0Service,
         { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

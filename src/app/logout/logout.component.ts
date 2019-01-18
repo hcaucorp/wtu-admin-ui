@@ -12,7 +12,7 @@ export class LogoutComponent implements OnInit {
   constructor(public router: Router, public auth: Auth0Service) { }
 
   ngOnInit() {
-    if (localStorage.getItem('isLoggedIn') === 'true') {
+    if (this.auth.isAuthenticated()) {
       this.router.navigate(['/home']);
     } else {
       this.auth.login();
