@@ -1,4 +1,4 @@
 <main>
-    <app-menu *ngIf="auth.isAuthenticated()"></app-menu>
+    <app-menu *ngIf="auth.isLoggedIn"></app-menu>
     <router-outlet></router-outlet>
 </main>

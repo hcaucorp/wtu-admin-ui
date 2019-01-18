@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Auth0Service } from '../auth0/auth0.service';
+import { AuthService } from '../auth0/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class MenuComponent {
 
-  constructor(public router: Router, public auth: Auth0Service) { }
+  constructor(public router: Router, public auth: AuthService) { }
 
   logout() {
     this.auth.logout();

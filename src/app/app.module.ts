@@ -14,10 +14,9 @@ import { VouchersModule } from './vouchers/vouchers.module';
 import { ErrorInterceptor } from './shared/error-interceptor';
 import { CallbackComponent } from './auth0/callback.component';
 import { InterceptorService } from './auth0/secure.interceptor';
-import { Auth0Service } from './auth0/auth0.service';
+import { AuthService } from './auth0/auth.service';
 import { MaterialModule } from './shared/material.module';
 import { MenuComponent } from './menu/menu.component';
-import { LogoutComponent } from './logout/logout.component';
 import { AuthGuard } from './auth0/auth.guard';
 
 @NgModule({
@@ -25,8 +24,7 @@ import { AuthGuard } from './auth0/auth.guard';
         AppComponent,
         MenuComponent,
         HomeComponent,
-        CallbackComponent,
-        LogoutComponent
+        CallbackComponent
     ],
     imports: [
         AppRoutingModule,
@@ -43,7 +41,7 @@ import { AuthGuard } from './auth0/auth.guard';
     ],
     providers: [
         AuthGuard,
-        Auth0Service,
+        AuthService,
         { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     ],

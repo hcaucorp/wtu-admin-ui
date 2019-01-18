@@ -42,8 +42,9 @@ export class AuthService {
           this.router.navigate(['/']);
         });
       } else if (err) {
-        this.snackBar.open(JSON.stringify(err), '(close error)');
-        this.router.navigate(['/']);
+        this.snackBar.open(JSON.stringify(err), 'Close')
+          .afterDismissed()
+          .subscribe(() => this.router.navigate(['/']));
       }
     });
   }
@@ -51,7 +52,7 @@ export class AuthService {
   getAccessToken() {
     this.auth0.checkSession({}, (err, authResult) => {
       if (authResult && authResult.accessToken) {
-        this.getUserInfo(authResult, () => {});
+        this.getUserInfo(authResult, () => { });
       }
     });
   }

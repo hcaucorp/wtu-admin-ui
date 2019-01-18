@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Auth0Service } from './auth0.service';
-import { MatSnackBar } from '@angular/material';
-import { Router } from '@angular/router';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-callback',
@@ -10,18 +8,10 @@ import { Router } from '@angular/router';
 })
 export class CallbackComponent implements OnInit {
 
-  constructor(public router: Router, public auth: Auth0Service, private snackBar: MatSnackBar) {
+  constructor(public auth: AuthService) {
   }
 
   ngOnInit(): void {
-    this.auth.handleAuthentication$()
-      .subscribe(
-        () => this.router.navigate(['/home']),
-        error => {
-          this.snackBar.open(JSON.stringify(error), '(close error)');
-          if (!this.auth.isAuthenticated()) {
-            this.auth.login();
-          }
-        });
+    this.auth.handleLoginCallback();
   }
 }
