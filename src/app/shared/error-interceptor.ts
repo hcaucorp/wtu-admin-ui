@@ -20,17 +20,3 @@ export class ErrorInterceptor implements HttpInterceptor {
       );
   }
 }
-
-// const exampleMessage = {
-//   "headers": { "normalizedNames": {}, "lazyUpdate": null },
-//   "status": 400, "statusText": "Bad Request", "url": "http://localhost:4200/api/wallets",
-//   "ok": false, "name": "HttpErrorResponse",
-//   "message": "Http failure response for http://localhost:4200/api/wallets: 400 Bad Request",
-//   "error": {
-//     "timestamp": "2018-12-30T13:31:56.018+0000", 
-//     "status": 400, 
-//     "error": "Bad Request",
-//     "message": "BTC wallet already exists. Currently we support only single wallet per currency", 
-//     "path": "/wallets"
-//   }
-// };

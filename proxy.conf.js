@@ -5,7 +5,7 @@
 const PROXY_CONFIG = [
     {
         context: ["/api"],
-        target: "http://localhost:8080",
+        target: "http://api.wallettopup.co.uk", //replace with subdomain
         secure: false,
         logLevel: "debug",
         changeOrigin: true,
