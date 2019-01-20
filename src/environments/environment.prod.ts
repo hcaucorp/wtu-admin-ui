@@ -9,7 +9,7 @@ export const environment = {
     REDIRECT: 'http://admin.wallettopup.co.uk/callback',
 
     // and this
-    LOGOUT_URL: 'http://admin.wallettopup.co.uk:4200',
+    LOGOUT_URL: 'http://admin.wallettopup.co.uk',
     SCOPE: 'openid profile email'
   }
 };
