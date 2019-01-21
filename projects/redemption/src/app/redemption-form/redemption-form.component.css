@@ -1,0 +1,16 @@
+mat-form-field {
+    display: block;
+    width: 360px;
+}
+
+button {
+    display: flex;
+    margin: 10px;
+}
+
+.center {
+    margin: auto;
+    width: fit-content;
+    border: 3px solid #ccc;
+    padding: 10px;
+  }
