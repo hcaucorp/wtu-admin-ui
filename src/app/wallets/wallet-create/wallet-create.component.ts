@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
 import { GenerateWalletAction, LoadWalletsAction } from '../actions/wallet.actions';
 import { WalletsFeatureState, getWalletsState } from '../reducers/wallet.reducer';
 import { Observable } from 'rxjs';
-
 import { map } from 'rxjs/operators';
+import { isDefined } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-wallet-create',
@@ -36,9 +36,9 @@ export class WalletCreateComponent implements OnInit {
 
   walletExists(currency: string): Observable<boolean> {
     return this.existingWalletsCurrencies$.pipe(
-      map(currencies => currencies.find(a => a == currency)),
-      map(value => !!value)
-    )
+      map(currencies => currencies.find(a => a === currency)),
+      map(value => isDefined(value))
+    );
   }
 
   ngOnInit() {

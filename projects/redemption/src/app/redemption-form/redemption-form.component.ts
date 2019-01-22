@@ -28,11 +28,15 @@ export class RedemptionFormComponent implements OnInit {
     return this.http.post<RedemptionResponse>(baseUrl, this.form.value)
       .subscribe(
         response => {
-          this.snackBar.open(this.toMessage(response), ':)');
+          this.snackBar.open(this.toMessage(response), 'Success');
           this.form.disable();
         },
         (error: HttpErrorResponse) => {
-          this.snackBar.open(error.message, ':(');
+          if (error.status === 400) {
+            this.snackBar.open(error.message, 'Close');
+          } else {
+            this.snackBar.open('We can\'t redeem your voucher.Please contact with our Customer Support.', 'Close');
+          }
           this.form.disable();
         }
       );
@@ -40,7 +44,7 @@ export class RedemptionFormComponent implements OnInit {
 
   toMessage(response: RedemptionResponse): string {
     return `Your voucher has been redeemed. Your confirmation number is: "${response.transactionId}". ` +
-      `You will also receive it via email. You can track your topup on one of links provided below:\n` +
+      `You will also receive it via email. You can track your topup in your favourite blockchain explorer. We like these ones:\n` +
       response.trackingUrls.reduce((a, b) => `${a}\n${b}`);
   }
 }

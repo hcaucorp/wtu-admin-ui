@@ -5,8 +5,8 @@ import { AppComponent } from './app.component';
 import { RedemptionFormComponent } from './redemption-form/redemption-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
-    MatSnackBarModule,
+    MaterialModule,
     ReactiveFormsModule,
   ],
   providers: [
