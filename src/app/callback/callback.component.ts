@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './auth.service';
+import { AuthService } from '../auth0/auth.service';
 
 @Component({
   selector: 'app-callback',
-  template: `<mat-spinner></mat-spinner>`,
-  styles: []
+  templateUrl: './callback.component.html',
+  styleUrls: ['./callback.component.less']
 })
 export class CallbackComponent implements OnInit {
 
@@ -14,4 +14,5 @@ export class CallbackComponent implements OnInit {
   ngOnInit(): void {
     this.auth.handleLoginCallback();
   }
+
 }
