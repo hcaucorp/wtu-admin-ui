@@ -1,17 +1,22 @@
 <div class="center">
-  <h1>Top up your wallet</h1>
+  <h1>Use your voucher code</h1>
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="main-form col-lg-6">
+    <div class="barcode-background">
+      <mat-form-field>
+        <input type="text" formControlName="voucherCode" placeholder="your voucher code" matInput required>
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <button mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-primary">Do it!</button>
+      <img scr="../../assets/arrow-right-icon.png">
+    </div>
+    <div class="wallet-background">
 
-    <mat-form-field>
-      <input type="text" formControlName="voucherCode" placeholder="your voucher code" matInput required>
-      <mat-error>This field is required</mat-error>
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput type="text" class="form-control" required formControlName="walletAddress" placeholder="wallet address">
-      <mat-error>This field is required</mat-error>
-    </mat-form-field>
-
-    <button mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-primary">Do it!</button>
+      <mat-form-field>
+        <input matInput type="text" class="form-control" required formControlName="walletAddress" placeholder="wallet address">
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+    </div>
   </form>
 </div>

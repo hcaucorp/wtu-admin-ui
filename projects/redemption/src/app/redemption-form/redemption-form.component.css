@@ -13,4 +13,18 @@ button {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
+}
+
+.wallet-background {
+    background-image: url('../../assets/wallet-icon.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+}
+
+.barcode-background {
+    background-image: url('../../assets/barcode-scan-icon.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+}
