@@ -1,6 +1,7 @@
 <div class="center">
   <h1>Use your voucher code</h1>
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="main-form col-lg-6">
+    <div class="form-layout">
     <div class="barcode-background">
       <mat-form-field>
         <input type="text" formControlName="voucherCode" placeholder="your voucher code" matInput required>
@@ -8,7 +9,7 @@
       </mat-form-field>
     </div>
     <div>
-      <button mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-primary">Do it!</button>
+      <button mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-primary">Send to</button>
       <img scr="../../assets/arrow-right-icon.png">
     </div>
     <div class="wallet-background">
@@ -18,5 +19,6 @@
         <mat-error>This field is required</mat-error>
       </mat-form-field>
     </div>
+  </div>
   </form>
 </div>
