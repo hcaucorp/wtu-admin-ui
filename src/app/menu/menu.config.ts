@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from '../home/home.component';
 import { WalletsRoute } from '../wallets/wallets-router.config';
 import { VouchersRoute } from '../vouchers/vouchers-router.config';
-import { CallbackComponent } from '../auth0/callback.component';
+import { CallbackComponent } from '../callback/callback.component';
 
 export const mainroutes: Routes = [
     {

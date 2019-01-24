@@ -12,12 +12,12 @@ import { WalletsModule } from './wallets/wallets.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { VouchersModule } from './vouchers/vouchers.module';
 import { ErrorInterceptor } from './shared/error-interceptor';
-import { CallbackComponent } from './auth0/callback.component';
 import { InterceptorService } from './auth0/secure.interceptor';
 import { AuthService } from './auth0/auth.service';
 import { MaterialModule } from './shared/material.module';
 import { MenuComponent } from './menu/menu.component';
 import { AuthGuard } from './auth0/auth.guard';
+import { CallbackComponent } from './callback/callback.component';
 
 @NgModule({
     declarations: [
