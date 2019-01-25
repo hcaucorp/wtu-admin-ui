@@ -10,14 +10,14 @@ pipelines:
           script:
             - npm run clean
             - npm install --quiet
-            - ng build --prod
-            - ng build --prod --project="redemption"
-          artifacts: # defining the artifacts to be passed to each future step.
+            - npm run build-prod
+            - npm run build-prod-redemption
+          artifacts:
             - dist/**
       - step:
-          # set AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY as environment variables
+          # AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY are set as environment variables on BitBucket
           name: Deploy to S3
-          trigger: manual  # uncomment to have a manual step
+          trigger: manual
           image: atlassian/pipelines-awscli
           script:
             - aws s3 sync --delete dist/wallet-topup-admin/ s3://admin.wallettopup.co.uk
