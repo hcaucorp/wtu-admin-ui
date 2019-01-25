@@ -4,9 +4,9 @@
   "scripts": {
     "ng": "ng",
     "dev": "ng serve --aot=true",
-    "start": "ng serve",
-    "build": "ng build",
-    "build-prod": "rm -Rf ./dist && ng build --aot=true --configuration=production",
+    "start": "ng serve --aot=true",
+    "build": "ng build --aot=true",
+    "clean": "rm -Rf ./dist",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

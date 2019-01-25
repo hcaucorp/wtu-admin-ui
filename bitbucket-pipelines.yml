@@ -4,12 +4,14 @@ pipelines:
   branches:
     master:
       - step:
-          name: "Build, test"
+          name: "Build both Admin and Redemption projects"
           caches:
             - node
-          script: 
+          script:
+            - npm run clean
             - npm install --quiet
-            - npm run build-prod
+            - ng build --prod
+            - ng build --prod --project="redemption"
           artifacts: # defining the artifacts to be passed to each future step.
             - dist/**
       - step:
@@ -20,3 +22,4 @@ pipelines:
           image: atlassian/pipelines-awscli
           script:
             - aws s3 sync --delete dist/wallet-topup-admin/ s3://admin.wallettopup.co.uk
+            - aws s3 sync --delete dist/redemption/ s3://redemption.wallettopup.co.uk
