@@ -6,10 +6,10 @@ export const environment = {
     AUDIENCE: 'https://wallettopup.auth0.com/api/v2/',
 
     // for production this has to be production address, and it has to be added to configuration on auth0 dashboard
-    REDIRECT: 'http://admin.wallettopup.co.uk/callback',
+    REDIRECT: 'https://admin.wallettopup.co.uk/callback',
 
     // and this
-    LOGOUT_URL: 'http://admin.wallettopup.co.uk',
+    LOGOUT_URL: 'https://admin.wallettopup.co.uk',
     SCOPE: 'openid profile email'
   }
 };
