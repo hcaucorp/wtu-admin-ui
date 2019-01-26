@@ -14,6 +14,7 @@ Run `ng g c component-name` to generate a new component. You can also use `ng ge
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `ng build --project="redemption"` to build `redemption` project
 
 ## Running unit tests
 

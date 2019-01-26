@@ -4,19 +4,21 @@ pipelines:
   branches:
     master:
       - step:
-          name: "Build, test"
+          name: "Build both Admin and Redemption projects"
           caches:
             - node
-          script: 
+          script:
+            - npm run clean
             - npm install --quiet
             - npm run build-prod
-          artifacts: # defining the artifacts to be passed to each future step.
+            - npm run build-prod-redemption
+          artifacts:
             - dist/**
       - step:
-          # set AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY as environment variables
+          # AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY are set as environment variables on BitBucket
           name: Deploy to S3
-          # deployment: test   # set to test, staging or production
-          # trigger: manual  # uncomment to have a manual step
+          trigger: manual
           image: atlassian/pipelines-awscli
           script:
             - aws s3 sync --delete dist/wallet-topup-admin/ s3://admin.wallettopup.co.uk
+            - aws s3 sync --delete dist/redemption/ s3://redemption.wallettopup.co.uk
