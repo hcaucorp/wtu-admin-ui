@@ -14,7 +14,7 @@ export class ErrorInterceptor implements HttpInterceptor {
       .handle(request)
       .pipe(
         catchError((e: HttpErrorResponse) => {
-          this.snackBar.open(e.error.message, 'Close');
+          this.snackBar.open(e.error.message || e.message || JSON.stringify(e), 'Close');
           return throwError(e);
         })
       );

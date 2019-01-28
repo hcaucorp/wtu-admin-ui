@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "dev": "ng serve --aot=true",
-    "start": "ng serve --aot=true",
+    "dev": "ng serve --aot=true --proxy-config=proxy.conf.js",
     "build": "ng build --aot=true",
     "clean": "rm -Rf ./dist",
     "build-prod": "ng build --prod",

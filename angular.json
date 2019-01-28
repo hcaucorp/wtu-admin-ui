@@ -61,8 +61,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "wallet-topup-admin:build",
-            "proxyConfig": "proxy.conf.js"
+            "browserTarget": "wallet-topup-admin:build"
           },
           "configurations": {
             "production": {
