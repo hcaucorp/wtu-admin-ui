@@ -34,8 +34,11 @@ export class RedemptionFormComponent implements OnInit {
         (error: HttpErrorResponse) => {
           if (error.status === 400) {
             this.snackBar.open(error.message, 'Close');
+          } if (error.status === 404) {
+            this.snackBar.open('Your voucher code is not valid.', 'Close');
           } else {
-            this.snackBar.open('We can\'t redeem your voucher.Please contact with our Customer Support.', 'Close');
+            this.snackBar.open('We coudn\'t redeem your voucher. Our staff has been notified about this ' +
+              'error and will reach out to you if needed. Please contact us if you have any questions.', 'Close');
           }
           this.form.disable();
         }

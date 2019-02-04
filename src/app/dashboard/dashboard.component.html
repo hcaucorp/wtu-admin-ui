@@ -1,0 +1,10 @@
+<div class="dashboard-main col-lg-6">
+  <div>
+    Server health: {{ health$ | async }}
+  </div>
+  <div>
+    Unfulfilled orders: {{ unfulfilledOrdersCount$ | async }}
+
+    <button *ngIf="(unfulfilledOrdersCount$ | async) > 0" mat-raised-button class="btn btn-primary">Fulfill all orders</button>
+  </div>
+</div>

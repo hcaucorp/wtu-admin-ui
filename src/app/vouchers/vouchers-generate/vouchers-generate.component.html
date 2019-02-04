@@ -15,7 +15,7 @@
     <div class="form-group">
       <label>Select a wallet to fund vouchers</label>
       <div *ngIf="wallets$ | async">
-        <select class="form-control" formControlName="walletId"  required>
+        <select class="form-control" formControlName="walletId" required>
           <option *ngFor="let wallet of wallets$ | async" [value]="wallet.id" placeholder="Wallet to use">Wallet #{{
             wallet.id }}, balance {{ wallet.balance }} {{ wallet.currency }}</option>
         </select>
@@ -35,6 +35,8 @@
     <button type="submit" [disabled]="!voucherFormGroup.valid" class="btn btn-primary" mat-raised-button>Generate now</button>
   </form>
 </div>
+
+<div>{{ voucherFormGroup.</div>
 
 <div class="col-lg-6">
   <p>Some things to remember:

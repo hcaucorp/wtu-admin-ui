@@ -8,9 +8,9 @@ describe('RedemptionFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RedemptionFormComponent ]
+      declarations: [RedemptionFormComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -21,5 +21,9 @@ describe('RedemptionFormComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should sent redemption request when form completed', () => {
+
   });
 });

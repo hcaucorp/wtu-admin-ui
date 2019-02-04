@@ -18,13 +18,18 @@ import { MaterialModule } from './shared/material.module';
 import { MenuComponent } from './menu/menu.component';
 import { AuthGuard } from './auth0/auth.guard';
 import { CallbackComponent } from './callback/callback.component';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { FulfillmentsComponent } from './fulfillments/fulfillments.component';
 
 @NgModule({
     declarations: [
         AppComponent,
+        DashboardComponent,
         MenuComponent,
         HomeComponent,
-        CallbackComponent
+        CallbackComponent,
+        FulfillmentsComponent
     ],
     imports: [
         AppRoutingModule,
@@ -35,6 +40,7 @@ import { CallbackComponent } from './callback/callback.component';
         StoreDevtoolsModule.instrument({ name: 'NgRx DevTools', logOnly: environment.production }),
         EffectsModule.forRoot([]),
 
+        DashboardModule,
         MaterialModule,
         WalletsModule,
         VouchersModule
