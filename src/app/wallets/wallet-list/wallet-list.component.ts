@@ -15,11 +15,12 @@ export class WalletListComponent implements OnInit {
 
   wallets$: Observable<Wallet[]>;
 
+  state$: Observable<WalletsFeatureState>;
+
   constructor(private store: Store<any>) {
-    this.wallets$ = store.select<WalletsFeatureState>(getWalletsState)
-      .pipe(
-        map(state => state.wallets)
-      );
+    this.state$ = store.select<WalletsFeatureState>(getWalletsState);
+    this.wallets$ = this.state$.pipe(
+      map(state => state.wallets));
   }
 
   ngOnInit() {

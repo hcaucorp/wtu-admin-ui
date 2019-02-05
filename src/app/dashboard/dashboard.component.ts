@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { DashboardFeatureState, getDashboardFeature } from './dashboard.reducer';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { LoadUnfulfilledOrdersCountAction } from './dashboard.actions';
+import { LoadUnfulfilledOrdersCountAction, FulfillAllOrdersAction } from './dashboard.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,20 +12,17 @@ import { LoadUnfulfilledOrdersCountAction } from './dashboard.actions';
 })
 export class DashboardComponent implements OnInit {
 
-  unfulfilledOrdersCount$: Observable<number>;
-  health$: Observable<string>;
+  state$: Observable<DashboardFeatureState>;
 
   constructor(private store: Store<any>) {
-    this.unfulfilledOrdersCount$ = store.select<DashboardFeatureState>(getDashboardFeature).pipe(
-      map(state => state.unfulfilledOrdersCount)
-    );
-
-    this.health$ = store.select<DashboardFeatureState>(getDashboardFeature).pipe(
-      map(state => state.health)
-    );
+    this.state$ = store.select<DashboardFeatureState>(getDashboardFeature);
   }
 
   ngOnInit() {
     this.store.dispatch(new LoadUnfulfilledOrdersCountAction());
+  }
+
+  fulfillAllOrders() {
+    this.store.dispatch(new FulfillAllOrdersAction());
   }
 }

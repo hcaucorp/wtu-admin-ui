@@ -23,16 +23,15 @@ export class DashboardEffects {
     );
 
     @Effect()
-    onFulfillOrders$: Observable<DashboardActions> = this.actions$.pipe(
+    onFulfillAllOrders$: Observable<DashboardActions> = this.actions$.pipe(
         ofType<FulfillAllOrdersAction>(DashboardActionTypes.FulfillAllOrders),
-        switchMap(_ => this.shopifyService.loadUnfulfilledOrdersCount()),
+        switchMap(_ => this.shopifyService.fulfillAllUnfulfilledOrders()),
         map(_ => new FulfillAllOrdersCompletedAction())
     );
 
     @Effect()
-    onFulfillOrdersCompleted$: Observable<DashboardActions> = this.actions$.pipe(
+    onFulfillAllOrdersCompleted$: Observable<DashboardActions> = this.actions$.pipe(
         ofType<FulfillAllOrdersCompletedAction>(DashboardActionTypes.FulfillAllOrdersCompleted),
-        switchMap(_ => this.shopifyService.loadUnfulfilledOrdersCount()),
-        map(_ => new FulfillAllOrdersCompletedAction())
+        map(_ => new LoadUnfulfilledOrdersCountAction())
     );
 }
