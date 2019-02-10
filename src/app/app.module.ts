@@ -21,6 +21,7 @@ import { CallbackComponent } from './callback/callback.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FulfillmentsComponent } from './fulfillments/fulfillments.component';
+import { FulfillmentsModule } from './fulfillments/fulfillments.module';
 
 @NgModule({
     declarations: [
@@ -28,8 +29,7 @@ import { FulfillmentsComponent } from './fulfillments/fulfillments.component';
         DashboardComponent,
         MenuComponent,
         HomeComponent,
-        CallbackComponent,
-        FulfillmentsComponent
+        CallbackComponent
     ],
     imports: [
         AppRoutingModule,
@@ -41,6 +41,7 @@ import { FulfillmentsComponent } from './fulfillments/fulfillments.component';
         EffectsModule.forRoot([]),
 
         DashboardModule,
+        FulfillmentsModule,
         MaterialModule,
         WalletsModule,
         VouchersModule

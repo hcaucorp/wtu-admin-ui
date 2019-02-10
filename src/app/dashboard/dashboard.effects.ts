@@ -6,14 +6,16 @@ import { Observable } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 import {
     LoadUnfulfilledOrdersCountAction, DashboardActionTypes, LoadUnfulfilledOrdersCountActionCompleted,
-    DashboardActions, FulfillAllOrdersAction, FulfillAllOrdersCompletedAction
+    DashboardActions, FulfillAllOrdersAction, FulfillAllOrdersCompletedAction, CheckHealthAction, CheckHealthCompletedAction
 } from './dashboard.actions';
+import { DashboardService } from './dashboard.service';
 
 @Injectable()
 export class DashboardEffects {
 
     constructor(private actions$: Actions,
-        private shopifyService: ShopifyService) { }
+        private shopifyService: ShopifyService,
+        private dashboardService: DashboardService) { }
 
     @Effect()
     onLoadUnfulfilledOrdersCount$: Observable<DashboardActions> = this.actions$.pipe(
@@ -34,4 +36,12 @@ export class DashboardEffects {
         ofType<FulfillAllOrdersCompletedAction>(DashboardActionTypes.FulfillAllOrdersCompleted),
         map(_ => new LoadUnfulfilledOrdersCountAction())
     );
+
+    @Effect()
+    onCheckHealth$: Observable<DashboardActions> = this.actions$.pipe(
+        ofType<CheckHealthAction>(DashboardActionTypes.CheckHealth),
+        switchMap(_ => this.dashboardService.checkHealth()),
+        map(health => new CheckHealthCompletedAction(health))
+    );
+
 }

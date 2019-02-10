@@ -8,6 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 import { ShopifyService } from './shopify.service';
 import { DashboardEffects } from './dashboard.effects';
+import { DashboardService } from './dashboard.service';
 
 @NgModule({
     imports: [
@@ -18,6 +19,7 @@ import { DashboardEffects } from './dashboard.effects';
         StoreModule.forFeature(`dashboard`, reducer),
     ],
     providers: [
+        DashboardService,
         ShopifyService
     ]
 })

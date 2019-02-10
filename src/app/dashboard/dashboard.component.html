@@ -1,11 +1,14 @@
-<div class="dashboard-main col-lg-6">
+<mat-progress-spinner [value]="((refreshSeconds$ | async) % 60) / 0.6" [diameter]="24"></mat-progress-spinner>
+<div class="dashboard-card col-lg-4" [ngClass]="{'error-bg': (state$ | async).health !== '👍'}">
   <div>
     Server health: {{ (state$ | async).health }}
   </div>
+</div>
+<div class="dashboard-card col-lg-4" [ngClass]="{'error-bg': (state$ | async).unfulfilledOrdersCount !== '0'}">
   <div>
     Unfulfilled orders: {{ (state$ | async).unfulfilledOrdersCount }}
 
-    <button [disabled]="(state$ | async).fulfillAllOrders" *ngIf="(state$ | async).unfulfilledOrdersCount > 0" mat-raised-button class="btn btn-primary"
-      (click)="fulfillAllOrders()">Fulfill all orders</button> 
+    <button [disabled]="(state$ | async).fulfillAllOrders" *ngIf="+(state$ | async).unfulfilledOrdersCount > 0"
+      mat-raised-button (click)="fulfillAllOrders()">Fulfill all orders</button>
   </div>
 </div>
