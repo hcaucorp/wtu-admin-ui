@@ -2,13 +2,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { ShopifyService } from './shopify.service';
-import { Observable } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
+import { Observable, of, empty } from 'rxjs';
+import { switchMap, map, catchError } from 'rxjs/operators';
 import {
     LoadUnfulfilledOrdersCountAction, DashboardActionTypes, LoadUnfulfilledOrdersCountActionCompleted,
     DashboardActions, FulfillAllOrdersAction, FulfillAllOrdersCompletedAction, CheckHealthAction, CheckHealthCompletedAction
 } from './dashboard.actions';
-import { DashboardService } from './dashboard.service';
+import { DashboardService, HealthStatus } from './dashboard.service';
 
 @Injectable()
 export class DashboardEffects {
@@ -21,6 +21,7 @@ export class DashboardEffects {
     onLoadUnfulfilledOrdersCount$: Observable<DashboardActions> = this.actions$.pipe(
         ofType<LoadUnfulfilledOrdersCountAction>(DashboardActionTypes.LoadUnfulfilledOrdersCount),
         switchMap(_ => this.shopifyService.loadUnfulfilledOrdersCount()),
+        catchError(error => empty()),
         map(count => new LoadUnfulfilledOrdersCountActionCompleted(count))
     );
 
@@ -28,6 +29,7 @@ export class DashboardEffects {
     onFulfillAllOrders$: Observable<DashboardActions> = this.actions$.pipe(
         ofType<FulfillAllOrdersAction>(DashboardActionTypes.FulfillAllOrders),
         switchMap(_ => this.shopifyService.fulfillAllUnfulfilledOrders()),
+        catchError(error => of(null)),
         map(_ => new FulfillAllOrdersCompletedAction())
     );
 
@@ -41,6 +43,7 @@ export class DashboardEffects {
     onCheckHealth$: Observable<DashboardActions> = this.actions$.pipe(
         ofType<CheckHealthAction>(DashboardActionTypes.CheckHealth),
         switchMap(_ => this.dashboardService.checkHealth()),
+        catchError(error => of({ status: 'offline' })),
         map(health => new CheckHealthCompletedAction(health))
     );
 

@@ -16,7 +16,7 @@ export class FindFulfillmentForOrderAction implements Action {
 export class FindFulfillmentForOrderCompletedAction implements Action {
     readonly type = FulfillmentActionTypes.FindFulfillmentForOrderCompleted;
 
-    constructor(public payload: Fulfillment) { }
+    constructor(public payload?: Fulfillment) { }
 }
 
 export type FulfillmentActions = FindFulfillmentForOrderAction | FindFulfillmentForOrderCompletedAction;
