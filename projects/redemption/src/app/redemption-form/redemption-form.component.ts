@@ -19,7 +19,7 @@ export class RedemptionFormComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       voucherCode: ['', [Validators.required, Validators.minLength(12)]],
-      walletAddress: ['', [Validators.required, Validators.minLength(12)]]
+      destinationAddress: ['', [Validators.required, Validators.minLength(12)]]
     });
   }
 
@@ -36,7 +36,7 @@ export class RedemptionFormComponent implements OnInit {
           } if (error.status === 404) {
             this.snackBar.open('Your voucher code is not valid.', 'Close');
           } else {
-            this.snackBar.open('We coudn\'t redeem your voucher. Our staff has been notified about this ' +
+            this.snackBar.open('Fe coudn\'t redeem your voucher. Our staff has been notified about this ' +
               'error and will reach out to you if needed. Please contact us if you have any questions.', 'Close');
           }
           this.form.disable();
