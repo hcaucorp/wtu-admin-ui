@@ -24,8 +24,7 @@ export class RedemptionFormComponent implements OnInit {
   }
 
   onSubmit() {
-    const baseUrl = `/api/vouchers`;
-    return this.http.post<RedemptionResponse>(baseUrl, this.form.value)
+    return this.http.post<RedemptionResponse>(`/api/vouchers/redeem`, this.form.value)
       .subscribe(
         response => {
           this.snackBar.open(this.toMessage(response), 'Success');
