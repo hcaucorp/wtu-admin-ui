@@ -46,7 +46,6 @@ export class RedemptionFormComponent implements OnInit {
 
   toMessage(response: RedemptionResponse): string {
     return `Your voucher has been redeemed. Your confirmation number is: "${response.transactionId}". ` +
-      `You will also receive it via email. You can track your topup in your favourite blockchain explorer. We like these ones:\n` +
-      response.trackingUrls.reduce((a, b) => `${a}\n${b}`);
+      `You can track your topup (it is a transaction hash) in your favourite blockchain explorer.`;
   }
 }
