@@ -20,21 +20,3 @@ button {
     display: flex;
     width: fit-content;
 }
-
-.wallet-background {
-    min-width: 256px;
-    min-height: 256px;
-    background-image: url('../../assets/wallet-icon.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    position: relative;
-}
-
-.barcode-background {
-    min-width: 256px;
-    min-height: 256px;
-    background-image: url('../../assets/barcode-scan-icon.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-    position: relative;
-}

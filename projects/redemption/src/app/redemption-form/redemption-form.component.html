@@ -2,18 +2,16 @@
   <h1>Use your voucher code</h1>
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="main-form col-lg-6">
     <div class="form-layout">
-    <div class="barcode-background">
+    <div>
       <mat-form-field>
         <input type="text" formControlName="voucherCode" placeholder="your voucher code" matInput required>
         <mat-error>This field is required</mat-error>
       </mat-form-field>
     </div>
-    <div>
-      <button mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-primary">Send to</button>
-      <img scr="../../assets/arrow-right-icon.png">
+    <div >
+      <button mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-primary">Send to ></button>
     </div>
-    <div class="wallet-background">
-
+    <div>
       <mat-form-field>
         <input matInput type="text" class="form-control" required formControlName="destinationAddress" placeholder="wallet address">
         <mat-error>This field is required</mat-error>
@@ -21,4 +19,5 @@
     </div>
   </div>
   </form>
+  <img src="../../assets/logo.jpg"/>
 </div>

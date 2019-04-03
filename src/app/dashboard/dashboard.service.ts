@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-export interface HealthStatus {
-    status: string;
+export enum HealthStatus {
+    Offline,
+    Online,
 }
 
 @Injectable()

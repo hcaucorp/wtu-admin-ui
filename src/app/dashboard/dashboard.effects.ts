@@ -9,6 +9,7 @@ import {
     DashboardActions, FulfillAllOrdersAction, FulfillAllOrdersCompletedAction, CheckHealthAction, CheckHealthCompletedAction
 } from './dashboard.actions';
 import { DashboardService, HealthStatus } from './dashboard.service';
+import { playAudio, AudioFile } from '../audio/audio-player.service';
 
 @Injectable()
 export class DashboardEffects {
@@ -43,7 +44,10 @@ export class DashboardEffects {
     onCheckHealth$: Observable<DashboardActions> = this.actions$.pipe(
         ofType<CheckHealthAction>(DashboardActionTypes.CheckHealth),
         switchMap(_ => this.dashboardService.checkHealth()),
-        catchError(error => of({ status: 'offline' })),
+        catchError(error => {
+            playAudio(AudioFile.ServerOffline);
+            return of(HealthStatus.Offline);
+        }),
         map(health => new CheckHealthCompletedAction(health))
     );
 
