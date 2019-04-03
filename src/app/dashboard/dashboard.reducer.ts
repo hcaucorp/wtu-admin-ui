@@ -1,5 +1,6 @@
 import { createFeatureSelector } from '@ngrx/store';
 import { DashboardActions, DashboardActionTypes, LoadUnfulfilledOrdersCountActionCompleted } from './dashboard.actions';
+import { HealthStatus } from './dashboard.service';
 
 export interface DashboardFeatureState {
     fulfillingOrders: boolean;
@@ -26,7 +27,7 @@ export function reducer(state: DashboardFeatureState = initialState, action: Das
         case DashboardActionTypes.CheckHealth:
             return Object.assign({}, state, { health: '🤔' });
         case DashboardActionTypes.CheckHealthCompleted:
-            return Object.assign({}, state, { health: action.health.status === 'UP' ? '👍' : '💔'});
+            return Object.assign({}, state, { health: action.health === HealthStatus.Online ? '👍' : '💔'});
         default:
             return state;
     }
