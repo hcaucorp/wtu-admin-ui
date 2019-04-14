@@ -1,17 +1,20 @@
 import { createFeatureSelector } from '@ngrx/store';
-import { DashboardActions, DashboardActionTypes, LoadUnfulfilledOrdersCountActionCompleted } from './dashboard.actions';
+import { DashboardActions, DashboardActionTypes } from './dashboard.actions';
 import { HealthStatus } from './dashboard.service';
+import { playAudio, AudioFile } from '../audio/audio-player.service';
 
 export interface DashboardFeatureState {
     fulfillingOrders: boolean;
     unfulfilledOrdersCount: string;
     health: string;
+    ipBlacklistCount: number;
 }
 
 const initialState = {
     fulfillingOrders: false,
     unfulfilledOrdersCount: '🤷‍',
     health: '🤷‍',
+    ipBlacklistCount: 0,
 };
 
 export function reducer(state: DashboardFeatureState = initialState, action: DashboardActions) {
@@ -23,6 +26,7 @@ export function reducer(state: DashboardFeatureState = initialState, action: Das
         case DashboardActionTypes.LoadUnfulfilledOrdersCount:
             return Object.assign({}, state, { unfulfilledOrdersCount: '🤔' });
         case DashboardActionTypes.LoadUnfulfilledOrdersCountCompleted:
+            // if (action.count > 0) { playAudio(AudioFile.Unfulfilled); }
             return Object.assign({}, state, { unfulfilledOrdersCount: '' + action.count });
         case DashboardActionTypes.CheckHealth:
             return Object.assign({}, state, { health: '🤔' });

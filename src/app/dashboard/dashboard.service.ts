@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+// import { map } from 'rxjs/operators';
 
 export enum HealthStatus {
     Offline,
@@ -16,5 +17,9 @@ export class DashboardService {
 
     checkHealth(): Observable<HealthStatus> {
         return this.http.get<HealthStatus>(`${this.baseUrl}/health`);
+        // return this.http.get<HealthStatus>(`${this.baseUrl}/health`, {observe: 'response'})
+        // .pipe(
+            // map(response => response.status === 200 ? HealthStatus.Online : HealthStatus.Offline)
+        // );
     }
 }
