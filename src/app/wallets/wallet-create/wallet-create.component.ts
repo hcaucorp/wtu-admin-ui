@@ -7,7 +7,6 @@ import { GenerateWalletAction, LoadWalletsAction } from '../actions/wallet.actio
 import { WalletsFeatureState, getWalletsState } from '../reducers/wallet.reducer';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { isDefined } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-wallet-create',
@@ -37,7 +36,7 @@ export class WalletCreateComponent implements OnInit {
   walletExists(currency: string): Observable<boolean> {
     return this.existingWalletsCurrencies$.pipe(
       map(currencies => currencies.find(a => a === currency)),
-      map(value => isDefined(value))
+      map(value => !!value)
     );
   }
 

@@ -26,7 +26,7 @@ export class VouchersDeleteComponent {
 
     this.voucherSkus$ = data.vouchers$.pipe(
       map(vouchers => vouchers.map(voucher => voucher.sku)),
-      distinct()
+      map(skus => skus.filter((value, index, self) => self.indexOf(value) === index))
     );
   }
 
@@ -36,5 +36,4 @@ export class VouchersDeleteComponent {
     this.bottomSheetRef.dismiss();
     event.preventDefault();
   }
-
 }

@@ -26,7 +26,7 @@ export function reducer(state: DashboardFeatureState = initialState, action: Das
         case DashboardActionTypes.LoadUnfulfilledOrdersCount:
             return Object.assign({}, state, { unfulfilledOrdersCount: '🤔' });
         case DashboardActionTypes.LoadUnfulfilledOrdersCountCompleted:
-            // if (action.count > 0) { playAudio(AudioFile.Unfulfilled); }
+            if (action.count > 0) { playAudio(AudioFile.Unfulfilled); }
             return Object.assign({}, state, { unfulfilledOrdersCount: '' + action.count });
         case DashboardActionTypes.CheckHealth:
             return Object.assign({}, state, { health: '🤔' });
