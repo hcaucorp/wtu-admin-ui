@@ -18,5 +18,11 @@ button {
 
 .form-layout {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: fit-content;
+}
+
+.button-layer {
+    margin: auto;
 }

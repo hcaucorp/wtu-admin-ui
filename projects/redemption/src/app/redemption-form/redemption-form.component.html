@@ -2,22 +2,24 @@
   <h1>Use your voucher code</h1>
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="main-form col-lg-6">
     <div class="form-layout">
-    <div>
-      <mat-form-field>
-        <input type="text" formControlName="voucherCode" placeholder="your voucher code" matInput required>
-        <mat-error>This field is required</mat-error>
-      </mat-form-field>
+      <div>
+        <mat-form-field  appearance="outline">
+            <mat-label>Your voucher code</mat-label>
+          <input type="text" formControlName="voucherCode" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" matInput required>
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="button-layer">
+        <button mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-primary">Send to ></button>
+      </div>
+      <div>
+        <mat-form-field  appearance="outline">
+            <mat-label>Wallet address</mat-label>
+          <input matInput type="text" class="form-control" required formControlName="destinationAddress" placeholder="e.g. 1CuQ2hadahPMEt2S7cTTbuyo1AUK3Y3U7V for BTC">
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+      </div>
     </div>
-    <div >
-      <button mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-primary">Send to ></button>
-    </div>
-    <div>
-      <mat-form-field>
-        <input matInput type="text" class="form-control" required formControlName="destinationAddress" placeholder="wallet address">
-        <mat-error>This field is required</mat-error>
-      </mat-form-field>
-    </div>
-  </div>
   </form>
-  <img src="../../assets/logo.jpg"/>
+  <img src="../../assets/logo.jpg" />
 </div>
