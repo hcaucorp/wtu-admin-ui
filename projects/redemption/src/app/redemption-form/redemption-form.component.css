@@ -1,6 +1,6 @@
 mat-form-field {
     display: block;
-    width: 360px;
+    width: 320px;
 }
 
 button {
@@ -8,21 +8,31 @@ button {
     margin: 10px;
 }
 
-.center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
+input {
+    font-size: 13px;
 }
 
 .form-layout {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: fit-content;
 }
 
 .button-layer {
-    margin: auto;
+    margin-bottom: 16px;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-layer {
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+.parent {
+    display: grid;
+    flex-direction: column;
+    justify-content: center;
 }
