@@ -12,6 +12,7 @@ import { RedemptionResponse } from './redemption-form.model';
 export class RedemptionFormComponent implements OnInit {
 
   form: FormGroup;
+  submitted = false;
 
   constructor(private http: HttpClient,
     private fb: FormBuilder, private snackBar: MatSnackBar) { }
@@ -19,11 +20,14 @@ export class RedemptionFormComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       voucherCode: ['', [Validators.required, Validators.minLength(12)]],
-      destinationAddress: ['', [Validators.required, Validators.minLength(12)]]
+      destinationAddress: ['', [Validators.required, Validators.minLength(12)]],
+      currency: 'BTC'
     });
   }
 
   onSubmit() {
+    this.submitted = true;
+
     return this.http.post<RedemptionResponse>(`/api/vouchers/redeem`, this.form.value)
       .subscribe(
         response => {
@@ -36,8 +40,7 @@ export class RedemptionFormComponent implements OnInit {
           } if (error.status === 404) {
             this.snackBar.open('Your voucher code is not valid.', 'Close');
           } else {
-            this.snackBar.open('We coudn\'t redeem your voucher. Our staff has been notified about this ' +
-              'error and will reach out to you if needed. Please contact us if you have any questions.', 'Close');
+            this.snackBar.open('Top up failed', 'Close');
           }
           this.form.disable();
         }
@@ -45,7 +48,6 @@ export class RedemptionFormComponent implements OnInit {
   }
 
   toMessage(response: RedemptionResponse): string {
-    return `Your voucher has been redeemed. Your confirmation number is: "${response.transactionId}". ` +
-      `You can track your topup (it is a transaction hash) in your favourite blockchain explorer.`;
+    return `We've sent your top up to address provided! Please check your wallet app!`;
   }
 }

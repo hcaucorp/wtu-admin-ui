@@ -24,6 +24,13 @@ describe('RedemptionFormComponent', () => {
   });
 
   it('should sent redemption request when form completed', () => {
+    const button = fixture.debugElement.nativeElement.querySelector('.button-up');
 
   });
+
+  class PageObjects {
+    voucherCodeInput = 'voucherCodeInput';
+    addressInput = 'addressInput';
+    sendToButton = 'sendToButton';
+  }
 });

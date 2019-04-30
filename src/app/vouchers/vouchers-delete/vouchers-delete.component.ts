@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { DeleteVouchersAction } from '../actions/voucher.actions';
 import { Voucher } from '../model/voucher';
-import { map, distinct } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 export interface VouchersDeletePayload {
   vouchers$: Observable<Voucher[]>;

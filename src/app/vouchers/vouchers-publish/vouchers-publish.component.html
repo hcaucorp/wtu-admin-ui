@@ -2,7 +2,7 @@
 <mat-chip-list>
   <mat-chip 
   *ngFor="let sku of voucherSkus$ | async" 
-  (click)="onClickDelete(sku)"
+  (click)="onClickPublish(sku)"
   color="accent"
   >{{sku}}</mat-chip>
 </mat-chip-list>

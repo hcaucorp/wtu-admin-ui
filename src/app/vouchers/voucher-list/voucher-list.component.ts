@@ -30,11 +30,21 @@ export class VoucherListComponent implements OnInit {
     this.store.dispatch(new LoadVouchersAction());
   }
 
-  openBottomSheet(): void {
-    this.bottomSheet.open(VouchersDeleteComponent, {
-      data: {
-        vouchers$: this.vouchers$
-      }
-    });
+  openBottomSheet(action: string): void {
+    if (action === 'delete') {
+      this.bottomSheet.open(VouchersDeleteComponent, {
+        data: {
+          vouchers$: this.vouchers$
+        }
+      });
+    }
+
+    if (action === 'publish') {
+      this.bottomSheet.open(VouchersPublishComponent, {
+        data: {
+          vouchers$: this.vouchers$
+        }
+      })
+    }
   }
 }

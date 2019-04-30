@@ -31,6 +31,7 @@
 <nav class="col-lg-3">
   <ul>
     <li><a routerLink="/vouchers/generate" class="generate-vouchers-link">Create new vouchers</a></li>
-    <li *ngIf="(vouchers$ | async).length > 0"><a (click)="openBottomSheet()">Delete by SKU</a></li>
+    <li *ngIf="(vouchers$ | async).length > 0"><a (click)="openBottomSheet('delete')">Delete by SKU</a></li>
+    <li *ngIf="(vouchers$ | async).length > 0"><a (click)="openBottomSheet('publish')">Publish by SKU</a></li>
   </ul>
 </nav>

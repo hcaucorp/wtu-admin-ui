@@ -14,6 +14,7 @@ import { VoucherListComponent } from './voucher-list/voucher-list.component';
 import { VouchersRoute } from './vouchers-router.config';
 import { VouchersDeleteComponent } from './vouchers-delete/vouchers-delete.component';
 import { MaterialModule } from '../shared/material.module';
+import { VouchersPublishComponent } from './vouchers-publish/vouchers-publish.component';
 
 @NgModule({
     declarations: [
@@ -21,6 +22,7 @@ import { MaterialModule } from '../shared/material.module';
         VouchersGenerateComponent,
         VoucherListComponent,
         VouchersDeleteComponent,
+        VouchersPublishComponent,
     ],
     entryComponents: [VouchersDeleteComponent],
     imports: [
