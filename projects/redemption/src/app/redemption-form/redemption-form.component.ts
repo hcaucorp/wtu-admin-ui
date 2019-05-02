@@ -23,7 +23,7 @@ export class RedemptionFormComponent implements OnInit {
     this.form = this.fb.group({
       voucherCode: ['', [Validators.required, Validators.minLength(12)]],
       destinationAddress: ['', [Validators.required, Validators.minLength(12)]],
-      currency: 'BCH'
+      currency: 'BTC'
     });
   }
 

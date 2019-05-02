@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { LoadVouchersAction } from '../actions/voucher.actions';
 import { MatBottomSheet } from '@angular/material';
 import { VouchersDeleteComponent } from '../vouchers-delete/vouchers-delete.component';
+import { VouchersPublishComponent } from '../vouchers-publish/vouchers-publish.component';
 
 @Component({
   selector: 'app-voucher-list',
@@ -44,7 +45,7 @@ export class VoucherListComponent implements OnInit {
         data: {
           vouchers$: this.vouchers$
         }
-      })
+      });
     }
   }
 }
