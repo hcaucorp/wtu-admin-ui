@@ -14,6 +14,8 @@ export class RedemptionFormComponent implements OnInit {
   form: FormGroup;
   submitted = false;
 
+  readonly supportedCurrencies: string[] = ['BTC', 'BCH'];
+
   constructor(private http: HttpClient,
     private fb: FormBuilder, private snackBar: MatSnackBar) { }
 
@@ -21,7 +23,7 @@ export class RedemptionFormComponent implements OnInit {
     this.form = this.fb.group({
       voucherCode: ['', [Validators.required, Validators.minLength(12)]],
       destinationAddress: ['', [Validators.required, Validators.minLength(12)]],
-      currency: 'BTC'
+      currency: 'BCH'
     });
   }
 

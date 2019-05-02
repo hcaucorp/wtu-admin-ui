@@ -1,27 +1,35 @@
 <div class="parent">
-    <h1>Use your voucher code</h1>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="main-form col-lg-6">
-      <div class="form-layout">
-        <div>
-          <mat-form-field  appearance="outline">
-              <mat-label>Your voucher code</mat-label>
-            <input type="text" formControlName="voucherCode" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" matInput required class=".voucherCodeInput">
-            <mat-error>This field is required</mat-error>
-          </mat-form-field>
-        </div>
-        <div class="button-layer">
-          <button mat-raised-button type="submit" [disabled]="!form.valid || submitted" class="btn btn-primary sendToButton">Send to ></button>
-        </div>
-        <div>
-          <mat-form-field  appearance="outline">
-              <mat-label>Wallet address</mat-label>
-            <input matInput type="text" class="form-control addressInput" required formControlName="destinationAddress" placeholder="e.g. 1CuQ2hadahPMEt2S7cTTbuyo1AUK3Y3U7V">
-            <mat-error>This field is required</mat-error>
-          </mat-form-field>
-        </div>
+  <h1>Use your voucher code</h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="main-form col-lg-6">
+    <div class="form-layout">
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Your voucher code</mat-label>
+          <input type="text" formControlName="voucherCode" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" matInput
+            required class="voucherCodeInput">
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
       </div>
-    </form>
-    <div  class="logo-layer">
-      <img src="../../assets/logo.png" />
+      <div class="button-layer">
+        <button mat-raised-button type="submit" [disabled]="!form.valid || submitted"
+          class="btn btn-primary sendToButton">Send to ></button>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Wallet address</mat-label>
+          <input matInput type="text" class="form-control addressInput" required formControlName="destinationAddress"
+            placeholder="e.g. 1CuQ2hadahPMEt2S7cTTbuyo1AUK3Y3U7V">
+          <mat-error align>This field is required</mat-error>
+          <mat-hint align="end"><a href="https://wallettopup.co.uk/blogs/news/getting-started-with-bitcoin-and-creating-your-first-wallet">Don't have one?</a></mat-hint>  
+        </mat-form-field>
+        <!-- <mat-radio-group *ngIf="supportedCurrencies" formControlName="currency">
+          <mat-label>Your wallet currency</mat-label>
+            <mat-radio-button *ngFor="let currency of supportedCurrencies" [value]="currency">{{ currency }}</mat-radio-button>
+        </mat-radio-group> -->
+      </div>
     </div>
+  </form>
+  <div class="logo-layer">
+    <img src="../../assets/logo.png" />
   </div>
+</div>
