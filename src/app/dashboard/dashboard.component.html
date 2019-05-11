@@ -1,5 +1,5 @@
 <mat-progress-spinner [value]="((refreshSeconds$ | async) % 60) / 0.6" [diameter]="24"></mat-progress-spinner>
-<div class="dashboard-card col-lg-4" [ngClass]="{'error-bg': (state$ | async).health !== '👍'}">
+<div class="dashboard-card col-lg-4" [ngClass]="{'error-bg': (state$ | async).health !== '✅'}">
   <div>
     Server health: {{ (state$ | async).health }}
   </div>

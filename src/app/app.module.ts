@@ -20,7 +20,6 @@ import { AuthGuard } from './auth0/auth.guard';
 import { CallbackComponent } from './callback/callback.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { FulfillmentsComponent } from './fulfillments/fulfillments.component';
 import { FulfillmentsModule } from './fulfillments/fulfillments.module';
 
 @NgModule({

@@ -19,7 +19,7 @@ export class WalletCreateComponent implements OnInit {
 
   walletForm: FormGroup;
 
-  readonly supportedCurrencies: string[] = ['BTC'];
+  readonly supportedCurrencies: string[] = ['BTC', 'BCH'];
 
   constructor(
     private store: Store<WalletsFeatureState>,

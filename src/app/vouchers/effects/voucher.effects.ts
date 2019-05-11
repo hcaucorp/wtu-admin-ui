@@ -7,6 +7,8 @@ import {
   VoucherActions, LoadVouchersAction, VoucherActionTypes, LoadVouchersCompleted,
   GenerateVouchersAction,
   DeleteVouchersAction,
+  PublishVouchersAction,
+  UnPublishVouchersAction,
 } from '../actions/voucher.actions';
 import { VoucherService } from '../service/voucher.service';
 
@@ -34,6 +36,20 @@ export class VoucherEffects {
   onDeleteVouchers$: Observable<VoucherActions> = this.actions$.pipe(
     ofType<DeleteVouchersAction>(VoucherActionTypes.DeleteVouchers),
     switchMap(action => this.voucherService.deleteVouchers(action.sku)),
+    map(_ => new LoadVouchersAction())
+  );
+
+  @Effect()
+  onPublishVouchers$: Observable<VoucherActions> = this.actions$.pipe(
+    ofType<PublishVouchersAction>(VoucherActionTypes.PublishVouchers),
+    switchMap(action => this.voucherService.publishVouchers(action.sku)),
+    map(_ => new LoadVouchersAction())
+  );
+
+  @Effect()
+  onUnPublishVouchers$: Observable<VoucherActions> = this.actions$.pipe(
+    ofType<UnPublishVouchersAction>(VoucherActionTypes.UnPublishVouchers),
+    switchMap(action => this.voucherService.unpublishVouchers(action.sku)),
     map(_ => new LoadVouchersAction())
   );
 }

@@ -22,4 +22,12 @@ export class VoucherService {
     deleteVouchers(sku: string): Observable<any> {
         return this.http.delete<any>(`${this.baseUrl}/${sku}`);
     }
+
+    publishVouchers(sku: string): Observable<any> {
+        return this.http.post<any>(`${this.baseUrl}/${sku}/publish`, '');
+    }
+
+    unpublishVouchers(sku: string): Observable<any> {
+        return this.http.post<any>(`${this.baseUrl}/${sku}/unpublish`, '');
+    }
 }

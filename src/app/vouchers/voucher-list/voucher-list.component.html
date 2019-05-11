@@ -20,9 +20,9 @@
         <td>{{ voucher.sku }}</td>
         <td>{{ voucher.code }}</td>
 
-        <td>{{ voucher.published }}</td>
-        <td>{{ voucher.sold }}</td>
-        <td>{{ voucher.redeemed }}</td>
+        <td>{{ voucher.published ? '✅' : '🙅🏻‍♀️' }}</td>
+        <td>{{ voucher.sold ? '✅' : '🙅🏻‍♀️' }}</td>
+        <td>{{ voucher.redeemed ? '✅' : '🙅🏻‍♀️' }}</td>
       </tr>
     </tbody>
   </table>
@@ -30,8 +30,9 @@
 
 <nav class="col-lg-3">
   <ul>
-    <li><a routerLink="/vouchers/generate" class="generate-vouchers-link">Create new vouchers</a></li>
-    <li *ngIf="(vouchers$ | async).length > 0"><a (click)="openBottomSheet('delete')">Delete by SKU</a></li>
-    <li *ngIf="(vouchers$ | async).length > 0"><a (click)="openBottomSheet('publish')">Publish by SKU</a></li>
+    <li><a routerLink="/vouchers/generate" class="generate-vouchers-link">Create</a></li>
+    <li *ngIf="(vouchers$ | async).length > 0"><a (click)="openBottomSheet('d')">Delete</a></li>
+    <li *ngIf="(vouchers$ | async).length > 0"><a (click)="openBottomSheet('p')">Publish</a></li>
+    <li *ngIf="(vouchers$ | async).length > 0"><a (click)="openBottomSheet('u')">UnPublish</a></li>
   </ul>
 </nav>

@@ -1,8 +1,4 @@
-<h3>Click SKU chips to delete them:</h3>
+<h3>Click SKU chips:</h3>
 <mat-chip-list>
-  <mat-chip 
-  *ngFor="let sku of voucherSkus$ | async" 
-  (click)="onClickDelete(sku)"
-  color="accent"
-  >{{sku}}</mat-chip>
+  <mat-chip *ngFor="let sku of voucherSkus$ | async" (click)="onClickDelete(sku)" color="accent">{{sku}}</mat-chip>
 </mat-chip-list>

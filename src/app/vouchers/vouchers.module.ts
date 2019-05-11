@@ -24,7 +24,10 @@ import { VouchersPublishComponent } from './vouchers-publish/vouchers-publish.co
         VouchersDeleteComponent,
         VouchersPublishComponent,
     ],
-    entryComponents: [VouchersDeleteComponent],
+    entryComponents: [
+        VouchersDeleteComponent,
+        VouchersPublishComponent,
+    ],
     imports: [
         CommonModule,
         EffectsModule.forFeature([VoucherEffects]),

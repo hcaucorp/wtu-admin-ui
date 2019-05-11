@@ -13,12 +13,18 @@ import { WalletCreateComponent } from './wallet-create/wallet-create.component';
 import { WalletsComponent } from './wallets.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../shared/material.module';
+import { QRCodeModule } from 'angularx-qrcode';
+import { QrComponent } from '../qr/qr-dialog/qr-dialog.component';
 
 @NgModule({
     declarations: [
         WalletsComponent,
         WalletCreateComponent,
         WalletListComponent,
+        QrComponent,
+    ],
+    entryComponents: [
+        QrComponent,
     ],
     imports: [
         CommonModule,
@@ -26,6 +32,7 @@ import { MaterialModule } from '../shared/material.module';
         HttpClientModule,
         MaterialModule,
         ReactiveFormsModule,
+        QRCodeModule,
         RouterModule.forChild([WalletsRoute]),
         StoreModule.forFeature(`wallets`, reducer),
     ],

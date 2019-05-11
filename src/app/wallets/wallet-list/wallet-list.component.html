@@ -1,5 +1,5 @@
 <div class="parent" *ngIf="!(state$ | async).loadingWallets">
-  <div class="child col-lg-12" *ngIf="(wallets$ | async).length > 0">
+  <div class="child col-lg-9" *ngIf="(wallets$ | async).length > 0">
     <h3>List of all wallets in the system</h3>
 
     <table class="table table-striped">
@@ -16,22 +16,20 @@
           <td>{{ wallet.id }}</td>
           <td>{{ wallet.currency }}</td>
           <td>{{ wallet.balance/100000000 }}</td>
-          <td>{{ wallet.address }}</td>
+          <td (click)="showQR(wallet.address)" class="clickable">{{ wallet.address }}</td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <div class="col-lg-12 no-wallets-layer" *ngIf="(wallets$ | async).length == 0">
-    <h3>There is no wallets in the system.</h3>
-    <button routerLink="/wallets/generate" class="btn btn-primary create-first-wallet" mat-raised-button>Create first
+  <nav class="col-lg-3">
+    <button routerLink="/wallets/generate" class="btn btn-primary create-wallet" mat-raised-button>Create a
       wallet</button>
-  </div>
-</div>
+  </nav>
 
-<div class="parent" *ngIf="(state$ | async).loadingWallets">
-  <div class="child">
-    <mat-spinner></mat-spinner>
-    Loading wallets...
+  <div class="parent" *ngIf="(state$ | async).loadingWallets">
+    <div class="child">
+      <mat-spinner></mat-spinner>
+      Loading wallets...
+    </div>
   </div>
-</div>

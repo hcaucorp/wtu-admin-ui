@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { LoadWalletsAction } from '../actions/wallet.actions';
 import { WalletsFeatureState, getWalletsState } from '../reducers/wallet.reducer';
 import { map } from 'rxjs/operators';
+import { MatDialog } from '@angular/material';
+import { QrComponent } from 'src/app/qr/qr-dialog/qr-dialog.component';
 
 @Component({
   selector: 'app-wallet-list',
@@ -17,7 +19,8 @@ export class WalletListComponent implements OnInit {
 
   state$: Observable<WalletsFeatureState>;
 
-  constructor(private store: Store<any>) {
+  constructor(private store: Store<any>,
+    private dialog: MatDialog) {
     this.state$ = store.select<WalletsFeatureState>(getWalletsState);
     this.wallets$ = this.state$.pipe(
       map(state => state.wallets));
@@ -25,5 +28,13 @@ export class WalletListComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new LoadWalletsAction());
+  }
+
+  showQR(qrdata: string) {
+    this.dialog.open(QrComponent, {
+      data: {
+        qrData: qrdata
+      }
+    });
   }
 }

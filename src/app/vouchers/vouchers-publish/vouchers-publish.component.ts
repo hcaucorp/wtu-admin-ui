@@ -4,10 +4,11 @@ import { Voucher } from '../model/voucher';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { PublishVouchersAction, UnPublishVouchersAction } from '../actions/voucher.actions';
+import { PublishVouchersAction, UnPublishVouchersAction, VoucherActionTypes } from '../actions/voucher.actions';
 
-export interface VouchersDeletePayload {
+export interface VouchersPublishPayload {
   vouchers$: Observable<Voucher[]>;
+  action?: VoucherActionTypes;
 }
 
 @Component({
@@ -21,7 +22,7 @@ export class VouchersPublishComponent {
 
   constructor(
     private bottomSheetRef: MatBottomSheetRef<VouchersPublishComponent>,
-    @Inject(MAT_BOTTOM_SHEET_DATA) public data: VouchersDeletePayload,
+    @Inject(MAT_BOTTOM_SHEET_DATA) public data: VouchersPublishPayload,
     private store: Store<any>) {
 
     this.voucherSkus$ = data.vouchers$.pipe(
@@ -30,18 +31,14 @@ export class VouchersPublishComponent {
     );
   }
 
-  onClickPublish(sku: string): void {
-    this.store.dispatch(new PublishVouchersAction(sku));
+  onClick(sku: string): void {
+    if (this.data.action === VoucherActionTypes.PublishVouchers) {
+      this.store.dispatch(new PublishVouchersAction(sku));
+    } else if (this.data.action === VoucherActionTypes.UnPublishVouchers) {
+      this.store.dispatch(new UnPublishVouchersAction(sku));
+    }
 
     this.bottomSheetRef.dismiss();
     event.preventDefault();
   }
-
-  onClickUnpublish(sku: string): void {
-    this.store.dispatch(new UnPublishVouchersAction(sku));
-
-    this.bottomSheetRef.dismiss();
-    event.preventDefault();
-  }
-
 }
