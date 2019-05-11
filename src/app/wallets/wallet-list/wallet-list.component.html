@@ -1,7 +1,7 @@
 <div class="parent" *ngIf="!(state$ | async).loadingWallets">
   <div class="child col-lg-9" *ngIf="(wallets$ | async).length > 0">
     <h3>List of all wallets in the system</h3>
-
+    <mat-progress-spinner [value]="((refreshSeconds$ | async) % 60) / 0.6" [diameter]="24"></mat-progress-spinner>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -26,10 +26,11 @@
     <button routerLink="/wallets/generate" class="btn btn-primary create-wallet" mat-raised-button>Create a
       wallet</button>
   </nav>
+</div>
 
-  <div class="parent" *ngIf="(state$ | async).loadingWallets">
-    <div class="child">
-      <mat-spinner></mat-spinner>
-      Loading wallets...
-    </div>
+<div class="parent" *ngIf="(state$ | async).loadingWallets">
+  <div class="child">
+    <mat-spinner></mat-spinner>
+    Loading wallets...
   </div>
+</div>
