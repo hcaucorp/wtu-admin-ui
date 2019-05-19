@@ -5,7 +5,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Development server
 
 Run `npm run dev` for a dev server. Navigate to `http://localhost:4200/`.
-Run redemption project with `ng serve redemption`
+Run redemption project with `npm run dev redemption`
 
 ## Code scaffolding
 

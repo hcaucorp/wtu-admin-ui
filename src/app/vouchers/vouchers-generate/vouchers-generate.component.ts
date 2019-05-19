@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
@@ -8,6 +8,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GenerateVouchersAction } from '../actions/voucher.actions';
 import { LoadWalletsAction } from 'src/app/wallets/actions/wallet.actions';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
+export interface DialogData {
+  counter: number;
+  total: number;
+}
 
 @Component({
   selector: 'app-vouchers-generate',
@@ -20,9 +26,13 @@ export class VouchersGenerateComponent implements OnInit {
 
   voucherFormGroup: FormGroup;
 
+  scannerEnabled = false;
+  scannedVoucherCodes: Array<String> = [];
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private dialog: MatDialog,
     private store: Store<any>) {
     this.wallets$ = store.select<WalletsFeatureState>(getWalletsState)
       .pipe(
@@ -38,12 +48,58 @@ export class VouchersGenerateComponent implements OnInit {
       price: [0, Validators.min(1)],
       priceCurrency: 'GBP',
       sku: ['', [Validators.required, Validators.minLength(5)]],
+      voucherCodeType: ['', [Validators.required, Validators.minLength(43), Validators.maxLength(43)]],
     });
     this.store.dispatch(new LoadWalletsAction());
   }
 
   onSubmit() {
-    this.store.dispatch(new GenerateVouchersAction(this.voucherFormGroup.value));
-    this.router.navigate(['/vouchers']);
+    const formValue = this.voucherFormGroup.value;
+    if (formValue.voucherCodeType === 'online') {
+      this.store.dispatch(new GenerateVouchersAction(this.voucherFormGroup.value));
+      this.router.navigate(['/vouchers']);
+    } else if (formValue.voucherCodeType === 'paper') {
+      this.openDialog();
+    }
+  }
+
+  scanSuccessHandler(result: String) {
+    this.scannedVoucherCodes.push(result);
+    this.scannerEnabled = false;
+
+    const formValue = this.voucherFormGroup.value;
+    if (this.scannedVoucherCodes.length === formValue.count) {
+
+    } else {
+      this.openDialog();
+    }
+  }
+
+  openDialog(): void {
+    const formValue = this.voucherFormGroup.value;
+    const dialogRef = this.dialog.open(DialogScanConfirmationComponent, {
+      width: '250px',
+      data: { counter: this.scannedVoucherCodes.length, total: formValue.count }
+    });
+
+    dialogRef.afterClosed()
+      .subscribe(result => {
+        this.scannerEnabled = true;
+      });
+  }
+}
+
+@Component({
+  selector: 'app-dialog-scan-confirmation',
+  templateUrl: 'dialog-scan-confirmation.html',
+})
+export class DialogScanConfirmationComponent {
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogScanConfirmationComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+
+  onNextClick(): void {
+    this.dialogRef.close();
   }
 }

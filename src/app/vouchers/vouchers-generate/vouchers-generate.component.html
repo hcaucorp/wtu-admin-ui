@@ -4,7 +4,8 @@
 
     <div class="form-group">
       <label>How many</label>
-      <input type="number" class="form-control" required formControlName="count" placeholder="number of vouchers to generate">
+      <input type="number" class="form-control" required formControlName="count"
+        placeholder="number of vouchers to generate">
     </div>
 
     <div class="form-group">
@@ -17,8 +18,8 @@
       <div *ngIf="wallets$ | async">
         <select class="form-control" formControlName="walletId" required>
           <option [value]="">select wallet</option>
-          <option *ngFor="let wallet of wallets$ | async" [value]="wallet.id" >
-            Wallet #{{wallet.id }}, balance {{ wallet.balance }} {{ wallet.currency }}</option>
+          <option *ngFor="let wallet of wallets$ | async" [value]="wallet.id">
+            Wallet #{{wallet.id }}, balance {{ wallet.balance/100000000 }} {{ wallet.currency }}</option>
         </select>
       </div>
     </div>
@@ -33,18 +34,47 @@
       <input type="text" class="form-control" required formControlName="sku" placeholder="sku">
     </div>
 
-    <button type="submit" [disabled]="!voucherFormGroup.valid" class="btn btn-primary" mat-raised-button>Generate now</button>
+    <div class="form-group">
+      <label>Voucher code type</label>
+      <mat-radio-group aria-labelledby="example-radio-group-label" required formControlName="voucherCodeType"
+        class="radio-group">
+        <mat-radio-button value="online" class="radio-button">generate random</mat-radio-button>
+        <mat-radio-button value="paper" class="radio-button">scan QR codes</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div class="form-group">
+      <label>Scanned voucher codes ({{scannedVoucherCodes.length}}/{{voucherFormGroup?.value?.count}})</label>
+    </div>
+
+    <button type="submit" [disabled]="!voucherFormGroup.valid" class="btn btn-primary" mat-raised-button>Create</button>
   </form>
 </div>
+
+<!-- <zxing-scanner
+    [scannerEnabled]="scannerEnabled"
+    [autofocusEnabled]="autofocusEnabled"
+    [device]="desiredDevice"
+    [torch]="torch"
+    (camerasFound)="camerasFoundHandler($event)"
+    (scanSuccess)="scanSuccessHandler($event)"
+    (scanError)="scanErrorHandler($event)"
+    (scanFailure)="scanFailureHandler($event)"
+    (scanComplete)="scanCompleteHandler($event)"
+></zxing-scanner> -->
+<zxing-scanner
+    [scannerEnabled]="scannerEnabled"
+    (scanSuccess)="scanSuccessHandler($event)"
+></zxing-scanner>
 
 <div class="col-lg-6">
   <p>Some things to remember:
     <ul>
       <li>Vouchers can be deleted if any mistake has been made here.</li>
-      <li>Vouchers can't be deleted after publishing to a Sales Channel, but that's a next step after this.</li>
+      <li>Vouchers can't be deleted after publishing.</li>
       <li>There is no automatic amount validations so make sure there is money on the wallet to cover the vouchers
         otherwise we will in big trouble.</li>
-      <li>Once generated correctly, vouchers have to be published to become available on a Sale Channel</li>
+      <li>Vouchers have to be published to become available for sale.</li>
       <li>Each voucher will contain amount = (total amount)/count, also total amount has to be divisible by count)</li>
     </ul>
 </div>

@@ -14,16 +14,13 @@ export class RedemptionFormComponent implements OnInit {
   form: FormGroup;
   submitted = false;
 
-  readonly supportedCurrencies: string[] = ['BTC', 'BCH'];
-
   constructor(private http: HttpClient,
     private fb: FormBuilder, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.form = this.fb.group({
       voucherCode: ['', [Validators.required, Validators.minLength(12)]],
-      destinationAddress: ['', [Validators.required, Validators.minLength(12)]],
-      currency: 'BTC'
+      destinationAddress: ['', [Validators.required, Validators.minLength(12)]]
     });
   }
 

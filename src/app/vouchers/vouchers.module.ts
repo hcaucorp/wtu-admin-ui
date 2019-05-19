@@ -7,7 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { VouchersComponent } from './vouchers.component';
-import { VouchersGenerateComponent } from './vouchers-generate/vouchers-generate.component';
+import { VouchersGenerateComponent, DialogScanConfirmationComponent } from './vouchers-generate/vouchers-generate.component';
 import { VoucherEffects } from './effects/voucher.effects';
 import { VoucherService } from './service/voucher.service';
 import { VoucherListComponent } from './voucher-list/voucher-list.component';
@@ -15,9 +15,11 @@ import { VouchersRoute } from './vouchers-router.config';
 import { VouchersDeleteComponent } from './vouchers-delete/vouchers-delete.component';
 import { MaterialModule } from '../shared/material.module';
 import { VouchersPublishComponent } from './vouchers-publish/vouchers-publish.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
     declarations: [
+        DialogScanConfirmationComponent,
         VouchersComponent,
         VouchersGenerateComponent,
         VoucherListComponent,
@@ -35,6 +37,7 @@ import { VouchersPublishComponent } from './vouchers-publish/vouchers-publish.co
         ReactiveFormsModule,
         RouterModule.forChild([VouchersRoute]),
         StoreModule.forFeature(`vouchers`, reducer),
+        ZXingScannerModule,
     ],
     providers: [
         VoucherService,

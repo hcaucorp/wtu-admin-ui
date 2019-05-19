@@ -2,10 +2,11 @@ import { Action } from '@ngrx/store';
 import { Voucher } from '../model/voucher';
 
 export enum VoucherActionTypes {
+    ActivatePaperVouchers = '[Voucher] Activate Paper Vouchers',
+    DeleteVouchers = '[Voucher] Delete Vouchers',
+    GenerateVouchers = '[Voucher] Generate Vouchers',
     LoadVouchers = '[Voucher] Load Vouchers',
     LoadVouchersCompleted = '[Voucher] Load Vouchers Completed',
-    GenerateVouchers = '[Voucher] Generate Vouchers',
-    DeleteVouchers = '[Voucher] Delete Vouchers',
     PublishVouchers = '[Voucher] Publish Vouchers',
     UnPublishVouchers = '[Voucher] Un-Publish Vouchers',
 }
@@ -17,6 +18,16 @@ export interface GenerateVouchersSpec {
     singlePrice: number;
     singlePriceCurrency: string;
     sku: string;
+}
+
+export interface ActivatePaperVouchersSpec extends GenerateVouchersSpec {
+    codes: string[];
+}
+
+export class ActivatePaperVouchersAction implements Action {
+    readonly type = VoucherActionTypes.ActivatePaperVouchers;
+
+    constructor(public payload: ActivatePaperVouchersSpec) { }
 }
 
 export class GenerateVouchersAction implements Action {
@@ -53,5 +64,5 @@ export class UnPublishVouchersAction implements Action {
     constructor(public sku: string) { }
 }
 
-export type VoucherActions = LoadVouchersAction | LoadVouchersCompleted | GenerateVouchersAction | DeleteVouchersAction |
-    PublishVouchersAction | UnPublishVouchersAction;
+export type VoucherActions = ActivatePaperVouchersAction | LoadVouchersAction | LoadVouchersCompleted |
+    GenerateVouchersAction | DeleteVouchersAction | PublishVouchersAction | UnPublishVouchersAction;

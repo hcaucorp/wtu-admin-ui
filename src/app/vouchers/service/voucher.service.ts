@@ -1,4 +1,4 @@
-import { GenerateVouchersSpec } from '../actions/voucher.actions';
+import { GenerateVouchersSpec, ActivatePaperVouchersSpec } from '../actions/voucher.actions';
 import { Voucher } from '../model/voucher';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -10,6 +10,10 @@ export class VoucherService {
     private baseUrl = `/api/vouchers`;
 
     constructor(private http: HttpClient) { }
+
+    activatePaperVouchers(payload: ActivatePaperVouchersSpec): Observable<any> {
+        throw new Error('Method not implemented.');
+    }
 
     generateVouchers(spec: GenerateVouchersSpec): Observable<any> {
         return this.http.post<any>(`${this.baseUrl}`, spec);
