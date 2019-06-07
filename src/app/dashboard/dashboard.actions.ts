@@ -22,7 +22,7 @@ export class LoadUnfulfilledOrdersCountAction implements Action {
     readonly type = DashboardActionTypes.LoadUnfulfilledOrdersCount;
 }
 
-export class LoadUnfulfilledOrdersCountActionCompleted implements Action {
+export class LoadUnfulfilledOrdersCountCompletedAction implements Action {
     readonly type = DashboardActionTypes.LoadUnfulfilledOrdersCountCompleted;
     constructor(public count: number) { }
 }
@@ -37,5 +37,5 @@ export class CheckHealthCompletedAction implements Action {
 }
 
 export type DashboardActions = FulfillAllOrdersAction | FulfillAllOrdersCompletedAction |
-    LoadUnfulfilledOrdersCountAction | LoadUnfulfilledOrdersCountActionCompleted |
+    LoadUnfulfilledOrdersCountAction | LoadUnfulfilledOrdersCountCompletedAction |
     CheckHealthAction | CheckHealthCompletedAction;

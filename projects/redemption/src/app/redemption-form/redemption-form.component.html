@@ -2,26 +2,45 @@
   <h1>Use your voucher code</h1>
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="main-form col-lg-6">
     <div class="form-layout">
-      <div>
+      <div class="input-layer">
         <mat-form-field appearance="outline">
-          <mat-label>Your voucher code</mat-label>
-          <input type="text" formControlName="voucherCode" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" matInput
-            required class="voucherCodeInput">
-          <mat-error>This field is required</mat-error>
+          <mat-label>Voucher code {{ form.controls.voucherCode.value }} </mat-label>
+          <input type="text" formControlName="voucherCode" placeholder="eg. wtubtc-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+            matInput required class="voucherCodeInput">
+          <mat-error *ngIf="form.controls.voucherCode.errors?.required">you must enter a value</mat-error>
+          <mat-error *ngIf="form.controls.voucherCode.errors?.pattern">we don't recognize this voucher 💩</mat-error>
+          <mat-hint align="end" *ngIf="(model$ | async).voucherInfo as info">
+              <!-- redeemed, expired, valid -->
+            <span *ngIf="info.status == 'valid'" class="valid-message">voucher code is valid</span>
+            <span *ngIf="info.status == 'expired'" class="invalid-message">it expired</span>
+            <span *ngIf="info.status == 'redeemed'" class="invalid-message">already redeemed</span>
+          </mat-hint>
         </mat-form-field>
+        <!-- <div class="qr-button-wrapper">
+          <button matTooltip="Scan QR voucher code" class="qr-button" mat-flat-button (click)="scanVoucherCode()">
+            <img src="../../assets/cute_outline_qr_52px.png" />
+          </button> 
+        </div>-->
       </div>
       <div class="button-layer">
-        <button mat-raised-button type="submit" [disabled]="!form.valid || submitted"
-          class="btn btn-primary sendToButton">Send to ></button>
+        <button mat-raised-button type="submit" [disabled]="!form.valid || (model$ | async).voucherInfo?.status != 'valid'" class="btn btn-primary sendToButton">
+          Send to >
+        </button>
       </div>
-      <div>
+      <div class="input-layer">
         <mat-form-field appearance="outline">
           <mat-label>Wallet address</mat-label>
           <input matInput type="text" class="form-control addressInput" required formControlName="destinationAddress"
             placeholder="e.g. 1CuQ2hadahPMEt2S7cTTbuyo1AUK3Y3U7V">
-          <mat-error align>This field is required</mat-error>
-          <mat-hint align="end"><a href="https://wallettopup.co.uk/blogs/news/getting-started-with-bitcoin-and-creating-your-first-wallet">Don't have one?</a></mat-hint>  
+          <mat-error>you must enter a value</mat-error>
+          <mat-hint align="end"><a
+              href="https://wallettopup.co.uk/blogs/news/getting-started-with-bitcoin-and-creating-your-first-wallet">don't have one?</a></mat-hint>
         </mat-form-field>
+        <!-- <div class="qr-button-wrapper">
+           <button  class="qr-button" mat-flat-button > 
+            <img src="../../assets/cute_outline_qr_52px.png" matTooltip="Scan address QR" (click)="scanDestinationAddress()"/>
+           </button>
+        </div> -->
       </div>
     </div>
   </form>
@@ -29,3 +48,7 @@
     <img src="../../assets/logo.png" />
   </div>
 </div>
+
+<!-- <zxing-scanner #scanner
+    (scanSuccess)="scanSuccessHandler($event)"
+></zxing-scanner> -->

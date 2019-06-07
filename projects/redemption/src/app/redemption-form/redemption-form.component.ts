@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { RedemptionResponse } from './redemption-form.model';
+import { RedemptionResponse, RedemptionFormState } from './redemption-form.model';
+import { Observable, of } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { RedeemVoucher, LoadVoucherInfo } from '../voucher/voucher.actions';
+import { debounceTime, filter, switchMap, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-redemption-form',
@@ -11,42 +13,69 @@ import { RedemptionResponse } from './redemption-form.model';
 })
 export class RedemptionFormComponent implements OnInit {
 
-  form: FormGroup;
-  submitted = false;
+  readonly VOUCHER_CODE_REGEX = /^wtu[a-z]{3}-[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
-  constructor(private http: HttpClient,
-    private fb: FormBuilder, private snackBar: MatSnackBar) { }
+  form: FormGroup;
+
+  // @ViewChild('scanner')
+  // scanner: ZXingScannerComponent;
+
+  // scannerEnabled = false;
+  // scanningField = '';
+
+  model$: Observable<RedemptionFormState>;
+
+  codePatternValidator = Validators.pattern(this.VOUCHER_CODE_REGEX);
+
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<RedemptionFormState>) {
+    this.model$ = store.pipe(select('vouchers'));
+  }
 
   ngOnInit() {
     this.form = this.fb.group({
-      voucherCode: ['', [Validators.required, Validators.minLength(12)]],
+      voucherCode: ['', [Validators.required, this.codePatternValidator]],
       destinationAddress: ['', [Validators.required, Validators.minLength(12)]]
     });
+
+    const voucherCodeControl = this.form.controls.voucherCode;
+
+    voucherCodeControl.valueChanges
+      .pipe(
+        debounceTime(500),
+        filter(value => voucherCodeControl.valid)
+      )
+      .subscribe(value => this.store.dispatch(new LoadVoucherInfo({ voucherCode: value })));
+
+      this.model$.subscribe(state => {
+        if (state.voucherInfoError) {
+          voucherCodeControl.setErrors({'voucher code error': true});
+        }
+      });
   }
 
   onSubmit() {
-    this.submitted = true;
-
-    return this.http.post<RedemptionResponse>(`/api/vouchers/redeem`, this.form.value)
-      .subscribe(
-        response => {
-          this.snackBar.open(this.toMessage(response), 'Success');
-          this.form.disable();
-        },
-        (error: HttpErrorResponse) => {
-          if (error.status === 400) {
-            this.snackBar.open(error.message, 'Close');
-          } if (error.status === 404) {
-            this.snackBar.open('Your voucher code is not valid.', 'Close');
-          } else {
-            this.snackBar.open('Top up failed', 'Close');
-          }
-          this.form.disable();
-        }
-      );
+    this.store.dispatch(new RedeemVoucher(this.form.value));
   }
 
   toMessage(response: RedemptionResponse): string {
     return `We've sent your top up to address provided! Please check your wallet app!`;
   }
+
+  // scanDestinationAddress() {
+  //   this.scanningField = 'destinationAddress';
+  //   this.scannerEnabled = true;
+  // }
+
+  // scanVoucherCode() {
+  //   this.scanningField = 'destinationAddress';
+  //   this.scannerEnabled = true;
+  // }
+
+  // scanSuccessHandler(result: String) {
+  //   this.form.value[this.scanningField] = result;
+  //   this.scannerEnabled = false;
+  //   this.scanningField = '';
+  // }
 }

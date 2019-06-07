@@ -1,12 +1,10 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HomeComponent } from './home/home.component';
 import { WalletsModule } from './wallets/wallets.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -36,7 +34,6 @@ import { FulfillmentsModule } from './fulfillments/fulfillments.module';
         HttpClientModule,
         StoreModule.forRoot({}),
         StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
-        StoreDevtoolsModule.instrument({ name: 'NgRx DevTools', logOnly: environment.production }),
         EffectsModule.forRoot([]),
 
         DashboardModule,

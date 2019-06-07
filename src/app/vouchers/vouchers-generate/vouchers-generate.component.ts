@@ -48,7 +48,7 @@ export class VouchersGenerateComponent implements OnInit {
       price: [0, Validators.min(1)],
       priceCurrency: 'GBP',
       sku: ['', [Validators.required, Validators.minLength(5)]],
-      voucherCodeType: ['', [Validators.required, Validators.minLength(43), Validators.maxLength(43)]],
+      voucherCodeType: ['', [Validators.required]],
     });
     this.store.dispatch(new LoadWalletsAction());
   }

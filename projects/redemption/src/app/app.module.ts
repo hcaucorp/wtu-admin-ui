@@ -8,11 +8,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { voucherReducer } from './voucher/voucher.reducer';
+import { StoreModule } from '@ngrx/store';
+import { VoucherEffects } from './voucher/voucher.effects';
+import { EffectsModule } from '@ngrx/effects';
+import { RedemptionFormService } from './voucher/voucher.service';
+import { RouterModule } from '@angular/router';
+import { routes } from './app.routes';
+import { RedemptionSuccessComponent } from './redemption-success/redemption-success.component';
+import { RedemptionFailedComponent } from './redemption-failed/redemption-failed.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RedemptionFormComponent
+    RedemptionFormComponent,
+    RedemptionSuccessComponent,
+    RedemptionFailedComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -20,9 +31,13 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     HttpClientModule,
     MaterialModule,
     ReactiveFormsModule,
+    RouterModule.forRoot(routes),
+    StoreModule.forRoot({ vouchers: voucherReducer }),
+    EffectsModule.forRoot([VoucherEffects]),
     ZXingScannerModule,
   ],
   providers: [
+    RedemptionFormService,
   ],
   bootstrap: [AppComponent]
 })

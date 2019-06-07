@@ -5,7 +5,7 @@ import { ShopifyService } from './shopify.service';
 import { Observable, of, empty } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import {
-    LoadUnfulfilledOrdersCountAction, DashboardActionTypes, LoadUnfulfilledOrdersCountActionCompleted,
+    LoadUnfulfilledOrdersCountAction, DashboardActionTypes, LoadUnfulfilledOrdersCountCompletedAction,
     DashboardActions, FulfillAllOrdersAction, FulfillAllOrdersCompletedAction, CheckHealthAction, CheckHealthCompletedAction
 } from './dashboard.actions';
 import { DashboardService, HealthStatus } from './dashboard.service';
@@ -22,7 +22,7 @@ export class DashboardEffects {
         ofType<LoadUnfulfilledOrdersCountAction>(DashboardActionTypes.LoadUnfulfilledOrdersCount),
         switchMap(_ => this.shopifyService.loadUnfulfilledOrdersCount()),
         catchError(error => empty()),
-        map(count => new LoadUnfulfilledOrdersCountActionCompleted(count))
+        map(count => new LoadUnfulfilledOrdersCountCompletedAction(count))
     );
 
     @Effect()
