@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { RedemptionResponse, RedemptionFormState } from './redemption-form.model';
 import { Observable, of } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { RedeemVoucher, LoadVoucherInfo } from '../voucher/voucher.actions';
-import { debounceTime, filter, switchMap, mergeMap } from 'rxjs/operators';
+import { debounceTime, filter } from 'rxjs/operators';
+import { RedemptionFormState, RedemptionResponse } from './redemption-form.model';
 
 @Component({
   selector: 'app-redemption-form',

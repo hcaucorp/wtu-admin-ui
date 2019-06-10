@@ -1,22 +1,39 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { Store } from '@ngrx/store';
+import { LoadVoucherInfo } from '../voucher/voucher.actions';
+import { BehaviorSubject } from 'rxjs';
+import { initialState } from '../voucher/voucher.reducer';
+import { Router } from '@angular/router';
+import { StoreType, StoreSpy, Finder, sendInput } from '../voucher/voucher.reducer.spec';
 import { RedemptionFormComponent } from './redemption-form.component';
+import { RedemptionFormState } from './redemption-form.model';
 
 describe('RedemptionFormComponent', () => {
   let component: RedemptionFormComponent;
   let fixture: ComponentFixture<RedemptionFormComponent>;
+  let find: Finder<RedemptionFormComponent>;
+  const storeSpy: StoreSpy = jasmine.createSpyObj<StoreType>('Store', ['dispatch', 'select']);
+  const store$ = new BehaviorSubject<RedemptionFormState>(initialState);
+  const routerSpy = jasmine.createSpyObj<Router>('Router', ['navigate']);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [RedemptionFormComponent]
+      declarations: [RedemptionFormComponent],
+      providers: [
+        { provide: Store, useValue: storeSpy },
+        { provide: Router, useValue: routerSpy }
+      ]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(RedemptionFormComponent);
-    component = fixture.componentInstance;
     fixture.detectChanges();
+    component = fixture.componentInstance;
+    find = new Finder<RedemptionFormComponent>(fixture);
+
+    storeSpy.select.and.returnValue(store$);
   });
 
   it('should create', () => {
@@ -24,57 +41,85 @@ describe('RedemptionFormComponent', () => {
   });
 
   it('should sent redemption request when form submitted', () => {
-    const button = fixture.debugElement.nativeElement.querySelector('.button-up');
+    const button = find.byClass('button-up');
 
+    fail('not implemented');
   });
 
-  it('should request voucher info after typing in the code', () => {
+  it('should request voucher info after typing in the code', fakeAsync(() => {
+    const voucherCode = 'wtuxxx-3e491e82-6c3a-434c-af66-c2771ac2bb8b';
+    const field = find.byClass(PageObjects.voucherCodeInputClass);
+    sendInput(field, voucherCode);
 
-  });
+    tick(500);
 
-  it('should display valid message if voucher info status is valid', () => {
+    expect(storeSpy.dispatch).toHaveBeenCalledWith(new LoadVoucherInfo({ voucherCode: voucherCode }));
+  }));
 
-  });
+  it('should display valid message if voucher info status is valid', fakeAsync(() => {
+    store$.next(Object.assign({}, initialState, { voucherInfo: { status: 'valid', expiresAt: '0' } }));
 
-  it('should display "expired" message if voucher info status is "expired"', () => {
+    tick();
 
-  });
+    const statusMessage = find.bySelector(PageObjects.voucherStatusMessage);
+    expect(statusMessage).toBeDefined();
+    expect(statusMessage.nativeElement.innerText).toBe('voucher code is valid');
+  }));
 
-  it('should display "invalid voucher" message if voucher info response is errorish', () => {
+  it('should display "expired" message if voucher info status is "expired"', fakeAsync(() => {
+    store$.next(Object.assign({}, initialState, { voucherInfo: { status: 'expired', expiresAt: '0' } }));
 
-  });
+    tick();
 
-  it('should display "redeemed" message if voucher info response is "redeemed"', () => {
+    const statusMessage = find.bySelector(PageObjects.voucherStatusMessage);
+    expect(statusMessage).toBeDefined();
+    expect(statusMessage.nativeElement.innerText).toBe('it expired');
+  }));
 
-  });
+  it('should display "invalid voucher" message if voucher info response is errorish', fakeAsync(() => {
+    store$.next(Object.assign({}, initialState, { voucherInfoError: true }));
 
-  it('should display "required" validation error if voucher code is empty', () => {
+    tick();
 
-  });
+    const statusMessage = find.bySelector(PageObjects.voucherStatusMessage);
+    expect(statusMessage).toBeDefined();
+    expect(statusMessage.nativeElement.innerText).toBe('voucher code is valid');
+  }));
+
+  it('should display "redeemed" message if voucher info response is "redeemed"', fakeAsync(() => {
+    store$.next(Object.assign({}, initialState, { voucherInfo: { status: 'expired', expiresAt: '0' } }));
+
+    tick();
+
+    const statusMessage = find.bySelector(PageObjects.voucherStatusMessage);
+    expect(statusMessage).toBeDefined();
+    expect(statusMessage.nativeElement.innerText).toBe('already redeemed');
+  }));
+
+  it('should display "required" validation error if voucher code is empty', fakeAsync(() => {
+    const field = find.byClass(PageObjects.voucherCodeInputClass);
+    sendInput(field, '');
+
+    const validationMessage = find.bySelector(PageObjects.voucherValidationError);
+    expect(validationMessage).toBeDefined();
+    expect(validationMessage.nativeElement.innerText).toBe('you must enter a value');
+  }));
 
   it('should diplay "invalid voucher" message if voucher code doesn`t match standard format (regexp)', () => {
+    const invalidVoucherCode = 'wtuxxx-3e4_1e82-6c3a-434c-af66-c2771ac2bb8b';
+    const field = find.byClass(PageObjects.voucherCodeInputClass);
+    sendInput(field, invalidVoucherCode);
 
+    const validationMessage = find.bySelector(PageObjects.voucherValidationError);
+    expect(validationMessage).toBeDefined();
+    expect(validationMessage.nativeElement.innerText).toBe('we don\'t recognize this voucher 💩');
   });
-
-  it('should navigate to "success" page after sucessful redemption', () => {
-
-  });
-
-  it ('should navigate to "fail" page after failed redemption', () => {
-
-  });
-
-  it('should reset model data after failed redemption', () => {
-
-  });
-
-  it('should reset model except redemption info after successful redemption', () => {
-
-  });
-
-  class PageObjects {
-    voucherCodeInput = 'voucherCodeInput';
-    addressInput = 'addressInput';
-    sendToButton = 'sendToButton';
-  }
 });
+
+class PageObjects {
+  static voucherCodeInputClass = 'voucherCodeInput';
+  static voucherStatusMessage = '.voucherCodeFormField mat-hint';
+  static voucherValidationError = '.voucherCodeFormField mat-error';
+  static addressInput = 'addressInput';
+  static sendToButton = 'sendToButton';
+}

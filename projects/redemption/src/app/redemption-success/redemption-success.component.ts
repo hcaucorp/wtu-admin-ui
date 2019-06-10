@@ -3,7 +3,7 @@ import { RedemptionFormState } from '../redemption-form/redemption-form.model';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { first, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-redemption-success',
@@ -15,7 +15,7 @@ export class RedemptionSuccessComponent implements OnInit {
   model$: Observable<RedemptionFormState>;
 
   constructor(
-    private store: Store<RedemptionFormState>,
+    store: Store<RedemptionFormState>,
     private router: Router,
   ) {
     this.model$ = store.pipe(select('vouchers'));
@@ -32,5 +32,4 @@ export class RedemptionSuccessComponent implements OnInit {
       this.router.navigate(['/']);
     }
   }
-
 }
