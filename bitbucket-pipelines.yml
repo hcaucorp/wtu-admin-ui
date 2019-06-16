@@ -4,14 +4,13 @@ pipelines:
   branches:
     master:
       - step:
-          name: "Build both Admin and Redemption projects"
+          name: "Build Admin project"
           caches:
             - node
           script:
             - npm run clean
             - npm install --quiet
             - npm run build-prod
-            - npm run build-prod-redemption
           artifacts:
             - dist/**
       - step:
@@ -21,4 +20,3 @@ pipelines:
           image: atlassian/pipelines-awscli
           script:
             - aws s3 sync --delete dist/wallet-topup-admin/ s3://admin.wallettopup.co.uk
-            - aws s3 sync --delete dist/redemption/ s3://redemption.wallettopup.co.uk
