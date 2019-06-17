@@ -5,7 +5,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Development server
 
 Run `npm run dev` for a dev server. Navigate to `http://localhost:4200/`.
-Run redemption project with `npm run dev redemption`
 
 ## Code scaffolding
 
@@ -14,7 +13,6 @@ Run `ng g c component-name` to generate a new component. You can also use `ng ge
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-Run `npm run build-prod-redemption` to build `redemption` project
 
 ## Running unit tests
 

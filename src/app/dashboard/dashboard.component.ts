@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { DashboardFeatureState, getDashboardFeature } from './dashboard.reducer';
 import { window, takeWhile } from 'rxjs/operators';
 import { Observable, interval } from 'rxjs';
-import { LoadUnfulfilledOrdersCountAction, FulfillAllOrdersAction, CheckHealthAction } from './dashboard.actions';
+import { CheckHealthAction } from './dashboard.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,23 +22,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.store.dispatch(new LoadUnfulfilledOrdersCountAction());
     this.store.dispatch(new CheckHealthAction());
     this.refreshSeconds$.pipe(
       window(interval(60 * 1000)),
       takeWhile(_ => this.isActive)
     )
       .subscribe(_ => {
-        this.store.dispatch(new LoadUnfulfilledOrdersCountAction());
         this.store.dispatch(new CheckHealthAction());
       });
   }
 
   ngOnDestroy(): void {
     this.isActive = false;
-  }
-
-  fulfillAllOrders() {
-    this.store.dispatch(new FulfillAllOrdersAction());
   }
 }
