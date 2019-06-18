@@ -15,7 +15,6 @@ import { VouchersRoute } from './vouchers-router.config';
 import { VouchersDeleteComponent } from './vouchers-delete/vouchers-delete.component';
 import { MaterialModule } from '../shared/material.module';
 import { VouchersPublishComponent } from './vouchers-publish/vouchers-publish.component';
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
     declarations: [
@@ -37,7 +36,6 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
         ReactiveFormsModule,
         RouterModule.forChild([VouchersRoute]),
         StoreModule.forFeature(`vouchers`, reducer),
-        ZXingScannerModule,
     ],
     providers: [
         VoucherService,
