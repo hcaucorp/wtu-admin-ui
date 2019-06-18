@@ -13,7 +13,7 @@ const initialState = {
 export function reducer(state: VouchersFeatureState = initialState, action: VoucherActions) {
     switch (action.type) {
         case VoucherActionTypes.LoadVouchersCompleted:
-            return Object.assign({}, state, { vouchers: (<LoadVouchersCompleted>action).payload });
+            return Object.assign({}, state, { vouchers: action.payload });
         default:
             return state;
     }

@@ -37,6 +37,14 @@ export class VoucherEffects {
   onLoadVouchers$: Observable<VoucherActions> = this.actions$.pipe(
     ofType<LoadVouchersAction>(VoucherActionTypes.LoadVouchers),
     switchMap(_ => this.voucherService.getAll()),
+    map(list => {
+      list.map(v =>
+        v.flags = '' +
+        (v.published ? 'published ' : '') +
+        (v.sold ? 'sold ' : '') +
+        (v.redeemed ? 'redeemed ' : ''));
+      return list;
+    }),
     map(list => new LoadVouchersCompleted(list))
   );
 

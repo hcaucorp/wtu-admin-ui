@@ -11,6 +11,9 @@ export class Voucher {
     redeemed: boolean;
     sold: boolean;
 
+    // flags is for presentation only, contains string representation of booleans above to help with filtering in the list/table
+    flags: string;
+
     createdAt: number;
     expiresAt: number;
 }
