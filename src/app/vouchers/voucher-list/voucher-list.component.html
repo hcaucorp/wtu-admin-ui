@@ -47,8 +47,8 @@
 <nav class="col-lg-3">
   <ul>
     <li><a routerLink="/vouchers/generate" class="generate-vouchers-link">Create</a></li>
-    <li *ngIf="(vouchers$ | async).length > 0"><a (click)="openBottomSheet('d')">Delete</a></li>
-    <li *ngIf="(vouchers$ | async).length > 0"><a (click)="openBottomSheet('p')">Publish</a></li>
-    <li *ngIf="(vouchers$ | async).length > 0"><a (click)="openBottomSheet('u')">UnPublish</a></li>
+    <li *ngIf="dataSource.data.length > 0"><a (click)="openBottomSheet('d')">Delete</a></li>
+    <li *ngIf="dataSource.data.length > 0"><a (click)="openBottomSheet('p')">Publish</a></li>
+    <li *ngIf="dataSource.data.length > 0"><a (click)="openBottomSheet('u')">UnPublish</a></li>
   </ul>
 </nav>

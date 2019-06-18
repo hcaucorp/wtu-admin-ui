@@ -7,7 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { VouchersComponent } from './vouchers.component';
-import { VouchersGenerateComponent, DialogScanConfirmationComponent } from './vouchers-generate/vouchers-generate.component';
+import { VouchersGenerateComponent } from './vouchers-generate/vouchers-generate.component';
 import { VoucherEffects } from './effects/voucher.effects';
 import { VoucherService } from './service/voucher.service';
 import { VoucherListComponent } from './voucher-list/voucher-list.component';
@@ -18,7 +18,6 @@ import { VouchersPublishComponent } from './vouchers-publish/vouchers-publish.co
 
 @NgModule({
     declarations: [
-        DialogScanConfirmationComponent,
         VouchersComponent,
         VouchersGenerateComponent,
         VoucherListComponent,

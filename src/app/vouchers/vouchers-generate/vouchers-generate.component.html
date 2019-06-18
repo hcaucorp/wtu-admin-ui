@@ -39,12 +39,17 @@
       <mat-radio-group aria-labelledby="example-radio-group-label" required formControlName="voucherCodeType"
         class="radio-group">
         <mat-radio-button value="online" class="radio-button">generate random</mat-radio-button>
-        <mat-radio-button value="paper" class="radio-button">scan QR codes</mat-radio-button>
+        <mat-radio-button value="paper" class="radio-button">upload</mat-radio-button>
       </mat-radio-group>
     </div>
 
     <div class="form-group">
-      <label>Scanned voucher codes ({{scannedVoucherCodes.length}}/{{voucherFormGroup?.value?.count}})</label>
+        <label>Paste voucher codes</label>
+        <input type="text" class="form-control" required formControlName="voucherCodesRaw" placeholder="separated by comma (,) or by space ( ) or by new line ">
+      </div>
+
+    <div class="form-group">
+      <label>Found {{ 5 }} of vouchere codes</label>
     </div>
 
     <button type="submit" [disabled]="!voucherFormGroup.valid" class="btn btn-primary" mat-raised-button>Create</button>
