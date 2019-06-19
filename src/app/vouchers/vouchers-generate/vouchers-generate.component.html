@@ -35,21 +35,22 @@
     </div>
 
     <div class="form-group">
-      <label>Voucher code type</label>
+      <label>Voucher codes type</label>
       <mat-radio-group aria-labelledby="example-radio-group-label" required formControlName="voucherCodeType"
         class="radio-group">
-        <mat-radio-button value="online" class="radio-button">generate random</mat-radio-button>
-        <mat-radio-button value="paper" class="radio-button">upload</mat-radio-button>
+        <mat-radio-button value="generate" class="radio-button">generate random</mat-radio-button>
+        <mat-radio-button value="upload" class="radio-button">upload</mat-radio-button>
       </mat-radio-group>
     </div>
 
-    <div class="form-group">
-        <label>Paste voucher codes</label>
-        <input type="text" class="form-control" required formControlName="voucherCodesRaw" placeholder="separated by comma (,) or by space ( ) or by new line ">
-      </div>
+    <div class="form-group" *ngIf="voucherFormGroup.value.voucherCodeType === 'upload'">
+      <label>Paste voucher codes</label>
+      <input type="text" class="form-control" required formControlName="voucherCodes"
+        placeholder="separated by commas (,) or by spaces ( ) or by new lines">
+    </div>
 
-    <div class="form-group">
-      <label>Found {{ 5 }} of vouchere codes</label>
+    <div class="form-group" *ngIf="voucherFormGroup.value.voucherCodeType === 'upload'">
+      <label>Found {{ uploadedVoucherCodes.length }} voucher code(s).</label>
     </div>
 
     <button type="submit" [disabled]="!voucherFormGroup.valid" class="btn btn-primary" mat-raised-button>Create</button>
@@ -64,6 +65,7 @@
       <li>There is no automatic amount validations so make sure there is money on the wallet to cover the vouchers
         otherwise we will in big trouble.</li>
       <li>Vouchers have to be published to become available for sale.</li>
-      <li>Each voucher will contain amount = (total amount)/count, also total amount has to be divisible by count)</li>
+      <li>Vouchers have to be sold to become available for redemption.</li>
+      <li>Each voucher will contain amount = (total amount)/count, also total amount has to be divisible by count</li>
     </ul>
 </div>

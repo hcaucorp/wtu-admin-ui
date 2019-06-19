@@ -26,8 +26,8 @@ export class VouchersGenerateComponent implements OnInit {
 
   voucherFormGroup: FormGroup;
 
-  scannerEnabled = false;
-  scannedVoucherCodes: Array<String> = [];
+  // for display purposes only
+  uploadedVoucherCodes: Array<String> = [];
 
   constructor(
     private fb: FormBuilder,
@@ -48,16 +48,43 @@ export class VouchersGenerateComponent implements OnInit {
       price: [0, Validators.min(1)],
       priceCurrency: 'GBP',
       sku: ['', [Validators.required, Validators.minLength(5)]],
-      voucherCodeType: ['', [Validators.required]],
+      voucherCodeType: ['upload', [Validators.required]],
+      voucherCodes: '',
     });
+
+    this.voucherFormGroup
+      .controls
+      .count
+      .disable();
+
+    this.voucherFormGroup
+      .controls
+      .voucherCodes
+      .valueChanges
+      .subscribe(value => {
+        this.uploadedVoucherCodes = (value || '').split(/\s+/);
+        this.uploadedVoucherCodes = this.uploadedVoucherCodes.filter(v => !!v);
+        this.voucherFormGroup.value.count = this.uploadedVoucherCodes.length;
+      });
+
+    this.voucherFormGroup
+      .controls
+      .voucherCodeType
+      .valueChanges
+      .subscribe(value => {
+        if (value === 'upload') {
+          this.voucherFormGroup.controls.count.disable();
+        } else {
+          this.voucherFormGroup.controls.count.enable();
+        }
+      });
+
     this.store.dispatch(new LoadWalletsAction());
   }
 
   onSubmit() {
     const formValue = this.voucherFormGroup.value;
-    if (formValue.voucherCodeType === 'online') {
-      this.store.dispatch(new GenerateVouchersAction(this.voucherFormGroup.value));
-      this.router.navigate(['/vouchers']);
-    }
+    this.store.dispatch(new GenerateVouchersAction(formValue));
+    this.router.navigate(['/vouchers']);
   }
 }

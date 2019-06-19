@@ -18,6 +18,7 @@ export interface GenerateVouchersSpec {
     singlePrice: number;
     singlePriceCurrency: string;
     sku: string;
+    voucherCodes?: string[];
 }
 
 export interface ActivatePaperVouchersSpec extends GenerateVouchersSpec {
