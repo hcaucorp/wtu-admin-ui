@@ -19,8 +19,8 @@ export class VoucherListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'amount', 'flags', 'sku', 'code'];
   dataSource: MatTableDataSource<Voucher>;
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   vouchers$: Observable<MatTableDataSource<Voucher>>;
 
@@ -54,7 +54,11 @@ export class VoucherListComponent implements OnInit {
       case 'd':
         this.bottomSheet.open(VouchersDeleteComponent, {
           data: {
-            vouchers$: this.vouchers$.pipe(map(matTableDataSource => matTableDataSource.data))
+            vouchers$: this
+              .vouchers$
+              .pipe(map(matTableDataSource => matTableDataSource
+                .data
+                .filter(voucher => !voucher.redeemed)))
           }
         });
         break;
@@ -62,7 +66,11 @@ export class VoucherListComponent implements OnInit {
       case 'p':
         this.bottomSheet.open(VouchersPublishComponent, {
           data: {
-            vouchers$: this.vouchers$.pipe(map(matTableDataSource => matTableDataSource.data)),
+            vouchers$: this
+              .vouchers$
+              .pipe(map(matTableDataSource => matTableDataSource
+                .data
+                .filter(voucher => !voucher.published))),
             action: VoucherActionTypes.PublishVouchers
           }
         });
@@ -71,7 +79,11 @@ export class VoucherListComponent implements OnInit {
       case 'u':
         this.bottomSheet.open(VouchersPublishComponent, {
           data: {
-            vouchers$: this.vouchers$.pipe(map(matTableDataSource => matTableDataSource.data)),
+            vouchers$: this
+              .vouchers$
+              .pipe(map(matTableDataSource => matTableDataSource
+                .data
+                .filter(voucher => voucher.published))),
             action: VoucherActionTypes.UnPublishVouchers
           }
         });
