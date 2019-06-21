@@ -54,7 +54,7 @@ export class VoucherListComponent implements OnInit {
       case 'd':
         this.bottomSheet.open(VouchersDeleteComponent, {
           data: {
-            vouchers$: this.vouchers$
+            vouchers$: this.vouchers$.pipe(map(matTableDataSource => matTableDataSource.data))
           }
         });
         break;
@@ -62,7 +62,7 @@ export class VoucherListComponent implements OnInit {
       case 'p':
         this.bottomSheet.open(VouchersPublishComponent, {
           data: {
-            vouchers$: this.vouchers$,
+            vouchers$: this.vouchers$.pipe(map(matTableDataSource => matTableDataSource.data)),
             action: VoucherActionTypes.PublishVouchers
           }
         });
@@ -71,7 +71,7 @@ export class VoucherListComponent implements OnInit {
       case 'u':
         this.bottomSheet.open(VouchersPublishComponent, {
           data: {
-            vouchers$: this.vouchers$,
+            vouchers$: this.vouchers$.pipe(map(matTableDataSource => matTableDataSource.data)),
             action: VoucherActionTypes.UnPublishVouchers
           }
         });

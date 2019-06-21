@@ -40,9 +40,9 @@ export class VoucherEffects {
     map(list => {
       list.map(v =>
         v.flags = '' +
-        (v.published ? 'published ' : '') +
-        (v.sold ? 'sold ' : '') +
-        (v.redeemed ? 'redeemed ' : ''));
+        (v.published ? 'published ' : '!published') +
+        (v.sold ? 'sold ' : '!sold') +
+        (v.redeemed ? 'redeemed ' : '!redeemed'));
       return list;
     }),
     map(list => new LoadVouchersCompleted(list))

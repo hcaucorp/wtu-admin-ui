@@ -84,6 +84,7 @@ export class VouchersGenerateComponent implements OnInit {
 
   onSubmit() {
     const formValue = this.voucherFormGroup.value;
+    formValue.count = this.uploadedVoucherCodes.length;
     this.store.dispatch(new GenerateVouchersAction(formValue));
     this.router.navigate(['/vouchers']);
   }
