@@ -4,8 +4,15 @@
     Server health: {{ (state$ | async).health }}
   </div>
 </div>
-<div class="dashboard-card col-lg-4 inactive-bg">
+<div class="dashboard-card col-lg-4" [ngClass]="{'error-bg': !!(state$ | async).redemptions?.success}">
   <div>
-    Ip addresses blacklisted: {{ (state$ | async).ipBlacklistCount }}
+    Redemptions done today: {{ (state$ | async).redemptions?.success }}
+  </div>
+</div>
+
+
+<div class="dashboard-card col-lg-4" [ngClass]="{'error-bg': !!(state$ | async).redemptions?.failure}">
+  <div>
+    Failed redemptions today: {{ (state$ | async).redemptions?.failure }}
   </div>
 </div>

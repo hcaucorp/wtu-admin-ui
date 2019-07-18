@@ -21,4 +21,8 @@ export class DashboardService {
             map(response => response.status === 200 ? HealthStatus.Online : HealthStatus.Offline)
         );
     }
+
+    checkMetrics(name: string): Observable<string> {
+        return this.http.get<string>(`${this.baseUrl}/metrics/${name}`);
+    }
 }

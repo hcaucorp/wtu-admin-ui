@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { DashboardFeatureState, getDashboardFeature } from './dashboard.reducer';
 import { window, takeWhile } from 'rxjs/operators';
 import { Observable, interval } from 'rxjs';
-import { CheckHealthAction } from './dashboard.actions';
+import { CheckHealthAction, CheckMetricsAction } from './dashboard.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,6 +29,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     )
       .subscribe(_ => {
         this.store.dispatch(new CheckHealthAction());
+        this.store.dispatch(new CheckMetricsAction('redemption.success'));
+        this.store.dispatch(new CheckMetricsAction('redemption.failure'));
       });
   }
 

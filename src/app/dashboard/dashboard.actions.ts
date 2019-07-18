@@ -8,6 +8,8 @@ export enum DashboardActionTypes {
     FulfillAllOrdersCompleted = '[Dashboard] Fulfill all pending orders completed',
     CheckHealth = '[Dashboard] Check health',
     CheckHealthCompleted = '[Dashboard] Check health completed',
+    CheckMetrics = 'Dashboard] Check Metrics',
+    CheckMetricsCompleted = 'Dashboard] Check Metrics Completed'
 }
 
 export class FulfillAllOrdersAction implements Action {
@@ -36,6 +38,16 @@ export class CheckHealthCompletedAction implements Action {
     constructor(public health: HealthStatus) {}
 }
 
+export class CheckMetricsAction implements Action {
+    readonly type = DashboardActionTypes.CheckMetrics;
+    constructor(public name: string) {}
+}
+
+export class CheckMetricsCompletedAction implements Action {
+    readonly type = DashboardActionTypes.CheckMetricsCompleted;
+    constructor(public value: any, public name: string) {}
+}
+
 export type DashboardActions = FulfillAllOrdersAction | FulfillAllOrdersCompletedAction |
     LoadUnfulfilledOrdersCountAction | LoadUnfulfilledOrdersCountCompletedAction |
-    CheckHealthAction | CheckHealthCompletedAction;
+    CheckHealthAction | CheckHealthCompletedAction | CheckMetricsAction | CheckMetricsCompletedAction;
