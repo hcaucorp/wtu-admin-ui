@@ -2,11 +2,12 @@ Choose currency:
 <form [formGroup]="walletForm" (ngSubmit)="onSubmit()">
 
     <mat-radio-group *ngIf="supportedCurrencies" formControlName="currency">
-        <mat-radio-button *ngFor="let currency of supportedCurrencies" [value]="currency" [disabled]="walletExists(currency) | async">{{
+        <mat-radio-button *ngFor="let currency of supportedCurrencies" [value]="currency"
+            [disabled]="walletExists(currency) | async">{{
             currency }}</mat-radio-button>
     </mat-radio-group>
 
-    <div>
+    <div id="info-layer">
         Can't create more wallets for currencies: {{ (existingWalletsCurrencies$ | async) }}
     </div>
 

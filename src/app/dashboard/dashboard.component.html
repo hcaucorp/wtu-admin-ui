@@ -4,15 +4,20 @@
     Server health: {{ (state$ | async).health }}
   </div>
 </div>
-<div class="dashboard-card col-lg-4" [ngClass]="{'error-bg': !(state$ | async).redemptions?.success}">
+<div class="dashboard-card col-lg-4" [ngClass]="{'error-bg': (state$ | async).redemptions.success < 0}">
   <div>
-    Redemptions done today: {{ (state$ | async).redemptions?.success }}
+    Successful redemptions: {{ (state$ | async).redemptions?.success }}
   </div>
 </div>
 
-
-<div class="dashboard-card col-lg-4" [ngClass]="{'error-bg': !(state$ | async).redemptions?.failure}">
+<div class="dashboard-card col-lg-4" [ngClass]="{'error-bg': (state$ | async).redemptions.failure != 0 }">
   <div>
-    Failed redemptions today: {{ (state$ | async).redemptions?.failure }}
+    Invalid redemptions (user fault): {{ (state$ | async).redemptions?.failure }}
+  </div>
+</div>
+
+<div class="dashboard-card col-lg-4" [ngClass]="{'error-bg': (state$ | async).redemptions.failure != 0 }">
+  <div>
+    Errored redemptions (our fault): {{ (state$ | async).redemptions?.failure }}
   </div>
 </div>
