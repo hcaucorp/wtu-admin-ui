@@ -1,19 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
-import { WalletsFeatureState, getWalletsState } from '../../wallets/reducers/wallet.reducer';
-import { Wallet } from 'src/app/wallets/model/wallet';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { GenerateVouchersAction } from '../actions/voucher.actions';
-import { LoadWalletsAction } from 'src/app/wallets/actions/wallet.actions';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
-
-export interface DialogData {
-  counter: number;
-  total: number;
-}
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { LoadWalletsAction } from 'src/app/wallets/actions/wallet.actions';
+import { Wallet } from 'src/app/wallets/model/wallet';
+import { getWalletsState, WalletsFeatureState } from '../../wallets/reducers/wallet.reducer';
+import { GenerateVouchersAction } from '../actions/voucher.actions';
 
 @Component({
   selector: 'app-vouchers-generate',
@@ -36,7 +31,8 @@ export class VouchersGenerateComponent implements OnInit {
     private store: Store<any>) {
     this.wallets$ = store.select<WalletsFeatureState>(getWalletsState)
       .pipe(
-        map(state => state.wallets)
+        map(state => state.walletReports),
+        map(walletReports => walletReports.map(walletReport => walletReport.wallet))
       );
   }
 

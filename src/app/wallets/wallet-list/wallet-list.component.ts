@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Wallet } from '../model/wallet';
-import { Observable, interval } from 'rxjs';
-import { LoadWalletsAction } from '../actions/wallet.actions';
-import { WalletsFeatureState, getWalletsState } from '../reducers/wallet.reducer';
-import { map, window, takeWhile } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
+import { Store } from '@ngrx/store';
+import { interval, Observable } from 'rxjs';
+import { map, takeWhile, window } from 'rxjs/operators';
 import { QrComponent } from 'src/app/qr/qr-dialog/qr-dialog.component';
+import { LoadWalletsAction } from '../actions/wallet.actions';
+import { WalletReport } from '../model/wallet';
+import { getWalletsState, WalletsFeatureState } from '../reducers/wallet.reducer';
 
 @Component({
   selector: 'app-wallet-list',
@@ -15,7 +15,7 @@ import { QrComponent } from 'src/app/qr/qr-dialog/qr-dialog.component';
 })
 export class WalletListComponent implements OnInit {
 
-  wallets$: Observable<Wallet[]>;
+  walletReports$: Observable<WalletReport[]>;
   state$: Observable<WalletsFeatureState>;
   refreshSeconds$: Observable<number>;
   isActive = true;
@@ -23,8 +23,8 @@ export class WalletListComponent implements OnInit {
   constructor(private store: Store<any>,
     private dialog: MatDialog) {
     this.state$ = store.select<WalletsFeatureState>(getWalletsState);
-    this.wallets$ = this.state$.pipe(
-      map(state => state.wallets)
+    this.walletReports$ = this.state$.pipe(
+      map(state => state.walletReports)
     );
     this.refreshSeconds$ = interval(1000);
   }

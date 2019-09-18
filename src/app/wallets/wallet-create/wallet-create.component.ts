@@ -28,8 +28,8 @@ export class WalletCreateComponent implements OnInit {
 
     this.existingWalletsCurrencies$ = store.select<WalletsFeatureState>(getWalletsState)
       .pipe(
-        map(state => state.wallets),
-        map(wallets => wallets.map(wallet => wallet.currency))
+        map(state => state.walletReports),
+        map(walletReports => walletReports.map(walletReport => walletReport.wallet.currency))
       );
   }
 

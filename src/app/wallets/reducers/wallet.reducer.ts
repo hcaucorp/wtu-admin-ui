@@ -1,14 +1,14 @@
-import { WalletActions, WalletActionTypes, LoadWalletsCompleted } from '../actions/wallet.actions';
-import { Wallet } from '../model/wallet';
 import { createFeatureSelector } from '@ngrx/store';
+import { WalletActions, WalletActionTypes } from '../actions/wallet.actions';
+import { WalletReport } from '../model/wallet';
 
 export interface WalletsFeatureState {
-    wallets: Wallet[];
+    walletReports: WalletReport[];
     loadingWallets: boolean;
 }
 
-const initialState = {
-    wallets: [],
+const initialState: WalletsFeatureState = {
+    walletReports: [],
     loadingWallets: false
 };
 
@@ -16,7 +16,7 @@ export function reducer(state: WalletsFeatureState = initialState, action: Walle
     switch (action.type) {
         case WalletActionTypes.LoadWalletsCompleted:
             return Object.assign({}, state, {
-                wallets: (<LoadWalletsCompleted>action).payload,
+                walletReports: action.payload,
                 loadingWallets: false
             });
         case WalletActionTypes.LoadWallets:

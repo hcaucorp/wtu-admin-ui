@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Wallet } from '../model/wallet';
 import { GenerateWalletPayload } from '../actions/wallet.actions';
+import { WalletReport } from '../model/wallet';
 
 @Injectable()
 export class WalletService {
@@ -15,11 +15,7 @@ export class WalletService {
     return this.http.post<any>(`${this.baseUrl}`, payload.currency);
   }
 
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`, { responseType: 'json' });
-  }
-
-  getAll(): Observable<Array<Wallet>> {
-    return this.http.get<Array<Wallet>>(this.baseUrl);
+  getAll(): Observable<Array<WalletReport>> {
+    return this.http.get<Array<WalletReport>>(this.baseUrl);
   }
 }

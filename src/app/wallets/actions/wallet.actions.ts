@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Wallet } from '../model/wallet';
+import { WalletReport } from '../model/wallet';
 
 export enum WalletActionTypes {
     LoadWallets = '[Wallet] Load Wallets',
@@ -35,7 +35,7 @@ export class LoadWalletsAction implements Action {
 export class LoadWalletsCompleted implements Action {
     readonly type = WalletActionTypes.LoadWalletsCompleted;
 
-    constructor(public payload: Wallet[]) { }
+    constructor(public payload: WalletReport[]) { }
 }
 
 export type WalletActions = LoadWalletsAction | LoadWalletsCompleted | GenerateWalletAction | DeleteWalletAction;

@@ -17,7 +17,7 @@ export class WalletEffects {
   onLoadWallets$: Observable<WalletActions> = this.actions$.pipe(
     ofType<LoadWalletsAction>(WalletActionTypes.LoadWallets),
     switchMap(_ => this.walletService.getAll()),
-    map(walletList => new LoadWalletsCompleted(walletList))
+    map(walletReports => new LoadWalletsCompleted(walletReports))
   );
 
   @Effect()
