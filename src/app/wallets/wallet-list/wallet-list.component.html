@@ -1,42 +1,40 @@
 <div class="parent" *ngIf="!(state$ | async).loadingWallets">
     <div class="child col-lg-9" *ngIf="(walletReports$ | async).length > 0">
-    <h3>List of all wallets in the system</h3>
-    <mat-progress-spinner [value]="((refreshSeconds$ | async) % 60) / 0.6" [diameter]="24"></mat-progress-spinner>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th class="col-lg-1 col-md-1 col-sm-1">#</th>
-          <th class="col-lg-2 col-md-2 col-sm-2">Currency</th>
-          <th class="col-lg-3 col-md-3 col-sm-3">Balance</th>
-          <th class="col-lg-6 col-md-6 col-sm-6">Receive address</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let walletReport of walletReports$ | async">
-          <td>{{ walletReport.wallet.id }}</td>
-          <td>{{ walletReport.wallet.currency }}</td>
-          <td>
-            {{ walletReport.wallet.balance/100000000 }}
+        <h3>List of all wallets in the system</h3>
+        <mat-progress-spinner [value]="((refreshSeconds$ | async) % 60) / 0.6" [diameter]="24"></mat-progress-spinner>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th class="col-lg-1 col-md-1 col-sm-6">Wallet Info</th>
+                <th class="col-lg-6 col-md-6 col-sm-6">Receive address</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let walletReport of walletReports$ | async">
+                <td>
+                    <div>#{{ walletReport.wallet.id }} {{ walletReport.wallet.currency }}</div>
+                    <div *ngIf="walletReport.wallet.balance < 0">
+                      Balance: {{ walletReport.wallet.balance / 100000000 }}
+                      Deficit: {{ (walletReport.wallet.balance - walletReport.requiredBalance) / 100000000 }}</div>
+                  <div>Status: {{ walletReport.status == "RUNNING" ? "Running ✅" : "Starting ⏳" }}</div>
+                </td>
+                <td (click)="showQR(walletReport.wallet.address)"
+                    class="clickable">{{ walletReport.wallet.address }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-            <div [ngClass]="walletReport.requiredBalance < 0 ? 'missing-balance' : 'over-funded-balance'">
-              (required by vouchers: {{ walletReport.requiredBalance/100000000 }})
-            </div>
-          </td>
-          <td (click)="showQR(walletReport.wallet.address)" class="clickable">{{ walletReport.wallet.address }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <nav class="col-lg-3">
-    <button routerLink="/wallets/generate" class="btn btn-primary create-wallet" mat-raised-button>Create a
-      wallet</button>
-  </nav>
+    <nav class="col-lg-3">
+        <button routerLink="/wallets/generate" class="btn btn-primary create-wallet" mat-raised-button>Create a
+            wallet
+        </button>
+    </nav>
 </div>
 
 <div class="parent" *ngIf="(state$ | async).loadingWallets">
-  <div class="child">
-    <mat-spinner></mat-spinner>
-    Loading wallets...
-  </div>
+    <div class="child">
+        <mat-spinner></mat-spinner>
+        Loading wallets...
+    </div>
 </div>

@@ -7,7 +7,14 @@ export interface Wallet {
     mnemonic: string;
 }
 
+export enum WalletStatus {
+    NEW = "NEW",
+    RUNNING = "RUNNING",
+    STARTING = "STARTING",
+}
+
 export interface WalletReport {
     wallet: Wallet;
     requiredBalance: number;
+    status: WalletStatus;
 }
