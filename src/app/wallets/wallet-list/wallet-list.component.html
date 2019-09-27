@@ -5,18 +5,27 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th class="col-lg-1 col-md-1 col-sm-6">Wallet Info</th>
-                <th class="col-lg-6 col-md-6 col-sm-6">Receive address</th>
+                <th class="col-lg-1 col-md-1 col-sm-5">Wallet Info</th>
+                <th class="col-lg-1 col-md-1 col-sm-2">Balance</th>
+                <th class="col-lg-6 col-md-6 col-sm-5">Receive address</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let walletReport of walletReports$ | async">
                 <td>
                     <div>#{{ walletReport.wallet.id }} {{ walletReport.wallet.currency }}</div>
-                    <div *ngIf="walletReport.wallet.balance < 0">
-                      Balance: {{ walletReport.wallet.balance / 100000000 }}
-                      Deficit: {{ (walletReport.wallet.balance - walletReport.requiredBalance) / 100000000 }}</div>
-                  <div>Status: {{ walletReport.status == "RUNNING" ? "Running ✅" : "Starting ⏳" }}</div>
+                  <div>{{ walletReport.status == "RUNNING" ? "Running ✅" : "Starting ⏳" }}</div>
+                </td>
+                <td>
+                    <div *ngIf="walletReport.wallet.balance > 0">
+                        Balance: {{ walletReport.wallet.balance / 100000000 }}
+                      </div>
+                      <div *ngIf="walletReport.wallet.balance - walletReport.requiredBalance < 0" class="missing-balance">
+                        Deficit: {{ (walletReport.wallet.balance - walletReport.requiredBalance) / 100000000 }}
+                      </div>
+                      <div *ngIf="walletReport.wallet.balance - walletReport.requiredBalance > 0" class="over-funded-balance">
+                        Overfunded by: {{ (walletReport.wallet.balance - walletReport.requiredBalance) / 100000000 }}
+                      </div>
                 </td>
                 <td (click)="showQR(walletReport.wallet.address)"
                     class="clickable">{{ walletReport.wallet.address }}</td>
