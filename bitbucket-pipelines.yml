@@ -16,7 +16,6 @@ pipelines:
       - step:
           # AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY are set as environment variables on BitBucket
           name: Deploy to S3
-          trigger: manual
           image: atlassian/pipelines-awscli
           script:
             - aws s3 sync --delete dist/wallet-topup-admin/ s3://admin.wallettopup.co.uk

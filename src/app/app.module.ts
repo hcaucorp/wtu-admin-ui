@@ -18,7 +18,6 @@ import { AuthGuard } from './auth0/auth.guard';
 import { CallbackComponent } from './callback/callback.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { FulfillmentsModule } from './fulfillments/fulfillments.module';
 
 @NgModule({
     declarations: [
@@ -37,7 +36,6 @@ import { FulfillmentsModule } from './fulfillments/fulfillments.module';
         EffectsModule.forRoot([]),
 
         DashboardModule,
-        FulfillmentsModule,
         MaterialModule,
         WalletsModule,
         VouchersModule
